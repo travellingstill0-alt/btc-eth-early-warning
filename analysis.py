@@ -22,13 +22,22 @@ def assess(data, rules, now=None):
         if not data.get(key):
             missing.append(key)
     age = (now - data['retrieved_at']).total_seconds()
-    if age > rules.stale_seconds:
+    if age < -5 or age > rules.stale_seconds:
         missing.append('stale retrieval')
     for key, field in [('ticker', 'closeTime'), ('funding', 'time'), ('interest', 'time')]:
-        if data.get(key) and (ms - int(data[key].get(field, 0))) / 1000 > rules.stale_seconds:
+        if data.get(key) and not -5 <= (ms - int(data[key].get(field, 0))) / 1000 <= rules.stale_seconds:
             missing.append(f'stale {key}')
+    for key, limit in [('ticker', rules.stale_seconds), ('funding', rules.stale_seconds),
+                       ('interest', rules.stale_seconds), ('trades', rules.stale_seconds),
+                       ('candles', 7200), ('scalp_candles', 600)]:
+        if data.get(key):
+            source_time = data.get('sources', {}).get(key, {}).get('source_time_ms')
+            if source_time is None:
+                missing.append(f'unknown timestamp {key}')
+            elif not -5 <= (ms - source_time) / 1000 <= limit:
+                missing.append(f'stale {key}')
     trades = data.get('trades', [])
-    if trades and ms - int(trades[-1].get('T', 0)) > rules.stale_seconds * 1000:
+    if trades and not -5000 <= ms - int(trades[-1].get('T', 0)) <= rules.stale_seconds * 1000:
         missing.append('stale order flow')
     for key, step in [('candles', 3600000), ('scalp_candles', 300000)]:
         finished = closed(data.get(key, []), ms)
@@ -36,12 +45,23 @@ def assess(data, rules, now=None):
             missing.append(f'insufficient {key}')
         elif ms - int(finished[-1][6]) > step * 2:
             missing.append(f'stale {key}')
-    if data.get('ticker') and abs(float(data['ticker']['priceChangePercent'])) >= rules.move_pct:
+        required = 40 if key == 'candles' else 21
+        recent = finished[-required:]
+        if any(int(b[0]) - int(a[0]) != step for a, b in zip(recent, recent[1:])):
+            missing.append(f'gaps in {key}')
+    move = data.get('ticker', {}).get('priceChangePercent')
+    if move is None:
+        missing.append('24h price change')
+    if move is not None and abs(float(move)) >= rules.move_pct:
         score += 2
         reasons.append('Large absolute 24h price move (+2)')
-    if data.get('funding') and abs(float(data['funding']['lastFundingRate']) * 100) >= rules.funding_pct:
+    funding = data.get('funding', {})
+    period = funding.get('period_hours', 8)
+    if period not in (1, 8):
+        missing.append('unknown funding period')
+    if funding and period in (1, 8) and abs(float(funding['lastFundingRate']) * 100) >= rules.funding_pct * period / 8:
         score += 2
-        reasons.append('Elevated absolute funding (+2)')
+        reasons.append(f'Elevated absolute funding over {period}h (+2)')
     history = data.get('interest_history', [])
     oi_change = None
     if len(history) >= 2 and float(history[0]['sumOpenInterest']) > 0:

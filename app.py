@@ -6,12 +6,13 @@ from analysis import Rules, assess, plan
 
 st.set_page_config(page_title='BTC & ETH Early Warning', page_icon='⚠️', layout='wide')
 st.title('BTC & ETH Early Warning')
-st.caption('Informational research only • No trades • Single-exchange coverage • Heuristics, not predictions')
-st.warning('Liquidation heatmaps, exchange net flows and an automatic macro calendar are unavailable. Missing context is never treated as safe.')
+st.caption('Informational research only • No trades • Public USD spot and perpetual data • Heuristics, not predictions')
+st.warning('CVD, liquidation heatmaps, exchange inflow/outflow and an automatic macro calendar are unavailable. Missing context is never treated as safe.')
 with st.sidebar:
     st.header('Transparent rules')
     move = st.number_input('24h absolute move threshold (%)', min_value=0.1, value=4.0)
-    funding = st.number_input('Absolute funding threshold (%)', min_value=0.001, value=0.03, format='%.3f')
+    funding = st.number_input('Absolute funding threshold (% per 8h)', min_value=0.001, value=0.03, format='%.3f')
+    st.caption('Kraken hourly funding is compared with one eighth of this threshold. Actual provider rates and periods are displayed; no eight-hour rate is fabricated.')
     oi = st.number_input('OI growth threshold (%)', min_value=0.1, value=10.0)
     stale = st.number_input('Maximum snapshot age (seconds)', min_value=30, value=180)
     macro_clear = st.checkbox('I reviewed upcoming macro events for my trading horizon', value=False)
@@ -22,34 +23,48 @@ with st.sidebar:
         st.cache_data.clear()
 
 @st.cache_data(ttl=60)
-def snapshot(symbol):
-    return fetch(symbol)
+def snapshot(symbol, maximum_age):
+    return fetch(symbol, max_age=maximum_age)
 
 @st.fragment(run_every='60s')
 def dashboard():
-    for symbol in ('BTCUSDT', 'ETHUSDT'):
-        data = snapshot(symbol)
+    for symbol in ('BTCUSD', 'ETHUSD'):
+        data = snapshot(symbol, int(stale))
         risk = assess(data, Rules(move, funding, oi, int(stale)))
-        st.subheader(symbol.replace('USDT', ' / USDT'))
+        st.subheader(symbol.replace('USD', ' / USD'))
         st.caption(f"Retrieved {data['retrieved_at'].isoformat()} • UI evaluated {datetime.now(timezone.utc).isoformat()} • UTC • refresh every 60s while this page is active")
         st.write(f"Risk: **{risk['level']}** — score {risk['score']}/7 — {'INCOMPLETE' if risk['missing'] else 'core inputs available'}")
         st.write('; '.join(risk['reasons']) or 'No configured threshold triggered in available inputs.')
         if risk['missing']:
             st.error('Missing/stale inputs: ' + ', '.join(risk['missing']))
+        for warning in data.get('warnings', []):
+            st.warning(warning)
         ticker, interest, funding_data = data.get('ticker', {}), data.get('interest', {}), data.get('funding', {})
+        change = ticker.get('priceChangePercent')
         cols = st.columns(3)
-        cols[0].metric('Spot price (USDT)', f"{float(ticker['lastPrice']):,.2f}" if ticker else 'Unavailable', f"{float(ticker['priceChangePercent']):+.2f}% / 24h" if ticker else None)
-        cols[1].metric('24h spot quote volume (USDT)', f"{float(ticker['quoteVolume']):,.0f}" if ticker else 'Unavailable')
-        cols[2].metric('Perpetual OI (base asset)', f"{float(interest['openInterest']):,.2f}" if interest else 'Unavailable')
-        st.write('Latest funding rate: ' + (f"{float(funding_data['lastFundingRate']) * 100:.4f}%" if funding_data else 'Unavailable'))
+        cols[0].metric('Spot price (USD)', f"{float(ticker['lastPrice']):,.2f}" if ticker else 'Unavailable', f"{float(change):+.2f}% / 24h" if change is not None else None)
+        cols[1].metric(f"24h spot volume ({symbol[:3]})", f"{float(ticker['baseVolume']):,.3f}" if ticker else 'Unavailable')
+        cols[2].metric(f"Perpetual OI ({interest.get('unit', 'unknown units')})", f"{float(interest['openInterest']):,.2f}" if interest else 'Unavailable')
+        st.write('Funding rate: ' + (f"{float(funding_data['lastFundingRate']) * 100:.5f}% / {funding_data.get('period_hours', 8)}h" if funding_data else 'Unavailable'))
+        for key, label in [('ticker', 'Spot price / volume'), ('interest', 'Open interest'), ('funding', 'Funding'),
+                           ('candles', 'Hourly candles'), ('scalp_candles', 'Five-minute candles'), ('trades', 'Sampled taker flow')]:
+            source = data.get('sources', {}).get(key)
+            if source:
+                source_time = datetime.fromtimestamp(source['source_time_ms'] / 1000, timezone.utc)
+                age = (datetime.now(timezone.utc) - source_time).total_seconds()
+                limit = source.get('interval_seconds', 0) * 2 or int(stale)
+                status = 'STALE' if age > limit or age < -5 else 'Recent source timestamp'
+                st.caption(f"{label}: {source['provider']} · {source['instrument']} · {source_time.isoformat()} · {source['timestamp_kind']} · {status} ({age:.1f}s). {source.get('note', '')}")
+        if change is None:
+            st.warning('Rolling 24h price change: Unavailable. Required for complete risk assessment.')
         st.write('OI change over returned hourly history: ' + (f"{risk['oi_change']:+.2f}%" if risk['oi_change'] is not None else 'Unavailable'))
         st.write('Hourly market structure: **' + risk['structure'] + '** (comparison of two completed 20-hour ranges)')
         trades = data.get('trades', [])
         if trades:
             delta = sum(float(t['q']) * (-1 if t['m'] else 1) for t in trades)
             start, end = [datetime.fromtimestamp(int(t['T']) / 1000, timezone.utc).isoformat() for t in (trades[0], trades[-1])]
-            st.write(f'Sampled spot taker flow delta: **{delta:+,.3f} base units**, {len(trades)} aggregate trades, {start} to {end}.')
-            st.caption('Buy taker minus sell taker volume, classified by buyer-is-maker flag. This limited sample is an order-flow proxy, not full-session or cross-exchange CVD.')
+            st.write(f'Sampled spot taker flow delta: **{delta:+,.3f} base units**, {len(trades)} public trades, {start} to {end}.')
+            st.caption('Buy taker minus sell taker volume, classified by the provider’s documented trade side. This limited sample is an order-flow proxy. CVD is unavailable.')
         else:
             st.write('CVD/order flow: Unavailable')
         rows = data.get('candles', [])
@@ -65,9 +80,10 @@ def dashboard():
                     st.write(f"{key.replace('_', ' ').capitalize()}: {value:,.2f}" if isinstance(value, float) else f"{key.replace('_', ' ').capitalize()}: {value}")
         st.info('Liquidation heatmap: UNAVAILABLE — no verified free historical liquidation-level provider integrated. Exchange inflow/outflow: UNAVAILABLE — no reliable free exchange-labelled on-chain feed integrated. These are not estimated from price or volume.')
         with st.expander('Source diagnostics and timestamps'):
-            st.write('Spot: api.binance.com; USDT perpetuals: fapi.binance.com. Regional restrictions may block either source. There is no synthetic fallback.')
+            st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. Fallback is per indicator; stale, malformed or unavailable sources are rejected. OI history is unavailable.')
             st.json({key: value for key, value in data['errors'].items()})
-            st.json({'spot_close_ms': ticker.get('closeTime'), 'funding_time_ms': funding_data.get('time'), 'oi_time_ms': interest.get('time')})
+            st.json(data.get('sources', {}))
+            st.json(data.get('attempts', []))
     st.caption('No background alerts, notifications, scheduled monitoring or trading execution are implemented. Refresh stops when the session is inactive.')
 
 dashboard()

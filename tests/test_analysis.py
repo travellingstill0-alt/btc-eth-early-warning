@@ -9,7 +9,10 @@ def bars(step):
     return [[MS - (50-i)*step, '100', '110', '90', '100', '10', MS-(49-i)*step-1] for i in range(50)]
 
 def fixture():
-    return {'retrieved_at': NOW, 'ticker': {'priceChangePercent': '1', 'closeTime': MS},
+    return {'retrieved_at': NOW,
+            'sources': {key: {'source_time_ms': MS, 'provider': 'Test provider', 'instrument': 'Test instrument', 'timestamp_kind': 'test fixture'}
+                        for key in ('ticker', 'funding', 'interest', 'trades', 'candles', 'scalp_candles')},
+            'ticker': {'priceChangePercent': '1', 'closeTime': MS},
             'funding': {'lastFundingRate': '0.0001', 'time': MS}, 'interest': {'time': MS},
             'interest_history': [{'sumOpenInterest': '100', 'timestamp': MS-86400000}, {'sumOpenInterest': '101', 'timestamp': MS}],
             'trades': [{'T': MS}], 'candles': bars(3600000), 'scalp_candles': bars(300000)}
@@ -42,6 +45,28 @@ class AnalysisTests(unittest.TestCase):
     def test_unclosed_breakout_ignored(self):
         d = fixture(); d['scalp_candles'].append([MS, '100', '130', '90', '125', '100', MS+300000])
         self.assertEqual(plan(d, assess(d, Rules(), NOW), 'SCALP', True, NOW)['status'], 'WAIT')
+    def test_funding_threshold_respects_hourly_and_eight_hour_periods(self):
+        for period, rate in [(1, 0.00005), (8, 0.0004)]:
+            d = fixture(); d['funding'].update(period_hours=period, lastFundingRate=rate)
+            self.assertEqual(assess(d, Rules(), NOW)['score'], 2)
+        d['funding']['period_hours'] = 0
+        self.assertIn('unknown funding period', assess(d, Rules(), NOW)['missing'])
+    def test_source_metadata_stale_missing_and_future_block_enter(self):
+        for time in (MS - 200000, MS + 60000, None):
+            d = fixture(); d['scalp_candles'][-1][4:6] = ['115', '20']
+            d['sources'] = {k: {'source_time_ms': MS} for k in ('ticker', 'interest', 'funding', 'trades', 'candles', 'scalp_candles')}
+            d['sources']['funding']['source_time_ms'] = time
+            r = assess(d, Rules(), NOW)
+            self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'NO TRADE')
+    def test_high_and_extreme_block_confirmed_breakout(self):
+        for oi in (101, 120):
+            d = fixture(); d['ticker']['priceChangePercent'] = 8
+            d['funding']['lastFundingRate'] = 0.001
+            d['interest_history'][-1]['sumOpenInterest'] = oi
+            d['scalp_candles'][-1][4:6] = ['115', '20']
+            r = assess(d, Rules(), NOW)
+            self.assertIn(r['level'], ('HIGH', 'EXTREME'))
+            self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'NO TRADE')
 
 if __name__ == '__main__':
     unittest.main()
