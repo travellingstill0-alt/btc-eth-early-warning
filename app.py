@@ -71,6 +71,7 @@ def dashboard():
         with st.expander('Source diagnostics and timestamps'):
             st.write('Spot: api.binance.com; USDT perpetuals: fapi.binance.com. Regional restrictions may block either source. There is no synthetic fallback.')
             st.json({key: value for key, value in data['errors'].items()})
+            st.json(data.get('source_failures', {}))
             st.json({'source_retrieved_at_utc': data.get('source_retrieved_at', {}),
                      'spot_close_ms': data.get('ticker', {}).get('closeTime'),
                      'funding_time_ms': data.get('funding', {}).get('time'),

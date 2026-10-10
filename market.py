@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import math
 import requests
+from diagnostics import failure_details
 
 SPOT = 'https://api.binance.com'
 FUTURES = 'https://fapi.binance.com'
@@ -77,19 +78,20 @@ def get(base, path, **params):
 def fetch(symbol):
     if symbol not in ('BTCUSDT', 'ETHUSDT'):
         raise ValueError('Unsupported symbol')
-    result = {'symbol': symbol, 'retrieved_at': datetime.now(timezone.utc), 'errors': {}, 'source_retrieved_at': {}}
+    result = {'symbol': symbol, 'retrieved_at': datetime.now(timezone.utc), 'errors': {}, 'source_retrieved_at': {}, 'source_failures': {}}
     def retrieve(item):
         key, (base, path, params) = item
         try:
             value = validate(key, get(base, path, symbol=symbol, **params), symbol)
-            return key, value, None, datetime.now(timezone.utc).isoformat()
+            return key, value, None, datetime.now(timezone.utc).isoformat(), None
         except (requests.RequestException, ValueError) as exc:
-            return key, None, f'{type(exc).__name__}: {exc}', datetime.now(timezone.utc).isoformat()
+            return key, None, f'{type(exc).__name__}: {exc}', datetime.now(timezone.utc).isoformat(), failure_details(exc)
     with ThreadPoolExecutor(max_workers=len(ENDPOINTS)) as pool:
-        for key, value, error, timestamp in pool.map(retrieve, ENDPOINTS.items()):
+        for key, value, error, timestamp, failure in pool.map(retrieve, ENDPOINTS.items()):
             result['source_retrieved_at'][key] = timestamp
             if error:
                 result['errors'][key] = error
+                result['source_failures'][key] = failure
             else:
                 result[key] = value
     result['retrieved_at'] = datetime.now(timezone.utc)
