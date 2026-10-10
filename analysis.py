@@ -22,13 +22,13 @@ def assess(data, rules, now=None):
         if not data.get(key):
             missing.append(key)
     age = (now - data['retrieved_at']).total_seconds()
-    if age > rules.stale_seconds:
+    if age > rules.stale_seconds or age < -30:
         missing.append('stale retrieval')
     for key, field in [('ticker', 'closeTime'), ('funding', 'time'), ('interest', 'time')]:
-        if data.get(key) and (ms - int(data[key].get(field, 0))) / 1000 > rules.stale_seconds:
+        if data.get(key) and not -30 <= (ms - int(data[key].get(field, 0))) / 1000 <= rules.stale_seconds:
             missing.append(f'stale {key}')
     trades = data.get('trades', [])
-    if trades and ms - int(trades[-1].get('T', 0)) > rules.stale_seconds * 1000:
+    if trades and not -30000 <= ms - int(trades[-1].get('T', 0)) <= rules.stale_seconds * 1000:
         missing.append('stale order flow')
     for key, step in [('candles', 3600000), ('scalp_candles', 300000)]:
         finished = closed(data.get(key, []), ms)
@@ -49,7 +49,7 @@ def assess(data, rules, now=None):
         if oi_change >= rules.oi_growth_pct:
             score += 2
             reasons.append('Rapid open interest growth (+2)')
-        if ms - int(history[-1]['timestamp']) > 2 * 3600 * 1000:
+        if not -30000 <= ms - int(history[-1]['timestamp']) <= 2 * 3600 * 1000:
             missing.append('stale interest history')
     else:
         missing.append('insufficient interest history')
