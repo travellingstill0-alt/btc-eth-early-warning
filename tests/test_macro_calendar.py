@@ -22,6 +22,15 @@ def payload(raw=None):
 
 
 class CalendarTests(unittest.TestCase):
+    def test_transport_denial_is_reported_before_absent_timestamp(self):
+        data=payload()
+        data['sources']['BLS'].update(status='unavailable',checked_at=None,http_status=None,
+                                      error='Proxy CONNECT 403 Forbidden')
+        result=self.isolated(data)
+        self.assertFalse(result['clear'])
+        self.assertTrue(any('Proxy CONNECT 403' in item for item in result['missing']))
+        self.assertFalse(any('Invalid calendar timestamp' in item for item in result['missing']))
+
     def isolated(self, data, now=NOW, rules=None):
         # Only isolate the deterministic risk engine; never approve production adapters.
         with patch('macro_calendar.source_specs',return_value=[('BLS',macro.BLS,macro.parse_bls)]),\

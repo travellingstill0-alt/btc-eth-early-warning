@@ -365,9 +365,9 @@ def evaluate(payload, now=None, rules=None):
         for name,url,parser in source_specs(now):
             try:
                 report=payload['sources'][name]
-                checked=aware(report['checked_at'])
                 if report['url']!=url or report['status']!='parsed' or report['http_status']!=200:
-                    raise ValueError('Invalid/unavailable source')
+                    raise ValueError(report.get('error') or 'Invalid/unavailable source')
+                checked=aware(report['checked_at'])
                 if not 0 <= (now-checked).total_seconds() <= rules.max_age_seconds:
                     result['missing'].append(f'{name}: stale source verification')
                 events=parser(report['raw'])
