@@ -1,0 +1,146 @@
+[
+  {
+    "source": "ECB monetary policy",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "checked_at_utc": "2026-10-10T22:53:06.581480+00:00",
+    "error": "HTTPSConnectionPool(host='www.ecb.europa.eu', port=443): Max retries exceeded with url: /press/calendars/mgcgc/html/index.en.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "ECB weekly calendar",
+    "url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+    "checked_at_utc": "2026-10-10T22:53:06.581955+00:00",
+    "error": "HTTPSConnectionPool(host='www.ecb.europa.eu', port=443): Max retries exceeded with url: /press/calendars/weekly/html/index.en.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "Eurostat release calendar / employment",
+    "url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar",
+    "checked_at_utc": "2026-10-10T22:53:06.584288+00:00",
+    "error": "HTTPSConnectionPool(host='ec.europa.eu', port=443): Max retries exceeded with url: /eurostat/news/euro-indicators/release-calendar (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "BoE MPC dates",
+    "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates",
+    "checked_at_utc": "2026-10-10T22:53:06.584944+00:00",
+    "error": "HTTPSConnectionPool(host='www.bankofengland.co.uk', port=443): Max retries exceeded with url: /monetary-policy/upcoming-mpc-dates (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "ONS release calendar / employment",
+    "url": "https://www.ons.gov.uk/releasecalendar?release-type=type-upcoming",
+    "checked_at_utc": "2026-10-10T22:53:06.586319+00:00",
+    "error": "HTTPSConnectionPool(host='www.ons.gov.uk', port=443): Max retries exceeded with url: /releasecalendar?release-type=type-upcoming (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "BoJ monetary policy meetings",
+    "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm",
+    "checked_at_utc": "2026-10-10T22:53:06.587215+00:00",
+    "error": "HTTPSConnectionPool(host='www.boj.or.jp', port=443): Max retries exceeded with url: /en/mopo/mpmsche_minu/index.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "BoJ events",
+    "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+    "checked_at_utc": "2026-10-10T22:53:06.588229+00:00",
+    "error": "HTTPSConnectionPool(host='www.boj.or.jp', port=443): Max retries exceeded with url: /en/about/calendar/index.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "Japan Statistics Bureau Labour Force Survey",
+    "url": "https://www.stat.go.jp/english/data/roudou/index.html",
+    "checked_at_utc": "2026-10-10T22:53:06.589440+00:00",
+    "error": "HTTPSConnectionPool(host='www.stat.go.jp', port=443): Max retries exceeded with url: /english/data/roudou/index.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "Japan MHLW official English portal",
+    "url": "https://www.mhlw.go.jp/english/",
+    "checked_at_utc": "2026-10-10T22:53:06.593310+00:00",
+    "error": "HTTPSConnectionPool(host='www.mhlw.go.jp', port=443): Max retries exceeded with url: /english/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "PBoC official English portal",
+    "url": "https://www.pbc.gov.cn/en/3688006/index.html",
+    "checked_at_utc": "2026-10-10T22:53:06.596395+00:00",
+    "error": "HTTPSConnectionPool(host='www.pbc.gov.cn', port=443): Max retries exceeded with url: /en/3688006/index.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "China NBS official English portal",
+    "url": "https://www.stats.gov.cn/english/",
+    "checked_at_utc": "2026-10-10T22:53:06.599728+00:00",
+    "error": "HTTPSConnectionPool(host='www.stats.gov.cn', port=443): Max retries exceeded with url: /english/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "China NBS release calendar",
+    "url": "https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/",
+    "checked_at_utc": "2026-10-10T22:53:06.602097+00:00",
+    "error": "HTTPSConnectionPool(host='www.stats.gov.cn', port=443): Max retries exceeded with url: /english/PressRelease/ReleaseCalendar/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "FOMC official calendars",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "checked_at_utc": "2026-10-10T22:53:06.605001+00:00",
+    "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /monetarypolicy/fomccalendars.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "Federal Reserve events",
+    "url": "https://www.federalreserve.gov/newsevents/calendar.htm",
+    "checked_at_utc": "2026-10-10T22:53:06.607695+00:00",
+    "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/calendar.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "ISM report release calendar",
+    "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar",
+    "checked_at_utc": "2026-10-10T22:53:06.610217+00:00",
+    "error": "HTTPSConnectionPool(host='www.ismworld.org', port=443): Max retries exceeded with url: /supply-management-news-and-reports/reports/rob-report-calendar (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "US BLS employment release schedule",
+    "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+    "checked_at_utc": "2026-10-10T22:53:06.613322+00:00",
+    "status": 200,
+    "content_type": "text/html",
+    "bytes": 55395,
+    "redirect": null,
+    "proxy_reason": null,
+    "body_excerpt": null
+  },
+  {
+    "source": "US BLS calendar feed",
+    "url": "https://www.bls.gov/schedule/news_release/bls.ics",
+    "checked_at_utc": "2026-10-10T22:53:06.615882+00:00",
+    "status": 200,
+    "content_type": "text/calendar",
+    "bytes": 80672,
+    "redirect": null,
+    "proxy_reason": null,
+    "body_excerpt": null
+  },
+  {
+    "source": "US BEA release schedule",
+    "url": "https://www.bea.gov/news/schedule",
+    "checked_at_utc": "2026-10-10T22:53:06.618433+00:00",
+    "error": "HTTPSConnectionPool(host='www.bea.gov', port=443): Max retries exceeded with url: /news/schedule (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "US Census economic indicators",
+    "url": "https://www.census.gov/economic-indicators/",
+    "checked_at_utc": "2026-10-10T22:53:06.620808+00:00",
+    "error": "HTTPSConnectionPool(host='www.census.gov', port=443): Max retries exceeded with url: /economic-indicators/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "Germany Destatis release preview",
+    "url": "https://www.destatis.de/EN/Press/Dates/Weekly-Preview/_node.html",
+    "checked_at_utc": "2026-10-10T22:53:22.375853+00:00",
+    "error": "HTTPSConnectionPool(host='www.destatis.de', port=443): Max retries exceeded with url: /EN/Press/Dates/Weekly-Preview/_node.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "S&P Global PMI release calendar",
+    "url": "https://www.pmi.spglobal.com/Public/Release/ReleaseDates?language=en",
+    "checked_at_utc": "2026-10-10T22:53:22.383332+00:00",
+    "error": "HTTPSConnectionPool(host='www.pmi.spglobal.com', port=443): Max retries exceeded with url: /Public/Release/ReleaseDates?language=en (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "source": "BLS Employment Situation data",
+    "url": "https://www.bls.gov/news.release/empsit.toc.htm",
+    "checked_at_utc": "2026-10-10T22:53:22.387902+00:00",
+    "status": 200,
+    "bytes": 55455,
+    "redirect": null
+  }
+]
