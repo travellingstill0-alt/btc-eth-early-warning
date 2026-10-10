@@ -25,3 +25,7 @@ Assessments carry an evaluation epoch timestamp, rules and an input digest. Sign
 Regression coverage includes mandatory context on both panels, expired/future assessments, changed inputs, source-age boundary crossings, primary/secondary malformed timestamps, fractional timestamp precision and JSON diagnostics compatibility. Existing UI tests now expect NO TRADE even after macro acknowledgement and selecting a shorter OI lookback.
 
 Final validation: 51 tests passed; git diff --check passed. The read-only live check exited 0 across eight BTC/ETH primary/fallback scenarios. Every actual API request returned HTTP 200; all sixteen panels returned NO TRADE. Normal Kraken history still supplied all four OI windows. No deployment, merge or automated trading occurred.
+
+## Verified context development
+
+Fresh, complete venue-scoped CVD and executed-liquidation integrations now satisfy their individual data-availability gates. Exchange flows remain unavailable and keep NO TRADE active. See [context provider validation](context-provider-validation.md) for the current implementation, fallback coverage, costs and 67-test/end-to-end validation. Earlier always-missing CVD/liquidation behavior describes the prior revision.

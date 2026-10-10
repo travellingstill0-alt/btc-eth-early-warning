@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import math
 import sqlite3
 import requests
+from context_data import collect as collect_context
 from oi_history import SnapshotStore, current_point, parse_kraken_history, calculate_changes, WINDOWS
 
 KRAKEN = 'https://api.kraken.com'
@@ -250,6 +251,20 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
     except (ValueError, KeyError, TypeError, OverflowError) as exc:
         data['errors']['interest_history'] = str(exc)
         data['warnings'].append('OI history unavailable or unverified; ENTER remains blocked.')
+    def context_request(base, path, **params):
+        try:
+            return request(base, path, **params)
+        except requests.RequestException as exc:
+            raise ValueError(str(exc)) from exc
+    context, context_errors, context_warnings = collect_context(
+        context_request, asset, lambda: int(clock().timestamp() * 1000), max_age)
+    data.update(context)
+    data['errors'].update({'context:' + k: v for k, v in context_errors.items()})
+    data['warnings'].extend(context_warnings)
+    for key, item in context.items():
+        data['sources'][key] = metadata(item['provider'], item['instrument'], item['end_ms'],
+            'completed observation window end', unit=item['unit'], method=item['method'],
+            note='Single-contract executed observations only; no whole-market coverage or future liquidation levels.')
     if data.get('ticker', {}).get('priceChangePercent') is None:
         data['warnings'].append('Rolling 24h spot price change unavailable; ENTER is blocked.')
     data['retrieved_at'] = clock()

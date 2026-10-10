@@ -110,3 +110,31 @@ class UITests(unittest.TestCase):
             self.assertTrue(any('24h price change: Unavailable' in w.value for w in app.warning))
             app.sidebar.checkbox[0].check().run()
             self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
+
+    def test_verified_context_renders_but_exchange_flows_keep_no_trade(self):
+        from test_analysis import fixture
+        from test_context_data import item
+        now=datetime.now(timezone.utc);ms=int(now.timestamp()*1000)
+        def sample(symbol,**kwargs):
+            d=fixture();shift=ms-int(d['retrieved_at'].timestamp()*1000)
+            d.update(symbol=symbol,retrieved_at=now,errors={})
+            for source in d['sources'].values():source['source_time_ms']+=shift
+            for key in ('candles','scalp_candles'):
+                for row in d[key]:row[0]+=shift;row[6]+=shift
+            d['ticker'].update(lastPrice=100,baseVolume=500,closeTime=ms)
+            d['funding']['time']=ms;d['interest']['time']=ms;d['trades']=[dict(T=ms,q=1,m=False)]
+            for row in d['interest_history']:row['timestamp']+=shift;row['received_at_ms']+=shift
+            from context_data import window
+            start,end=window(ms)
+            for key,kind in (('cvd','cvd'),('liquidations','liquidations')):
+                data=item(kind);data.update(asset=symbol[:3],unit=symbol[:3],instrument='PF_'+('XBT' if symbol[:3]=='BTC' else 'ETH')+'USD',start_ms=start,end_ms=end,received_at_ms=ms)
+                data['raw']['result']['timestamp']=list(range(start//1000,(end+1)//1000,60));d[key]=data
+            return d
+        with patch('market.fetch',side_effect=sample):
+            app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'app.py')).run(timeout=20)
+            app.sidebar.checkbox[0].check().run()
+            self.assertFalse(app.exception)
+            self.assertEqual(sum(m.value=='**NO TRADE**' for m in app.markdown),4)
+            self.assertTrue(any('Perpetual CVD / 15' in m.value for m in app.markdown))
+            self.assertTrue(any('Executed liquidation volume / 15' in m.value for m in app.markdown))
+            self.assertTrue(all('exchange flows' in e.value for e in app.error))

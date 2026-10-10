@@ -29,7 +29,7 @@ def check(mode, symbol, history_path=None):
                                    'source': data['sources'].get(key),
                                    'value': data.get(key) if key not in ('candles', 'scalp_candles', 'trades', 'interest_history') else None,
                                    'count': len(data.get(key, [])) if key in ('candles', 'scalp_candles', 'trades', 'interest_history') else None}
-                            for key in ('ticker', 'candles', 'scalp_candles', 'interest', 'funding', 'trades', 'interest_history')},
+                            for key in ('ticker', 'candles', 'scalp_candles', 'interest', 'funding', 'trades', 'interest_history', 'cvd', 'liquidations')},
                 attempts=data['attempts'], errors=data['errors'], warnings=data['warnings'], risk=risk,
                 signals={h: plan(data, risk, h, macro_clear=True, now=now) for h in ('SCALP', 'DAY TRADE')})
 
@@ -52,12 +52,13 @@ def main():
         print(' OI changes:', {w: v['change_pct'] for w, v in r['risk']['oi_changes'].items()})
     # History fallback must fail closed during warmup; normal Kraken history should be ready.
     inputs_failed = any(not v['available'] for r in reports for k, v in r['indicators'].items()
-                        if k != 'interest_history')
+                        if k not in ('interest_history', 'cvd', 'liquidations'))
     history_failed = any(v['change_pct'] is None for r in reports if r['mode'] == 'normal'
                          for v in r['risk']['oi_changes'].values())
     unsafe_fallback = any(p['status'] != 'NO TRADE' for r in reports
                           if r['risk']['missing'] for p in r['signals'].values())
-    return int(inputs_failed or history_failed or unsafe_fallback)
+    context_failed = any(not r['indicators'][key]['available'] for r in reports if r['mode'] == 'normal' for key in ('cvd', 'liquidations'))
+    return int(inputs_failed or history_failed or context_failed or unsafe_fallback)
 
 
 if __name__ == '__main__':

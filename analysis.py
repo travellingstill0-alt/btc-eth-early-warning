@@ -3,8 +3,9 @@ from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from oi_history import calculate_changes
 from hashlib import sha256
+from context_data import parse as parse_context
 
-# No verified integrations exist for these mandatory safety inputs.
+# All three remain mandatory; exchange flows have no verified integration.
 REQUIRED_CONTEXT = ('CVD', 'liquidation data', 'exchange flows')
 
 def data_digest(data):
@@ -26,7 +27,20 @@ def closed(rows, now_ms):
 def assess(data, rules, now=None):
     now = now or datetime.now(timezone.utc)
     ms = now.timestamp() * 1000
-    reasons, missing, score = [], list(REQUIRED_CONTEXT), 0
+    reasons, missing, score = [], [], 0
+    context = {}
+    for label in REQUIRED_CONTEXT:
+        key = {'CVD': 'cvd', 'liquidation data': 'liquidations'}.get(label)
+        if key:
+            try:
+                item = data[key]
+                if item['asset'] != data['symbol'][:3]:
+                    raise ValueError('Wrong context asset')
+                context[key] = parse_context(item, ms, rules.stale_seconds)
+                continue
+            except (KeyError, TypeError, ValueError, OverflowError, IndexError, AttributeError):
+                pass
+        missing.append(label)
     for key in ('ticker', 'candles', 'scalp_candles', 'funding', 'interest', 'interest_history', 'trades'):
         if not data.get(key):
             missing.append(key)
@@ -95,7 +109,7 @@ def assess(data, rules, now=None):
     level = 'EXTREME' if score >= 6 else 'HIGH' if score >= 4 else 'MODERATE' if score >= 2 else 'LOW'
     return {'level': level, 'score': score, 'reasons': reasons, 'missing': sorted(set(missing)), 'structure': structure,
             'oi_change': oi_change, 'oi_changes': oi_changes, 'oi_window': rules.oi_window,
-            'assessed_at_ms': ms, 'rules': asdict(rules), 'data_digest': data_digest(data)}
+            'context': context, 'assessed_at_ms': ms, 'rules': asdict(rules), 'data_digest': data_digest(data)}
 
 
 def plan(data, risk, timeframe, macro_clear=False, now=None):

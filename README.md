@@ -40,7 +40,7 @@ Risk scoring is configurable: absolute 24h change above threshold +2; absolute f
 
 SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTREME, missing data, stale signal candles or an unchecked macro review produce NO TRADE; otherwise unconfirmed setups WAIT. ENTER is informational, never an order.
 
-CVD, liquidation heatmaps and exchange-labelled inflow/outflow are unavailable, rather than inferred from unrelated metrics. An automated macro feed is not integrated. Review official Federal Reserve/BLS calendars manually; the review checkbox only records your acknowledgement. These unavailable mandatory context inputs keep both panels at NO TRADE even when core inputs are complete.
+Verified venue-scoped CVD and executed liquidation volumes are integrated as described below. Future liquidation heatmaps and exchange-labelled inflow/outflow remain unavailable and are never inferred from unrelated metrics. An automated macro feed is not integrated. Review official Federal Reserve/BLS calendars manually; the review checkbox only records your acknowledgement. These unavailable mandatory context inputs keep both panels at NO TRADE even when core inputs are complete.
 
 ## Validation
 
@@ -58,6 +58,26 @@ See [OI history investigation and validation](docs/oi-history-validation.md) for
 
 ## Mandatory safety context and assessment validity
 
-CVD, liquidation data and exchange flows are mandatory safety inputs. No verified integrations currently exist for them, so both panels remain NO TRADE even with complete core market data and macro acknowledgement. Sampled taker flow cannot substitute for CVD, and arbitrary context payloads cannot unlock signals.
+CVD, liquidation data and exchange flows are mandatory safety inputs. Fresh, complete CVD and executed liquidation observations can satisfy their respective availability checks. Exchange flows have no verified integration and keep both panels at NO TRADE even with complete market/context data and macro acknowledgement. Sampled taker flow cannot substitute for CVD; unknown providers, estimated data and arbitrary context flags do not satisfy these checks.
 
 Each assessment records its evaluation time, rules and a digest of its input snapshot. Signal evaluation rejects expired, future, missing or changed-snapshot assessments and reassesses source freshness at the signal time. Invalid provider timestamps are rejected before selection, allowing another provider or an unavailable input instead of a retrieval crash.
+
+## Verified CVD and executed liquidations
+
+The dashboard shows 15 completed minutes of **single-contract** perpetual CVD (taker buy minus sell volume, reset at the displayed window start) and executed liquidation volume. Neither is whole-market coverage or a prediction of future liquidations.
+
+Kraken Futures minute analytics supplies PF_XBTUSD/BTC and PF_ETHUSD/ETH data. CVD totals use the real buy/sell buckets, cross-check the provider's cumulative increments and require all 15 consecutive minute buckets. Liquidation volume uses real reported buckets, including explicit zeros; missing buckets are unavailable, never zero-filled. Active buckets are excluded.
+
+CVD fallback uses complete Deribit BTC/ETH-PERPETUAL trade history in native USD amounts, not spot samples. Saturated requests are split into disjoint millisecond ranges with a seven-request budget. All ranges must be complete, with contiguous trade sequences, unique trade IDs and valid taker directions. Block/combo executions, unverified response timestamps, truncated results or budget exhaustion make the entire window unavailable. Deribit windows replace Kraken windows without conversion or splicing.
+
+Liquidation fallback uses Kraken public execution history, with a ten-page budget. The oldest observed trade must precede the window start; sequences must be contiguous and overlaps must agree. Only explicit liquidation/partial-liquidation executions are counted. This is an alternate endpoint on the same provider, not independent exchange redundancy. Real BTC sequence gaps observed during validation correctly prevented fallback; ETH fallback supplied complete coverage. A provider outage or insufficient history leaves liquidation data unavailable.
+
+Every assessment revalidates raw context data, provider/contract/unit identity, completed-window boundaries, receipt time, finite values and the configured freshness limit. Exchange flows remain missing, so NO TRADE remains active. No context-derived trading thresholds or predictive heatmaps are invented.
+
+Read-only verification:
+
+```bash
+.venv/bin/python scripts/check_context_apis.py --output /tmp/btc-eth-context-check.json
+```
+
+This checks real primary/secondary responses under simulated primary outages. It requires the primary feeds to validate; secondary coverage failure is recorded as unavailable rather than hidden. See [provider investigation](docs/context-provider-validation.md) for costs, observed limitations and validation.

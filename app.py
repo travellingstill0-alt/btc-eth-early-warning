@@ -7,7 +7,7 @@ from analysis import Rules, assess, plan
 st.set_page_config(page_title='BTC & ETH Early Warning', page_icon='⚠️', layout='wide')
 st.title('BTC & ETH Early Warning')
 st.caption('Informational research only • No trades • Public USD spot and perpetual data • Heuristics, not predictions')
-st.warning('CVD, liquidation heatmaps, exchange inflow/outflow and an automatic macro calendar are unavailable. These required inputs block both panels: NO TRADE until verified integrations are available.')
+st.warning('Exchange flows are unavailable and keep both panels at NO TRADE. CVD and executed liquidations require fresh, complete verified observations. Liquidation heatmaps and an automatic macro calendar remain unavailable.')
 with st.sidebar:
     st.header('Transparent rules')
     move = st.number_input('24h absolute move threshold (%)', min_value=0.1, value=4.0)
@@ -77,9 +77,19 @@ def dashboard():
             delta = sum(float(t['q']) * (-1 if t['m'] else 1) for t in trades)
             start, end = [datetime.fromtimestamp(int(t['T']) / 1000, timezone.utc).isoformat() for t in (trades[0], trades[-1])]
             st.write(f'Sampled spot taker flow delta: **{delta:+,.3f} base units**, {len(trades)} public trades, {start} to {end}.')
-            st.caption('Buy taker minus sell taker volume, classified by the provider’s documented trade side. This limited sample is an order-flow proxy. CVD is unavailable.')
+            st.caption('Buy taker minus sell taker volume, classified by the provider’s documented trade side. This limited sample is an order-flow proxy. This sample is not CVD; verified perpetual CVD is shown separately.')
         else:
-            st.write('CVD/order flow: Unavailable')
+            st.write('Sampled spot taker flow: Unavailable')
+        for key, label in (('cvd', 'Perpetual CVD / 15 completed minutes'),
+                           ('liquidations', 'Executed liquidation volume / 15 completed minutes')):
+            item, result = data.get(key), risk.get('context', {}).get(key)
+            if item and result:
+                start = datetime.fromtimestamp(item['start_ms']/1000, timezone.utc).isoformat()
+                end = datetime.fromtimestamp(item['end_ms']/1000, timezone.utc).isoformat()
+                st.write(f"{label}: **{result['value']:+,.6f} {item['unit']}** · {item['provider']} · {item['instrument']} · {start} to {end}")
+                st.caption(f"{item['method']} · {result['count']} observations. Scope is this exchange contract only; providers and units are never combined.")
+            else:
+                st.warning(f'{label}: UNAVAILABLE or stale — required safety input; NO TRADE.')
         rows = data.get('candles', [])
         if rows:
             frame = pd.DataFrame({'UTC': [pd.to_datetime(r[0], unit='ms', utc=True) for r in rows], 'Close': [float(r[4]) for r in rows]})
@@ -91,9 +101,9 @@ def dashboard():
                 st.markdown(f"**{p.pop('status')}**")
                 for key, value in p.items():
                     st.write(f"{key.replace('_', ' ').capitalize()}: {value:,.2f}" if isinstance(value, float) else f"{key.replace('_', ' ').capitalize()}: {value}")
-        st.info('Liquidation heatmap: UNAVAILABLE — no verified free historical liquidation-level provider integrated. Exchange inflow/outflow: UNAVAILABLE — no reliable free exchange-labelled on-chain feed integrated. These are not estimated from price or volume.')
+        st.info('Liquidation heatmap: UNAVAILABLE — future liquidation levels are not inferred from executed liquidations. Exchange inflow/outflow: UNAVAILABLE — no reliable free exchange-labelled on-chain feed integrated. These are not estimated from price or volume.')
         with st.expander('Source diagnostics and timestamps'):
-            st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. OI history: Kraken minute analytics or persistent observations for the selected provider, contract and units. No history is fabricated or interpolated.')
+            st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. OI history: Kraken minute analytics or persistent observations for the selected provider, contract and units. No history is fabricated or interpolated. Perpetual CVD: Kraken analytics → complete Deribit tape. Executed liquidations: Kraken analytics → complete Kraken execution history; gaps fail closed.')
             st.json({key: value for key, value in data['errors'].items()})
             st.json(data.get('sources', {}))
             st.json(data.get('attempts', []))
