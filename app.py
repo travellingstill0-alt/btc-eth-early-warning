@@ -7,7 +7,7 @@ from analysis import Rules, assess, plan
 st.set_page_config(page_title='BTC & ETH Early Warning', page_icon='⚠️', layout='wide')
 st.title('BTC & ETH Early Warning')
 st.caption('Informational research only • No trades • Public USD spot and perpetual data • Heuristics, not predictions')
-st.warning('CVD, liquidation heatmaps, exchange inflow/outflow and an automatic macro calendar are unavailable. Missing context is never treated as safe.')
+st.warning('CVD, liquidation heatmaps, exchange inflow/outflow and an automatic macro calendar are unavailable. These required inputs block both panels: NO TRADE until verified integrations are available.')
 with st.sidebar:
     st.header('Transparent rules')
     move = st.number_input('24h absolute move threshold (%)', min_value=0.1, value=4.0)

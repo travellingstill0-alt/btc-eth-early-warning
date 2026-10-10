@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from oi_history import SnapshotStore, calculate_changes, point, parse_kraken_history
 from test_analysis import fixture, MS, NOW
-from analysis import Rules, assess, plan
+from analysis import Rules, assess, plan, REQUIRED_CONTEXT
 
 KEY = ('Kraken Futures', 'PF_XBTUSD', 'BTC')
 
@@ -53,9 +53,9 @@ class OIHistoryTests(unittest.TestCase):
                 for w in ready:
                     self.assertAlmostEqual(result[w]['change_pct'], 1)
                 risk = assess(d, Rules(), NOW)
-                self.assertEqual(bool(risk['missing']), minutes < 1440)
+                self.assertEqual(bool(set(risk['missing']) - set(REQUIRED_CONTEXT)), minutes < 1440)
         d['interest_history'] = d['interest_history'][-241:]
-        self.assertEqual(assess(d, Rules(oi_window='4h'), NOW)['missing'], [])
+        self.assertEqual(assess(d, Rules(oi_window='4h'), NOW)['missing'], sorted(REQUIRED_CONTEXT))
 
     def test_gaps_invalid_baselines_and_incompatible_or_unverified_data(self):
         cases = []

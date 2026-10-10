@@ -47,7 +47,7 @@ class UITests(unittest.TestCase):
             self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
             app.sidebar.selectbox[0].set_value('4h').run()
             self.assertFalse(app.exception)
-            self.assertEqual(sum(m.value == '**WAIT**' for m in app.markdown), 4)
+            self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
             self.assertTrue(any('UNAVAILABLE' in info.value for info in app.info))
 
     def test_populated_dashboard_and_macro_gate(self):
@@ -74,11 +74,11 @@ class UITests(unittest.TestCase):
         with patch('market.fetch', side_effect=sample):
             app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertEqual(len(app.exception), 0)
-            self.assertEqual(len(app.error), 0)
+            self.assertEqual(len(app.error), 2)
             self.assertEqual(len(app.metric), 6)
             app.sidebar.checkbox[0].check().run()
             self.assertEqual(len(app.exception), 0)
-            self.assertEqual(sum(m.value == '**WAIT**' for m in app.markdown), 4)
+            self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
 
     def test_fallback_units_timestamps_and_stale_warning(self):
         from test_analysis import fixture

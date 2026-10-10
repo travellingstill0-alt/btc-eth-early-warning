@@ -40,7 +40,7 @@ Risk scoring is configurable: absolute 24h change above threshold +2; absolute f
 
 SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTREME, missing data, stale signal candles or an unchecked macro review produce NO TRADE; otherwise unconfirmed setups WAIT. ENTER is informational, never an order.
 
-CVD, liquidation heatmaps and exchange-labelled inflow/outflow are unavailable, rather than inferred from unrelated metrics. An automated macro feed is not integrated. Review official Federal Reserve/BLS calendars manually; the review checkbox only records your acknowledgement. Even when core inputs are complete, these context gaps remain visible.
+CVD, liquidation heatmaps and exchange-labelled inflow/outflow are unavailable, rather than inferred from unrelated metrics. An automated macro feed is not integrated. Review official Federal Reserve/BLS calendars manually; the review checkbox only records your acknowledgement. These unavailable mandatory context inputs keep both panels at NO TRADE even when core inputs are complete.
 
 ## Validation
 
@@ -55,3 +55,9 @@ Run read-only live primary and fallback checks:
 The script uses real API responses. In fallback modes, primary outages are deliberately simulated; every secondary response is real. Output records actual HTTP status, request parameters, source timestamps, missing indicators, risk and panel signals. It exits nonzero if implemented live inputs or normal Kraken OI windows fail, or if missing required data permits a trade signal. Deribit/local history warm-up is expected and must remain NO TRADE. The live check database contains only real newly collected snapshots, so it does not pretend a multi-hour persistence soak has completed. This checks individual GET requests, not sustained uptime or trading execution. Live API connectivity and UI rendering must be checked in each deployment; public API availability is not guaranteed. Android layout uses Streamlit's responsive components; physical-device testing is still required.
 
 See [OI history investigation and validation](docs/oi-history-validation.md) for tested endpoints, live results and persistence limits.
+
+## Mandatory safety context and assessment validity
+
+CVD, liquidation data and exchange flows are mandatory safety inputs. No verified integrations currently exist for them, so both panels remain NO TRADE even with complete core market data and macro acknowledgement. Sampled taker flow cannot substitute for CVD, and arbitrary context payloads cannot unlock signals.
+
+Each assessment records its evaluation time, rules and a digest of its input snapshot. Signal evaluation rejects expired, future, missing or changed-snapshot assessments and reassesses source freshness at the signal time. Invalid provider timestamps are rejected before selection, allowing another provider or an unavailable input instead of a retrieval crash.

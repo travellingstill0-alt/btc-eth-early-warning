@@ -1,7 +1,14 @@
 """Deterministic, configurable informational heuristics; never executes trades."""
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from oi_history import calculate_changes
+from hashlib import sha256
+
+# No verified integrations exist for these mandatory safety inputs.
+REQUIRED_CONTEXT = ('CVD', 'liquidation data', 'exchange flows')
+
+def data_digest(data):
+    return sha256(repr(data).encode()).hexdigest()
 
 @dataclass
 class Rules:
@@ -19,7 +26,7 @@ def closed(rows, now_ms):
 def assess(data, rules, now=None):
     now = now or datetime.now(timezone.utc)
     ms = now.timestamp() * 1000
-    reasons, missing, score = [], [], 0
+    reasons, missing, score = [], list(REQUIRED_CONTEXT), 0
     for key in ('ticker', 'candles', 'scalp_candles', 'funding', 'interest', 'interest_history', 'trades'):
         if not data.get(key):
             missing.append(key)
@@ -87,14 +94,23 @@ def assess(data, rules, now=None):
         missing.append('insufficient structure candles')
     level = 'EXTREME' if score >= 6 else 'HIGH' if score >= 4 else 'MODERATE' if score >= 2 else 'LOW'
     return {'level': level, 'score': score, 'reasons': reasons, 'missing': sorted(set(missing)), 'structure': structure,
-            'oi_change': oi_change, 'oi_changes': oi_changes, 'oi_window': rules.oi_window}
+            'oi_change': oi_change, 'oi_changes': oi_changes, 'oi_window': rules.oi_window,
+            'assessed_at_ms': ms, 'rules': asdict(rules), 'data_digest': data_digest(data)}
 
 
 def plan(data, risk, timeframe, macro_clear=False, now=None):
     now = now or datetime.now(timezone.utc)
     ms = now.timestamp() * 1000
-    rows = closed(data.get('scalp_candles' if timeframe == 'SCALP' else 'candles', []), ms)
     output = {'status': 'NO TRADE', 'reason': 'Missing or stale data, high risk, or macro events not reviewed.'}
+    try:
+        rules = Rules(**risk['rules'])
+        assessment_age = (ms - risk['assessed_at_ms']) / 1000
+        if not 0 <= assessment_age <= rules.stale_seconds or risk['data_digest'] != data_digest(data):
+            return dict(status='NO TRADE', reason='Expired or outdated risk assessment.')
+        risk = assess(data, rules, now)
+        rows = closed(data.get('scalp_candles' if timeframe == 'SCALP' else 'candles', []), ms)
+    except (KeyError, TypeError, ValueError, OverflowError, AttributeError):
+        return dict(status='NO TRADE', reason='Invalid or missing risk assessment or market data.')
     if risk['missing'] or risk['level'] in ('HIGH', 'EXTREME') or not macro_clear or len(rows) < 21:
         return output
     step = 300000 if timeframe == 'SCALP' else 3600000

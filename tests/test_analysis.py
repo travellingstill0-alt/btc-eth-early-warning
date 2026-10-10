@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timezone, timedelta
-from analysis import Rules, assess, plan
+from analysis import Rules, assess, plan, REQUIRED_CONTEXT
 from oi_history import point
 
 NOW = datetime(2026, 10, 10, tzinfo=timezone.utc)
@@ -26,11 +26,57 @@ def fixture():
     return data
 
 class AnalysisTests(unittest.TestCase):
+    def test_assessment_remains_json_serializable_for_live_diagnostics(self):
+        import json
+        r = json.loads(json.dumps(assess(fixture(), Rules(), NOW)))
+        self.assertEqual(plan(fixture(), r, 'SCALP', True, NOW)['status'], 'NO TRADE')
+        self.assertEqual(r['assessed_at_ms'], MS)
+
+    def test_unavailable_context_blocks_both_panels_and_cannot_be_faked(self):
+        d = fixture()
+        d['scalp_candles'][-1][4:6] = ['115', '20']
+        d['candles'][-1][4:6] = ['115', '20']
+        for key in REQUIRED_CONTEXT:
+            d[key] = {'verified': True, 'value': 1}
+        r = assess(d, Rules(), NOW)
+        for key in REQUIRED_CONTEXT:
+            self.assertIn(key, r['missing'])
+        for horizon in ('SCALP', 'DAY TRADE'):
+            self.assertEqual(plan(d, r, horizon, True, NOW)['status'], 'NO TRADE')
+
+    def test_expired_future_and_missing_assessments_are_rejected(self):
+        d = fixture(); d['scalp_candles'][-1][4:6] = ['115', '20']
+        r = assess(d, Rules(stale_seconds=30), NOW)
+        for now in (NOW + timedelta(seconds=31), NOW - timedelta(seconds=1)):
+            p = plan(d, r, 'SCALP', True, now)
+            self.assertEqual(p['status'], 'NO TRADE')
+            self.assertIn('outdated', p['reason'])
+        self.assertEqual(plan(d, {}, 'SCALP', True, NOW)['status'], 'NO TRADE')
+
+    def test_changed_data_invalidates_assessment(self):
+        d = fixture(); r = assess(d, Rules(), NOW)
+        del d['funding']
+        p = plan(d, r, 'SCALP', True, NOW)
+        self.assertEqual(p['status'], 'NO TRADE')
+        self.assertIn('outdated', p['reason'])
+
+    def test_signal_rechecks_freshness_at_age_boundary(self):
+        from unittest.mock import patch
+        # Isolate the freshness gate from the currently unavailable context.
+        with patch('analysis.REQUIRED_CONTEXT', ()):
+            d = fixture(); d['scalp_candles'][-1][4:6] = ['115', '20']
+            rules = Rules(stale_seconds=30)
+            assessed = NOW + timedelta(seconds=29)
+            r = assess(d, rules, assessed)
+            self.assertEqual(plan(d, r, 'SCALP', True, assessed)['status'], 'ENTER')
+            p = plan(d, r, 'SCALP', True, NOW + timedelta(seconds=31))
+            self.assertEqual(p['status'], 'NO TRADE')
+
     def test_complete_low_wait(self):
         d = fixture(); r = assess(d, Rules(), NOW)
         self.assertEqual(r['level'], 'LOW')
-        self.assertEqual(r['missing'], [])
-        self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'WAIT')
+        self.assertEqual(r['missing'], sorted(REQUIRED_CONTEXT))
+        self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'NO TRADE')
     def test_missing_blocks(self):
         d = fixture(); del d['funding']; r = assess(d, Rules(), NOW)
         self.assertIn('funding', r['missing'])
@@ -49,11 +95,10 @@ class AnalysisTests(unittest.TestCase):
     def test_confirmed_breakout(self):
         d = fixture(); d['scalp_candles'][-1][4] = '115'; d['scalp_candles'][-1][5] = '20'
         p = plan(d, assess(d, Rules(), NOW), 'SCALP', True, NOW)
-        self.assertEqual(p['status'], 'ENTER'); self.assertEqual(p['invalidation'], 90)
-        self.assertEqual(p['target_1'], 140)
+        self.assertEqual(p['status'], 'NO TRADE')
     def test_unclosed_breakout_ignored(self):
         d = fixture(); d['scalp_candles'].append([MS, '100', '130', '90', '125', '100', MS+300000])
-        self.assertEqual(plan(d, assess(d, Rules(), NOW), 'SCALP', True, NOW)['status'], 'WAIT')
+        self.assertEqual(plan(d, assess(d, Rules(), NOW), 'SCALP', True, NOW)['status'], 'NO TRADE')
     def test_funding_threshold_respects_hourly_and_eight_hour_periods(self):
         for period, rate in [(1, 0.00005), (8, 0.0004)]:
             d = fixture(); d['funding'].update(period_hours=period, lastFundingRate=rate)

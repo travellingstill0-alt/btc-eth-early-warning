@@ -5,8 +5,8 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 import requests
-from market import fetch
-from analysis import Rules, assess, plan
+from market import fetch, timestamp
+from analysis import Rules, assess, plan, REQUIRED_CONTEXT
 from oi_history import SnapshotStore, point
 
 NOW = datetime(2026, 10, 10, tzinfo=timezone.utc)
@@ -61,6 +61,50 @@ class MarketTests(unittest.TestCase):
         with patch('market.requests.get', side_effect=handler):
             return fetch(symbol, now=NOW, history_path=self.history_path)
 
+    def test_valid_iso_timestamp_accepts_microseconds(self):
+        self.assertEqual(timestamp('2026-10-10T00:00:00.123456Z'), MS + 123)
+
+    def test_fractional_trade_seconds_remain_valid(self):
+        def fractional(url, **kwargs):
+            r = response(url, **kwargs)
+            if url.endswith('/Trades'):
+                for trade in r.body['result']['PAIR']:
+                    trade[2] -= 0.0005
+            return r
+        d = self.fetch(fractional)
+        self.assertEqual(d['sources']['trades']['provider'], 'Kraken')
+
+    def test_invalid_primary_timestamps_use_safe_fallback(self):
+        for invalid in (123, None, [], {}, '', 'invalid', '2026-10-10T00:00:00',
+                        '9999-99-99T00:00:00Z'):
+            with self.subTest(timestamp=invalid):
+                def bad(url, **kwargs):
+                    r = response(url, **kwargs)
+                    if url.endswith('/tickers'):
+                        r.body['serverTime'] = invalid
+                    if 'coinbase' in url and url.endswith('/ticker'):
+                        r.body['time'] = invalid
+                    return r
+                d = self.fetch(bad)
+                self.assertEqual(d['sources']['ticker']['provider'], 'Kraken')
+                self.assertEqual(d['sources']['interest']['provider'], 'Deribit')
+                self.assertEqual(plan(d, assess(d, Rules(), NOW), 'SCALP', True, NOW)['status'], 'NO TRADE')
+
+    def test_invalid_primary_and_secondary_timestamps_fail_closed(self):
+        for invalid in (None, True, float('nan'), float('inf'), 1e300, -1, MS + 0.5):
+            with self.subTest(timestamp=invalid):
+                def bad(url, **kwargs):
+                    r = response(url, **kwargs)
+                    if url.endswith('/tickers'):
+                        r.body['serverTime'] = 123
+                    if 'deribit' in url:
+                        r.body['result']['timestamp'] = invalid
+                    return r
+                d = self.fetch(bad)
+                self.assertNotIn('interest', d)
+                self.assertNotIn('funding', d)
+                self.assertEqual(plan(d, assess(d, Rules(), NOW), 'SCALP', True, NOW)['status'], 'NO TRADE')
+
     def test_primary_providers_and_verified_history(self):
         for symbol in ('BTCUSD', 'ETHUSD'):
             with self.subTest(symbol=symbol):
@@ -76,9 +120,9 @@ class MarketTests(unittest.TestCase):
                 self.assertEqual(d['oi_changes']['24h']['change_pct'], 0)
                 self.assertEqual(sum(t['q'] * (-1 if t['m'] else 1) for t in d['trades']), 1)
                 risk = assess(d, Rules(), NOW)
-                self.assertEqual(risk['missing'], [])
+                self.assertEqual(risk['missing'], sorted(REQUIRED_CONTEXT))
                 for horizon in ('SCALP', 'DAY TRADE'):
-                    self.assertEqual(plan(d, risk, horizon, True, NOW)['status'], 'WAIT')
+                    self.assertEqual(plan(d, risk, horizon, True, NOW)['status'], 'NO TRADE')
 
     def test_http_failure_uses_fallbacks_with_native_units(self):
         def fail(url, **kwargs):
@@ -171,7 +215,7 @@ class MarketTests(unittest.TestCase):
             return response(url, **kwargs)
         d = self.fetch(unavailable)
         self.assertEqual(d['sources']['interest_history']['method'], 'persistent OI snapshots')
-        self.assertEqual(assess(d, Rules(), NOW)['missing'], [])
+        self.assertEqual(assess(d, Rules(), NOW)['missing'], sorted(REQUIRED_CONTEXT))
         def failover(url, **kwargs):
             if url.endswith('/tickers'):
                 return Response({}, 503)

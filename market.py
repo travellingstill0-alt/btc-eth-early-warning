@@ -19,7 +19,36 @@ def number(value, positive=False, nonnegative=False):
 
 
 def timestamp(value):
-    return int(datetime.fromisoformat(value.replace('Z', '+00:00')).timestamp() * 1000)
+    if not isinstance(value, str):
+        raise ValueError('Invalid provider timestamp')
+    try:
+        parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            raise ValueError('Provider timestamp must include a timezone')
+        return epoch_ms(int(parsed.timestamp() * 1000))
+    except (ValueError, OverflowError, OSError) as exc:
+        raise ValueError('Invalid provider timestamp') from exc
+
+
+def epoch_ms(value):
+    try:
+        if isinstance(value, bool):
+            raise ValueError('Boolean timestamp')
+        numeric = float(value)
+        if not math.isfinite(numeric) or numeric <= 0 or numeric != int(numeric):
+            raise ValueError('Invalid epoch timestamp')
+        datetime.fromtimestamp(numeric / 1000, timezone.utc)
+        return int(numeric)
+    except (TypeError, ValueError, OverflowError, OSError) as exc:
+        raise ValueError('Invalid provider epoch timestamp') from exc
+
+
+def epoch_seconds(value):
+    try:
+        seconds = number(value, positive=True)
+        return epoch_ms(int(seconds * 1000))
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError('Invalid provider trade timestamp') from exc
 
 
 def metadata(provider, instrument, time_ms, kind, **details):
@@ -96,7 +125,7 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
             raise ValueError('No public trades')
         if any(r[3] not in ('b', 's') for r in rows):
             raise ValueError('Unknown trade side')
-        return sorted([dict(T=int(number(r[2]) * 1000), q=number(r[1], nonnegative=True),
+        return sorted([dict(T=epoch_seconds(r[2]), q=number(r[1], nonnegative=True),
                             m=r[3] == 's') for r in rows], key=lambda r: r['T'])
 
     def kraken_spot():
@@ -114,12 +143,12 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
         if provider == 'Kraken':
             body = request(KRAKEN, '/0/public/OHLC', pair=pair, interval=interval // 60)['result']
             rows = next(v for k, v in body.items() if k != 'last')
-            bars = [[int(number(r[0]) * 1000), *[number(r[i], True) for i in (1, 2, 3, 4)],
-                     number(r[6], nonnegative=True), int(number(r[0]) * 1000) + interval * 1000 - 1] for r in rows]
+            bars = [[epoch_ms(number(r[0]) * 1000), *[number(r[i], True) for i in (1, 2, 3, 4)],
+                     number(r[6], nonnegative=True), epoch_ms(number(r[0]) * 1000) + interval * 1000 - 1] for r in rows]
         else:
             rows = request(COINBASE, f'/products/{asset}-USD/candles', granularity=interval)
-            bars = [[int(number(r[0]) * 1000), number(r[3], True), number(r[2], True), number(r[1], True),
-                     number(r[4], True), number(r[5], nonnegative=True), int(number(r[0]) * 1000) + interval * 1000 - 1] for r in rows]
+            bars = [[epoch_ms(number(r[0]) * 1000), number(r[3], True), number(r[2], True), number(r[1], True),
+                     number(r[4], True), number(r[5], nonnegative=True), epoch_ms(number(r[0]) * 1000) + interval * 1000 - 1] for r in rows]
         if any(r[2] < max(r[1], r[3], r[4]) or r[3] > min(r[1], r[2], r[4]) for r in bars):
             raise ValueError('Invalid OHLC range')
         bars.sort(key=lambda r: r[0])
@@ -144,7 +173,7 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
         body = request(DERIBIT, '/api/v2/public/ticker', instrument_name=asset + '-PERPETUAL')['result']
         if body['state'] != 'open':
             raise ValueError('Perpetual market not open')
-        return body, int(body['timestamp'])
+        return body, epoch_ms(body['timestamp'])
 
     def derivatives(provider, key):
         ticker, time_ms = memo(provider, kraken_derivatives if provider == 'Kraken Futures' else deribit_derivatives)
