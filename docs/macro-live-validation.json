@@ -1,0 +1,182 @@
+{
+  "checked_at": "2026-10-10T21:44:00.149066+00:00",
+  "assessment": {
+    "clear": false,
+    "warnings": [],
+    "events": [],
+    "missing": [
+      "BLS: Invalid calendar timestamp",
+      "ISM: Invalid calendar timestamp",
+      "ECB: Invalid calendar timestamp",
+      "BOJ: Invalid calendar timestamp",
+      "FED:2026-09: Invalid calendar timestamp",
+      "FED:2026-10: Invalid calendar timestamp",
+      "FED:2026-11: Invalid calendar timestamp",
+      "ECB_SPEECH: Invalid calendar timestamp",
+      "EUROSTAT: Invalid calendar timestamp",
+      "SPGLOBAL: Invalid calendar timestamp",
+      "DESTATIS: Invalid calendar timestamp",
+      "BOE: Invalid calendar timestamp",
+      "ONS: Invalid calendar timestamp",
+      "BOJ_SPEECH: Invalid calendar timestamp",
+      "CHINA_NBS: Invalid calendar timestamp",
+      "PBOC: Invalid calendar timestamp",
+      "Missing category: BOE",
+      "Missing category: BOJ",
+      "Missing category: CHINA_GDP",
+      "Missing category: CHINA_PMI",
+      "Missing category: CPI",
+      "Missing category: DE_RELEASE",
+      "Missing category: ECB",
+      "Missing category: ECB_SPEECH",
+      "Missing category: EU_CPI",
+      "Missing category: EU_GDP",
+      "Missing category: EU_PMI",
+      "Missing category: FED_SPEECH",
+      "Missing category: FOMC",
+      "Missing category: ISM_MANUFACTURING",
+      "Missing category: ISM_SERVICES",
+      "Missing category: NFP",
+      "Missing category: PBOC",
+      "Missing category: PPI",
+      "Missing category: UEDA_SPEECH",
+      "Missing category: UK_CPI",
+      "Missing category: UK_EMPLOYMENT",
+      "Missing category: UK_GDP"
+    ],
+    "high_risk": [],
+    "reason_code": "MISSING_DATA",
+    "reason": "MISSING_DATA: BLS: Invalid calendar timestamp; ISM: Invalid calendar timestamp; ECB: Invalid calendar timestamp; BOJ: Invalid calendar timestamp; FED:2026-09: Invalid calendar timestamp; FED:2026-10: Invalid calendar timestamp; FED:2026-11: Invalid calendar timestamp; ECB_SPEECH: Invalid calendar timestamp; EUROSTAT: Invalid calendar timestamp; SPGLOBAL: Invalid calendar timestamp; DESTATIS: Invalid calendar timestamp; BOE: Invalid calendar timestamp; ONS: Invalid calendar timestamp; BOJ_SPEECH: Invalid calendar timestamp; CHINA_NBS: Invalid calendar timestamp; PBOC: Invalid calendar timestamp; Missing category: BOE; Missing category: BOJ; Missing category: CHINA_GDP; Missing category: CHINA_PMI; Missing category: CPI; Missing category: DE_RELEASE; Missing category: ECB; Missing category: ECB_SPEECH; Missing category: EU_CPI; Missing category: EU_GDP; Missing category: EU_PMI; Missing category: FED_SPEECH; Missing category: FOMC; Missing category: ISM_MANUFACTURING; Missing category: ISM_SERVICES; Missing category: NFP; Missing category: PBOC; Missing category: PPI; Missing category: UEDA_SPEECH; Missing category: UK_CPI; Missing category: UK_EMPLOYMENT; Missing category: UK_GDP; NO TRADE."
+  },
+  "sources": {
+    "BLS": {
+      "url": "https://www.bls.gov/schedule/news_release/bls.ics",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.bls.gov', port=443): Max retries exceeded with url: /schedule/news_release/bls.ics (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "ISM": {
+      "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.ismworld.org', port=443): Max retries exceeded with url: /supply-management-news-and-reports/reports/rob-report-calendar (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "ECB": {
+      "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.ecb.europa.eu', port=443): Max retries exceeded with url: /press/calendars/mgcgc/html/index.en.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "BOJ": {
+      "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.boj.or.jp', port=443): Max retries exceeded with url: /en/mopo/mpmsche_minu/index.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "FED:2026-09": {
+      "url": "https://www.federalreserve.gov/newsevents/2026-september.htm",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/2026-september.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "FED:2026-10": {
+      "url": "https://www.federalreserve.gov/newsevents/2026-october.htm",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/2026-october.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "FED:2026-11": {
+      "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/2026-november.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "ECB_SPEECH": {
+      "url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.ecb.europa.eu', port=443): Max retries exceeded with url: /press/calendars/weekly/html/index.en.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "EUROSTAT": {
+      "url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='ec.europa.eu', port=443): Max retries exceeded with url: /eurostat/news/euro-indicators/release-calendar (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "SPGLOBAL": {
+      "url": "https://www.pmi.spglobal.com/Public/Release/ReleaseDates?language=en",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.pmi.spglobal.com', port=443): Max retries exceeded with url: /Public/Release/ReleaseDates?language=en (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "DESTATIS": {
+      "url": "https://www.destatis.de/EN/Press/Dates/Weekly-Preview/_node.html",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.destatis.de', port=443): Max retries exceeded with url: /EN/Press/Dates/Weekly-Preview/_node.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "BOE": {
+      "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.bankofengland.co.uk', port=443): Max retries exceeded with url: /monetary-policy/upcoming-mpc-dates (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "ONS": {
+      "url": "https://www.ons.gov.uk/releasecalendar?release-type=type-upcoming",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.ons.gov.uk', port=443): Max retries exceeded with url: /releasecalendar?release-type=type-upcoming (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "BOJ_SPEECH": {
+      "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.boj.or.jp', port=443): Max retries exceeded with url: /en/about/calendar/index.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "CHINA_NBS": {
+      "url": "https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.stats.gov.cn', port=443): Max retries exceeded with url: /english/PressRelease/ReleaseCalendar/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "PBOC": {
+      "url": "https://www.pbc.gov.cn/en/3688229/3688335/3730276/index.html",
+      "checked_at": null,
+      "status": "unavailable",
+      "coverage_verified": false,
+      "http_status": null,
+      "error": "HTTPSConnectionPool(host='www.pbc.gov.cn', port=443): Max retries exceeded with url: /en/3688229/3688335/3730276/index.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    }
+  },
+  "events": []
+}

@@ -10,9 +10,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import requests
 from market import fetch
 from analysis import Rules, assess, plan
+from macro_calendar import fetch_calendar
 
 
-def check(mode, symbol, history_path=None):
+def check(mode, symbol, history_path=None, calendar_data=None):
     original = requests.get
     def fallback_request(url, **kwargs):
         if (mode == 'spot_fallback' and 'coinbase' in url) or (
@@ -22,6 +23,7 @@ def check(mode, symbol, history_path=None):
         return original(url, **kwargs)
     with patch('market.requests.get', side_effect=fallback_request):
         data = fetch(symbol, history_path=history_path)
+    data['macro_calendar'] = calendar_data
     now = datetime.now(timezone.utc)
     risk = assess(data, Rules(), now)
     return dict(mode=mode, symbol=symbol, checked_at=now.isoformat(),
@@ -39,7 +41,8 @@ def main():
     parser.add_argument('--output', type=Path, default=Path('/tmp/btc-eth-live-check.json'))
     parser.add_argument('--history-db', type=Path, help='Persistent OI snapshot database; defaults to the app store')
     args = parser.parse_args()
-    reports = [check(mode, symbol, args.history_db) for mode in ('normal', 'spot_fallback', 'other_fallbacks', 'history_fallback')
+    calendar_data = fetch_calendar()
+    reports = [check(mode, symbol, args.history_db, calendar_data) for mode in ('normal', 'spot_fallback', 'other_fallbacks', 'history_fallback')
                for symbol in ('BTCUSD', 'ETHUSD')]
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(reports, indent=2) + '\n')

@@ -8,6 +8,31 @@ class UITests(unittest.TestCase):
     def setUp(self):
         import streamlit as st
         st.cache_data.clear()
+        calendar = patch('macro_calendar.fetch_calendar', return_value={'fetched_at': datetime.now(timezone.utc).isoformat(), 'sources': {}, 'events': []})
+        calendar.start()
+        self.addCleanup(calendar.stop)
+
+    def test_automatic_macro_warnings_sessions_and_manual_review_cannot_override(self):
+        from test_analysis import fixture
+        from test_macro_calendar import bls, payload
+        now = datetime.now(timezone.utc)
+        text = bls().replace('DTSTART;TZID=America/New_York:20261014T083000',
+                             'DTSTART:' + now.strftime('%Y%m%dT%H%M%SZ'))
+        calendar = payload(text)
+        calendar['fetched_at'] = calendar['sources']['BLS']['checked_at'] = now.isoformat()
+        def sample(symbol, **kwargs):
+            data = dict(fixture(), symbol=symbol, errors={})
+            data['ticker'].update(lastPrice=100, baseVolume=500)
+            data['trades'][0].update(q=1, m=False)
+            return data
+        with patch('macro_calendar.fetch_calendar', return_value=calendar), patch('market.fetch', side_effect=sample):
+            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            self.assertFalse(app.exception)
+            self.assertTrue(any('HIGH_RISK_AND_MISSING_DATA' in m.value for m in app.markdown))
+            self.assertTrue(any('America/Bogota' in c.value for c in app.caption))
+            self.assertGreaterEqual(len(app.dataframe), 3)
+            app.sidebar.checkbox[0].check().run()
+            self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
 
     def test_unavailable_sources_render_and_block_signals(self):
         with patch('market.fetch', side_effect=lambda symbol, **kwargs: {'symbol': symbol, 'retrieved_at': datetime.now(timezone.utc), 'errors': {'ticker': 'source unavailable'}}):

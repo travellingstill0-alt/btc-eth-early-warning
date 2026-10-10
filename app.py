@@ -3,11 +3,13 @@ import pandas as pd
 import streamlit as st
 from market import fetch
 from analysis import Rules, assess, plan
+from macro_calendar import fetch_calendar, evaluate as evaluate_calendar, CalendarRules
+from trading_sessions import sessions
 
 st.set_page_config(page_title='BTC & ETH Early Warning', page_icon='⚠️', layout='wide')
 st.title('BTC & ETH Early Warning')
 st.caption('Informational research only • No trades • Public USD spot and perpetual data • Heuristics, not predictions')
-st.warning('Exchange flows are unavailable and keep both panels at NO TRADE. CVD and executed liquidations require fresh, complete verified observations. Liquidation heatmaps and an automatic macro calendar remain unavailable.')
+st.warning('Exchange flows remain unavailable. Unavailable, stale or unverified global macro calendars also block ENTER. High-risk event windows independently return NO TRADE.')
 with st.sidebar:
     st.header('Transparent rules')
     move = st.number_input('24h absolute move threshold (%)', min_value=0.1, value=4.0)
@@ -18,7 +20,11 @@ with st.sidebar:
     st.caption('24h preserves the original risk lookback. A selected OI window must have fresh, verified coverage before ENTER is allowed.')
     stale = st.number_input('Maximum snapshot age (seconds)', min_value=30, value=180)
     macro_clear = st.checkbox('I reviewed upcoming macro events for my trading horizon', value=False)
-    st.caption('Manually check FOMC, CPI, payrolls and central bank speeches on Federal Reserve, BLS and ECB calendars. This checkbox does not supply or verify calendar data.')
+    st.caption('Manual review is additional protection. This checkbox cannot override missing calendar data or high-risk event windows.')
+    pre = st.number_input('Macro pre-event warning (minutes)', min_value=1, max_value=1440, value=60)
+    post = st.number_input('Macro post-event warning (minutes)', min_value=1, max_value=1440, value=60)
+    calendar_age = st.number_input('Maximum calendar verification age (seconds)', min_value=300, max_value=3600, value=900)
+    macro_horizon = st.number_input('Macro display horizon (hours)', min_value=1, max_value=168, value=24)
     st.markdown('[Federal Reserve calendar](https://www.federalreserve.gov/newsevents/calendar.htm) · [BLS releases](https://www.bls.gov/schedule/news_release/)')
     st.write('Score: move +2, funding +2, OI growth +2, bearish structure +1. LOW 0–1; MODERATE 2–3; HIGH 4–5; EXTREME 6–7. Missing data blocks ENTER independently of score.')
     if st.button('Retrieve fresh data'):
@@ -28,11 +34,34 @@ with st.sidebar:
 def snapshot(symbol, maximum_age):
     return fetch(symbol, max_age=maximum_age)
 
+@st.cache_data(ttl=300)
+def calendar_snapshot():
+    return fetch_calendar()
+
 @st.fragment(run_every='60s')
 def dashboard():
+    calendar_data = calendar_snapshot()
+    macro = evaluate_calendar(calendar_data, rules=CalendarRules(int(pre), int(post), int(calendar_age), int(macro_horizon)))
+    st.subheader('Global macro calendar · Colombia time')
+    st.write('Macro safety: **' + macro['reason_code'] + '**')
+    if not macro['clear']:
+        st.warning('NO TRADE: ' + ('; '.join(macro['high_risk']) or 'Critical calendar information is missing, stale or unverified.'))
+    if macro['events']:
+        st.dataframe(pd.DataFrame([{key: e.get(key) for key in ('region', 'title', 'importance', 'colombia_start', 'colombia_end', 'status', 'timing_verified', 'previous', 'forecast', 'actual', 'source')} for e in macro['events']]), hide_index=True)
+    else:
+        st.write('No verified calendar coverage. An empty list does not mean no upcoming events.')
+    st.caption('America/Bogota (UTC−05:00). International daylight saving follows source timezones. Unknown times cover the whole source-local day. Previous, forecast and actual figures are unavailable unless verified. Calendar refreshes every five minutes while active; safety is rechecked every minute.')
+    with st.expander('Calendar coverage and source diagnostics'):
+        st.write(macro['missing'])
+        st.json({name: {k: v for k, v in report.items() if k != 'raw'} for name, report in calendar_data.get('sources', {}).items()})
+    schedule = sessions()
+    st.subheader('Regional sessions and overlaps · Colombia time')
+    st.caption(schedule['note'])
+    st.dataframe(pd.DataFrame(schedule['windows']), hide_index=True)
+    st.dataframe(pd.DataFrame(schedule['overlaps']), hide_index=True)
     for symbol in ('BTCUSD', 'ETHUSD'):
-        data = snapshot(symbol, int(stale))
-        risk = assess(data, Rules(move, funding, oi, int(stale), oi_window))
+        data = dict(snapshot(symbol, int(stale)), macro_calendar=calendar_data)
+        risk = assess(data, Rules(move, funding, oi, int(stale), oi_window, int(pre), int(post), int(calendar_age), int(macro_horizon)))
         st.subheader(symbol.replace('USD', ' / USD'))
         st.caption(f"Retrieved {data['retrieved_at'].isoformat()} • UI evaluated {datetime.now(timezone.utc).isoformat()} • UTC • refresh every 60s while this page is active")
         st.write(f"Risk: **{risk['level']}** — score {risk['score']}/7 — {'INCOMPLETE' if risk['missing'] else 'core inputs available'}")

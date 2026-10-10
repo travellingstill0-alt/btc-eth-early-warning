@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from oi_history import calculate_changes
 from hashlib import sha256
 from context_data import parse as parse_context
+from macro_calendar import CalendarRules, evaluate as evaluate_calendar
 
 # All three remain mandatory; exchange flows have no verified integration.
 REQUIRED_CONTEXT = ('CVD', 'liquidation data', 'exchange flows')
@@ -18,6 +19,10 @@ class Rules:
     oi_growth_pct: float = 10.0
     stale_seconds: int = 180
     oi_window: str = '24h'
+    macro_pre_minutes: int = 60
+    macro_post_minutes: int = 60
+    macro_max_age_seconds: int = 900
+    macro_horizon_hours: int = 24
 
 
 def closed(rows, now_ms):
@@ -115,17 +120,24 @@ def assess(data, rules, now=None):
 def plan(data, risk, timeframe, macro_clear=False, now=None):
     now = now or datetime.now(timezone.utc)
     ms = now.timestamp() * 1000
-    output = {'status': 'NO TRADE', 'reason': 'Missing or stale data, high risk, or macro events not reviewed.'}
+    output = {'status': 'NO TRADE', 'reason': 'Missing or stale data, high risk, or macro events not reviewed.', 'reason_code': 'MISSING_DATA'}
     try:
         rules = Rules(**risk['rules'])
         assessment_age = (ms - risk['assessed_at_ms']) / 1000
         if not 0 <= assessment_age <= rules.stale_seconds or risk['data_digest'] != data_digest(data):
-            return dict(status='NO TRADE', reason='Expired or outdated risk assessment.')
+            return dict(status='NO TRADE', reason='Expired or outdated risk assessment.', reason_code='MISSING_DATA')
         risk = assess(data, rules, now)
         rows = closed(data.get('scalp_candles' if timeframe == 'SCALP' else 'candles', []), ms)
     except (KeyError, TypeError, ValueError, OverflowError, AttributeError):
-        return dict(status='NO TRADE', reason='Invalid or missing risk assessment or market data.')
-    if risk['missing'] or risk['level'] in ('HIGH', 'EXTREME') or not macro_clear or len(rows) < 21:
+        return dict(status='NO TRADE', reason='Invalid or missing risk assessment or market data.', reason_code='MISSING_DATA')
+    macro = evaluate_calendar(data.get('macro_calendar'), now,
+        CalendarRules(rules.macro_pre_minutes, rules.macro_post_minutes,
+                      rules.macro_max_age_seconds, rules.macro_horizon_hours))
+    missing = bool(risk['missing']) or bool(macro['missing']) or len(rows) < 21
+    high_risk = risk['level'] in ('HIGH', 'EXTREME') or bool(macro['high_risk'])
+    if missing or high_risk or not macro['clear'] or not macro_clear:
+        output['reason_code'] = 'HIGH_RISK_AND_MISSING_DATA' if high_risk and missing else 'HIGH_RISK' if high_risk else 'MISSING_DATA' if missing else 'MANUAL_REVIEW_REQUIRED'
+        output['reason'] = ('High risk: ' + '; '.join(macro['high_risk'] or [risk['level']]) + '. ' if high_risk else '') + ('Missing/stale inputs: ' + ', '.join(risk['missing'] + macro['missing']) + '. ' if missing else '') + ('Manual macro review required.' if not macro_clear else '')
         return output
     step = 300000 if timeframe == 'SCALP' else 3600000
     if ms - int(rows[-1][6]) > step * 2:

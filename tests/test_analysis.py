@@ -63,7 +63,7 @@ class AnalysisTests(unittest.TestCase):
     def test_signal_rechecks_freshness_at_age_boundary(self):
         from unittest.mock import patch
         # Isolate the freshness gate from the currently unavailable context.
-        with patch('analysis.REQUIRED_CONTEXT', ()):
+        with patch('analysis.REQUIRED_CONTEXT', ()), patch('analysis.evaluate_calendar', return_value={'clear': True, 'missing': [], 'high_risk': []}):
             d = fixture(); d['scalp_candles'][-1][4:6] = ['115', '20']
             rules = Rules(stale_seconds=30)
             assessed = NOW + timedelta(seconds=29)
