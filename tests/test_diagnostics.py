@@ -50,3 +50,32 @@ class DiagnosticsTests(unittest.TestCase):
             result = probe(candidates()[0])
         self.assertEqual(result['status'], 'unexpected_http_status')
         response.json.assert_not_called()
+
+    def test_policy_snapshot_identifies_missing_provider_hosts(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from scripts.check_public_providers import policy_evidence
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'policy.json'
+            path.write_text(json.dumps({'version': 1, 'http_network_policy': {
+                'type': 'restricted', 'egress_rules': [{'host': 'api.binance.com'}, {'host': 'api.kraken.com'}]}}))
+            result = policy_evidence(path)
+        self.assertTrue(result['snapshot_available'])
+        self.assertTrue(result['host_snapshot']['api.kraken.com'])
+        self.assertFalse(result['host_snapshot']['www.deribit.com'])
+
+    def test_missing_policy_snapshot_is_unknown_not_allowed(self):
+        from scripts.check_public_providers import policy_evidence
+        with patch('scripts.check_public_providers.Path.read_text', side_effect=OSError('missing')):
+            result = policy_evidence()
+        self.assertFalse(result['snapshot_available'])
+        self.assertTrue(all(value is None for value in result['host_snapshot'].values()))
+
+    def test_blocked_request_does_not_invent_metric_timestamps(self):
+        with patch('scripts.check_public_providers.requests.get', side_effect=requests.exceptions.ProxyError('Tunnel connection failed: 403 Forbidden')):
+            result = probe(candidates()[0])
+        for metric in result['metric_verification'].values():
+            self.assertEqual(metric['status'], 'unavailable')
+            self.assertEqual(metric['freshness'], 'unverified')
+            self.assertIsNone(metric['source_timestamp_utc'])

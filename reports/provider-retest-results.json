@@ -1,0 +1,394 @@
+{
+  "checked_at_utc": "2026-10-10T18:12:23.358600+00:00",
+  "scope": "Direct provider connectivity, not dashboard integration or deployment",
+  "network_policy_evidence": {
+    "expected_provider_hosts": [
+      "api.exchange.coinbase.com",
+      "api.kraken.com",
+      "futures.kraken.com",
+      "www.deribit.com"
+    ],
+    "snapshot_available": true,
+    "host_snapshot": {
+      "api.exchange.coinbase.com": false,
+      "api.kraken.com": false,
+      "futures.kraken.com": false,
+      "www.deribit.com": false
+    },
+    "version": 1,
+    "mode": "restricted",
+    "note": "Startup policy snapshot only. Actual request results remain authoritative."
+  },
+  "results": [
+    {
+      "provider": "Kraken spot",
+      "asset": "BTC",
+      "metrics": [
+        "spot price",
+        "24h base volume"
+      ],
+      "url": "https://api.kraken.com/0/public/Ticker",
+      "params": {
+        "pair": "XBTUSD"
+      },
+      "checked_at_utc": "2026-10-10T18:12:23.337254+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='api.kraken.com', port=443): Max retries exceeded with url: /0/public/Ticker?pair=XBTUSD (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.007,
+      "completed_at_utc": "2026-10-10T18:12:23.344706+00:00",
+      "metric_verification": {
+        "spot price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h base volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Coinbase Exchange",
+      "asset": "BTC",
+      "metrics": [
+        "spot price",
+        "24h base volume",
+        "last trade time"
+      ],
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+      "params": {},
+      "checked_at_utc": "2026-10-10T18:12:23.337633+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='api.exchange.coinbase.com', port=443): Max retries exceeded with url: /products/BTC-USD/ticker (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.01,
+      "completed_at_utc": "2026-10-10T18:12:23.348124+00:00",
+      "metric_verification": {
+        "spot price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h base volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "last trade time": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Coinbase Exchange",
+      "asset": "BTC",
+      "metrics": [
+        "24h base volume",
+        "24h open and last prices"
+      ],
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/stats",
+      "params": {},
+      "checked_at_utc": "2026-10-10T18:12:23.337953+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='api.exchange.coinbase.com', port=443): Max retries exceeded with url: /products/BTC-USD/stats (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.008,
+      "completed_at_utc": "2026-10-10T18:12:23.346312+00:00",
+      "metric_verification": {
+        "24h base volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h open and last prices": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Deribit",
+      "asset": "BTC",
+      "metrics": [
+        "perpetual price",
+        "24h volume",
+        "open interest",
+        "funding"
+      ],
+      "url": "https://www.deribit.com/api/v2/public/ticker",
+      "params": {
+        "instrument_name": "BTC-PERPETUAL"
+      },
+      "checked_at_utc": "2026-10-10T18:12:23.340062+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='www.deribit.com', port=443): Max retries exceeded with url: /api/v2/public/ticker?instrument_name=BTC-PERPETUAL (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.01,
+      "completed_at_utc": "2026-10-10T18:12:23.349769+00:00",
+      "metric_verification": {
+        "perpetual price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "open interest": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "funding": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Kraken spot",
+      "asset": "ETH",
+      "metrics": [
+        "spot price",
+        "24h base volume"
+      ],
+      "url": "https://api.kraken.com/0/public/Ticker",
+      "params": {
+        "pair": "ETHUSD"
+      },
+      "checked_at_utc": "2026-10-10T18:12:23.344735+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='api.kraken.com', port=443): Max retries exceeded with url: /0/public/Ticker?pair=ETHUSD (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.007,
+      "completed_at_utc": "2026-10-10T18:12:23.351566+00:00",
+      "metric_verification": {
+        "spot price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h base volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Coinbase Exchange",
+      "asset": "ETH",
+      "metrics": [
+        "spot price",
+        "24h base volume",
+        "last trade time"
+      ],
+      "url": "https://api.exchange.coinbase.com/products/ETH-USD/ticker",
+      "params": {},
+      "checked_at_utc": "2026-10-10T18:12:23.346324+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='api.exchange.coinbase.com', port=443): Max retries exceeded with url: /products/ETH-USD/ticker (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.007,
+      "completed_at_utc": "2026-10-10T18:12:23.353506+00:00",
+      "metric_verification": {
+        "spot price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h base volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "last trade time": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Coinbase Exchange",
+      "asset": "ETH",
+      "metrics": [
+        "24h base volume",
+        "24h open and last prices"
+      ],
+      "url": "https://api.exchange.coinbase.com/products/ETH-USD/stats",
+      "params": {},
+      "checked_at_utc": "2026-10-10T18:12:23.348147+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='api.exchange.coinbase.com', port=443): Max retries exceeded with url: /products/ETH-USD/stats (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.007,
+      "completed_at_utc": "2026-10-10T18:12:23.355159+00:00",
+      "metric_verification": {
+        "24h base volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h open and last prices": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Deribit",
+      "asset": "ETH",
+      "metrics": [
+        "perpetual price",
+        "24h volume",
+        "open interest",
+        "funding"
+      ],
+      "url": "https://www.deribit.com/api/v2/public/ticker",
+      "params": {
+        "instrument_name": "ETH-PERPETUAL"
+      },
+      "checked_at_utc": "2026-10-10T18:12:23.349787+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='www.deribit.com', port=443): Max retries exceeded with url: /api/v2/public/ticker?instrument_name=ETH-PERPETUAL (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.007,
+      "completed_at_utc": "2026-10-10T18:12:23.356855+00:00",
+      "metric_verification": {
+        "perpetual price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "open interest": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "funding": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    },
+    {
+      "provider": "Kraken futures",
+      "asset": "BTC and ETH",
+      "metrics": [
+        "perpetual price",
+        "24h volume",
+        "open interest",
+        "funding"
+      ],
+      "url": "https://futures.kraken.com/derivatives/api/v3/tickers",
+      "params": {},
+      "checked_at_utc": "2026-10-10T18:12:23.351590+00:00",
+      "http_status": null,
+      "category": "network_policy_blocked",
+      "action": "Review the cloud environment allowed hosts. The provider was not reached.",
+      "status": "failed",
+      "error": "ProxyError: HTTPSConnectionPool(host='futures.kraken.com', port=443): Max retries exceeded with url: /derivatives/api/v3/tickers (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "usable_for_dashboard": false,
+      "elapsed_seconds": 0.007,
+      "completed_at_utc": "2026-10-10T18:12:23.358361+00:00",
+      "metric_verification": {
+        "perpetual price": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "24h volume": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "open interest": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        },
+        "funding": {
+          "status": "unavailable",
+          "source_timestamp_utc": null,
+          "freshness": "unverified",
+          "reason": "network_policy_blocked"
+        }
+      },
+      "timestamp_note": "Request times are diagnostics only; they are not market-source timestamps."
+    }
+  ]
+}

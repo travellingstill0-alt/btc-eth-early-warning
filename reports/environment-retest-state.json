@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-10-10 18:12:34 UTC",
+  "environment_id": "ccarenv_b64_Y2NhcmVudl82NDYzYjJmZWM0Yjg4MTkxOWU3MzBmNGQwMDIxZGVhZA",
+  "source_config_version_id": "b74442d3-fd8b-466b-b08c-c48c613f7a2d~cecfgver_6aca699d8be081a391f7fce19c664830",
+  "spec_revision": "12",
+  "observed_spec_revision": "12",
+  "observations_current": true,
+  "phase": "running",
+  "network_policy": {
+    "mode": "restricted",
+    "state": "unknown",
+    "allowed_hosts": [
+      "api.binance.com",
+      "fapi.binance.com"
+    ]
+  }
+}
