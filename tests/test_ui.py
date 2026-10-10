@@ -15,6 +15,39 @@ class UITests(unittest.TestCase):
             self.assertEqual(len(app.exception), 0)
             self.assertEqual(len(app.error), 2)
             self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
+
+    def test_oi_windows_warmup_and_explicit_required_lookback_selection(self):
+        from test_analysis import fixture
+        now = datetime.now(timezone.utc)
+        ms = int(now.timestamp() * 1000)
+        def sample(symbol, **kwargs):
+            d = fixture(); shift = ms - int(d['retrieved_at'].timestamp() * 1000)
+            d.update(symbol=symbol, retrieved_at=now, errors={})
+            for source in d['sources'].values():
+                source['source_time_ms'] += shift
+            for key in ('candles', 'scalp_candles'):
+                for row in d[key]:
+                    row[0] += shift; row[6] += shift
+            d['ticker'].update(lastPrice=100, baseVolume=500, closeTime=ms)
+            d['funding']['time'] = ms
+            d['interest']['time'] = ms
+            d['trades'] = [{'T': ms, 'q': 1, 'm': False}]
+            d['interest_history'] = d['interest_history'][-241:]
+            for row in d['interest_history']:
+                row['timestamp'] += shift; row['received_at_ms'] += shift
+            return d
+        with patch('market.fetch', side_effect=sample):
+            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            self.assertFalse(app.exception)
+            self.assertEqual(app.sidebar.selectbox[0].value, '24h')
+            self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
+            self.assertTrue(any('OI change 15m:' in m.value for m in app.markdown))
+            self.assertTrue(any('Warming up' in m.value for m in app.markdown))
+            app.sidebar.checkbox[0].check().run()
+            self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
+            app.sidebar.selectbox[0].set_value('4h').run()
+            self.assertFalse(app.exception)
+            self.assertEqual(sum(m.value == '**WAIT**' for m in app.markdown), 4)
             self.assertTrue(any('UNAVAILABLE' in info.value for info in app.info))
 
     def test_populated_dashboard_and_macro_gate(self):
@@ -34,6 +67,8 @@ class UITests(unittest.TestCase):
             data['interest'].update(openInterest='123', time=int(now.timestamp()*1000))
             for row in data['interest_history']:
                 row['timestamp'] += shift
+                row['received_at_ms'] += shift
+            data['interest_history'][-1]['sumOpenInterest'] = 123
             data['trades'] = [{'T': int(now.timestamp()*1000), 'q': '5', 'm': False}]
             return data
         with patch('market.fetch', side_effect=sample):

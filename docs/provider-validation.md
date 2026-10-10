@@ -1,4 +1,6 @@
-# Public provider validation
+# Baseline public provider validation
+
+This report describes the initial provider fallback commit `a8ec8bb`, before OI history integration. See [current OI history validation](oi-history-validation.md) for the newer implementation.
 
 Validated on 2026-10-10 in the attached restricted cloud environment, using the inherited HTTPS proxy and TLS verification. All non-simulated HTTP requests returned 200 with usable data.
 

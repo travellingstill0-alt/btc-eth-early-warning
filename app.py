@@ -14,6 +14,8 @@ with st.sidebar:
     funding = st.number_input('Absolute funding threshold (% per 8h)', min_value=0.001, value=0.03, format='%.3f')
     st.caption('Kraken hourly funding is compared with one eighth of this threshold. Actual provider rates and periods are displayed; no eight-hour rate is fabricated.')
     oi = st.number_input('OI growth threshold (%)', min_value=0.1, value=10.0)
+    oi_window = st.selectbox('Required OI risk lookback', ['24h', '4h'])
+    st.caption('24h preserves the original risk lookback. A selected OI window must have fresh, verified coverage before ENTER is allowed.')
     stale = st.number_input('Maximum snapshot age (seconds)', min_value=30, value=180)
     macro_clear = st.checkbox('I reviewed upcoming macro events for my trading horizon', value=False)
     st.caption('Manually check FOMC, CPI, payrolls and central bank speeches on Federal Reserve, BLS and ECB calendars. This checkbox does not supply or verify calendar data.')
@@ -30,7 +32,7 @@ def snapshot(symbol, maximum_age):
 def dashboard():
     for symbol in ('BTCUSD', 'ETHUSD'):
         data = snapshot(symbol, int(stale))
-        risk = assess(data, Rules(move, funding, oi, int(stale)))
+        risk = assess(data, Rules(move, funding, oi, int(stale), oi_window))
         st.subheader(symbol.replace('USD', ' / USD'))
         st.caption(f"Retrieved {data['retrieved_at'].isoformat()} • UI evaluated {datetime.now(timezone.utc).isoformat()} • UTC • refresh every 60s while this page is active")
         st.write(f"Risk: **{risk['level']}** — score {risk['score']}/7 — {'INCOMPLETE' if risk['missing'] else 'core inputs available'}")
@@ -57,7 +59,18 @@ def dashboard():
                 st.caption(f"{label}: {source['provider']} · {source['instrument']} · {source_time.isoformat()} · {source['timestamp_kind']} · {status} ({age:.1f}s). {source.get('note', '')}")
         if change is None:
             st.warning('Rolling 24h price change: Unavailable. Required for complete risk assessment.')
-        st.write('OI change over returned hourly history: ' + (f"{risk['oi_change']:+.2f}%" if risk['oi_change'] is not None else 'Unavailable'))
+        history_source = data.get('sources', {}).get('interest_history', {})
+        st.caption(f"OI history: {history_source.get('provider', 'Unavailable')} · {history_source.get('instrument', 'unknown contract')} · {history_source.get('unit', 'unknown units')} · {history_source.get('method', 'No verified history')}. Histories remain separate after provider fallback.")
+        st.caption('OI changes use a real baseline at or up to 90 seconds before each target, without interpolation. Gaps over 180 seconds invalidate a window. Stored snapshots accumulate only during active refreshes or explicit data checks.')
+        for window in ('15m', '1h', '4h', '24h'):
+            result = risk['oi_changes'][window]
+            label = f'OI change {window}' + (' (required for risk)' if window == oi_window else '')
+            if result['change_pct'] is None:
+                st.write(f"{label}: Unavailable — {result['reason']}")
+            else:
+                start = datetime.fromtimestamp(result['baseline_time_ms'] / 1000, timezone.utc).isoformat()
+                end = datetime.fromtimestamp(result['end_time_ms'] / 1000, timezone.utc).isoformat()
+                st.write(f"{label}: **{result['change_pct']:+.2f}%** · {start} to {end} · {result['observation_count']} observations")
         st.write('Hourly market structure: **' + risk['structure'] + '** (comparison of two completed 20-hour ranges)')
         trades = data.get('trades', [])
         if trades:
@@ -80,7 +93,7 @@ def dashboard():
                     st.write(f"{key.replace('_', ' ').capitalize()}: {value:,.2f}" if isinstance(value, float) else f"{key.replace('_', ' ').capitalize()}: {value}")
         st.info('Liquidation heatmap: UNAVAILABLE — no verified free historical liquidation-level provider integrated. Exchange inflow/outflow: UNAVAILABLE — no reliable free exchange-labelled on-chain feed integrated. These are not estimated from price or volume.')
         with st.expander('Source diagnostics and timestamps'):
-            st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. Fallback is per indicator; stale, malformed or unavailable sources are rejected. OI history is unavailable.')
+            st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. OI history: Kraken minute analytics or persistent observations for the selected provider, contract and units. No history is fabricated or interpolated.')
             st.json({key: value for key, value in data['errors'].items()})
             st.json(data.get('sources', {}))
             st.json(data.get('attempts', []))

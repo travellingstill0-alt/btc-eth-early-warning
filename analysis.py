@@ -1,6 +1,7 @@
 """Deterministic, configurable informational heuristics; never executes trades."""
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from oi_history import calculate_changes
 
 @dataclass
 class Rules:
@@ -8,6 +9,7 @@ class Rules:
     funding_pct: float = 0.03
     oi_growth_pct: float = 10.0
     stale_seconds: int = 180
+    oi_window: str = '24h'
 
 
 def closed(rows, now_ms):
@@ -62,17 +64,15 @@ def assess(data, rules, now=None):
     if funding and period in (1, 8) and abs(float(funding['lastFundingRate']) * 100) >= rules.funding_pct * period / 8:
         score += 2
         reasons.append(f'Elevated absolute funding over {period}h (+2)')
-    history = data.get('interest_history', [])
-    oi_change = None
-    if len(history) >= 2 and float(history[0]['sumOpenInterest']) > 0:
-        oi_change = (float(history[-1]['sumOpenInterest']) / float(history[0]['sumOpenInterest']) - 1) * 100
+    oi_changes = calculate_changes(data, int(ms), rules.stale_seconds)
+    selected = oi_changes.get(rules.oi_window)
+    oi_change = selected['change_pct'] if selected else None
+    if oi_change is not None:
         if oi_change >= rules.oi_growth_pct:
             score += 2
-            reasons.append('Rapid open interest growth (+2)')
-        if ms - int(history[-1]['timestamp']) > 2 * 3600 * 1000:
-            missing.append('stale interest history')
+            reasons.append(f'Rapid {rules.oi_window} open interest growth (+2)')
     else:
-        missing.append('insufficient interest history')
+        missing.append(f'OI {rules.oi_window}: ' + (selected['reason'] if selected else 'unknown required window'))
     bars = closed(data.get('candles', []), ms)
     structure = 'Unavailable'
     if len(bars) >= 40:
@@ -86,7 +86,8 @@ def assess(data, rules, now=None):
     else:
         missing.append('insufficient structure candles')
     level = 'EXTREME' if score >= 6 else 'HIGH' if score >= 4 else 'MODERATE' if score >= 2 else 'LOW'
-    return {'level': level, 'score': score, 'reasons': reasons, 'missing': sorted(set(missing)), 'structure': structure, 'oi_change': oi_change}
+    return {'level': level, 'score': score, 'reasons': reasons, 'missing': sorted(set(missing)), 'structure': structure,
+            'oi_change': oi_change, 'oi_changes': oi_changes, 'oi_window': rules.oi_window}
 
 
 def plan(data, risk, timeframe, macro_clear=False, now=None):

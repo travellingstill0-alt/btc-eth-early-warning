@@ -1,7 +1,9 @@
 """Public, read-only USD market data. Never substitutes synthetic observations."""
 from datetime import datetime, timezone
 import math
+import sqlite3
 import requests
+from oi_history import SnapshotStore, current_point, parse_kraken_history, calculate_changes, WINDOWS
 
 KRAKEN = 'https://api.kraken.com'
 COINBASE = 'https://api.exchange.coinbase.com'
@@ -25,7 +27,7 @@ def metadata(provider, instrument, time_ms, kind, **details):
                 timestamp_kind=kind, **details)
 
 
-def fetch(symbol, max_age=180, now=None):
+def fetch(symbol, max_age=180, now=None, history_path=None):
     asset = symbol.removesuffix('USDT').removesuffix('USD')
     if asset not in ('BTC', 'ETH'):
         raise ValueError('Only BTC and ETH are supported')
@@ -44,7 +46,7 @@ def fetch(symbol, max_age=180, now=None):
             attempt.update(http_status=response.status_code, received_at=clock().isoformat())
             response.raise_for_status()
             body = response.json()
-            if isinstance(body, dict) and (body.get('error') or body.get('result') == 'error'):
+            if isinstance(body, dict) and (body.get('error') or body.get('errors') or body.get('result') == 'error'):
                 raise ValueError(str(body.get('error') or body.get('errors')))
             return body
         except (requests.RequestException, ValueError) as exc:
@@ -179,8 +181,46 @@ def fetch(symbol, max_age=180, now=None):
     for key in ('interest', 'funding'):
         choose(key, [(p, lambda p=p: derivatives(p, key)) for p in ('Kraken Futures', 'Deribit')])
     choose('trades', [(p, lambda p=p: flow(p)) for p in ('Kraken', 'Coinbase')])
-    data['errors']['interest_history'] = 'Unavailable: verified providers supply current OI, not comparable hourly OI history.'
-    data['warnings'].append('OI growth unavailable; required historical OI is missing, so ENTER is blocked.')
+    try:
+        now_ms = int(clock().timestamp() * 1000)
+        current = current_point(data, now_ms, max_age)
+        candidates = []
+        try:
+            stored = SnapshotStore(history_path).record_and_read(current, max_age)
+            candidates.append((stored, 'persistent OI snapshots'))
+        except (sqlite3.Error, OSError, ValueError) as exc:
+            data['errors']['oi_storage'] = str(exc)
+            data['warnings'].append('OI snapshot storage unavailable; observations were not saved.')
+        if current['provider'] == 'Kraken Futures':
+            try:
+                body = request(FUTURES, f'/api/charts/v1/analytics/{current["instrument"]}/open-interest',
+                               interval=60, since=now_ms // 1000 - WINDOWS['24h'] - 240)
+                bars = parse_kraken_history(body, current, int(clock().timestamp() * 1000))
+                candidates.append((bars + [current], 'Kraken minute OI bar closes + current snapshot'))
+            except (requests.RequestException, ValueError, KeyError, TypeError, IndexError, OverflowError) as exc:
+                data['errors']['interest_history:Kraken Futures'] = str(exc)
+                data['warnings'].append('Kraken OI history unavailable; using separate persistent snapshots when sufficient.')
+        else:
+            data['warnings'].append('Deribit historical OI unavailable; collecting persistent observations for this contract.')
+        best = None
+        for rows, method in candidates:
+            source = metadata(current['provider'], current['instrument'], current['timestamp'],
+                              'OI observations', unit=current['unit'], verified=True, method=method,
+                              note='Real observations only; completed bar boundaries or server snapshot timestamps.')
+            trial = dict(data, interest_history=rows,
+                         sources={**data['sources'], 'interest_history': source})
+            changes = calculate_changes(trial, int(clock().timestamp() * 1000), max_age)
+            coverage = max((WINDOWS[w] for w, result in changes.items() if result['change_pct'] is not None), default=0)
+            if best is None or coverage >= best[0]:
+                best = coverage, rows, source, changes
+        if best is None:
+            raise ValueError('No verified OI history or readable persistent store')
+        _, data['interest_history'], data['sources']['interest_history'], data['oi_changes'] = best
+        if not best[0]:
+            data['warnings'].append('OI history warming up or incomplete; required missing windows block ENTER.')
+    except (ValueError, KeyError, TypeError, OverflowError) as exc:
+        data['errors']['interest_history'] = str(exc)
+        data['warnings'].append('OI history unavailable or unverified; ENTER remains blocked.')
     if data.get('ticker', {}).get('priceChangePercent') is None:
         data['warnings'].append('Rolling 24h spot price change unavailable; ENTER is blocked.')
     data['retrieved_at'] = clock()

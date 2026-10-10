@@ -1,10 +1,13 @@
 import copy
 from datetime import datetime, timezone
 import unittest
+import tempfile
+from pathlib import Path
 from unittest.mock import patch
 import requests
 from market import fetch
 from analysis import Rules, assess, plan
+from oi_history import SnapshotStore, point
 
 NOW = datetime(2026, 10, 10, tzinfo=timezone.utc)
 MS = int(NOW.timestamp() * 1000)
@@ -40,17 +43,25 @@ def response(url, params, timeout):
     if url.endswith('/tickers'):
         return Response({'result': 'success', 'serverTime': NOW.isoformat(), 'tickers': [
             dict(symbol=s, openInterest=123, relativeFundingRate=0.00001) for s in ('PF_XBTUSD', 'PF_ETHUSD')]})
+    if url.endswith('/open-interest'):
+        return Response({'result': {'timestamp': [MS // 1000 - (1445-i)*60 for i in range(1445)],
+                                     'data': [['123']*4 for _ in range(1445)]}, 'errors': []})
     if 'deribit' in url:
         return Response({'result': dict(state='open', timestamp=MS, open_interest=12300, funding_8h=0.00008)})
     raise AssertionError(url)
 
 
 class MarketTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.history_path = Path(self.temp.name) / 'oi.sqlite3'
+
     def fetch(self, handler=response, symbol='BTCUSD'):
         with patch('market.requests.get', side_effect=handler):
-            return fetch(symbol, now=NOW)
+            return fetch(symbol, now=NOW, history_path=self.history_path)
 
-    def test_primary_providers_and_missing_history_blocks_both_panels(self):
+    def test_primary_providers_and_verified_history(self):
         for symbol in ('BTCUSD', 'ETHUSD'):
             with self.subTest(symbol=symbol):
                 d = self.fetch(symbol=symbol)
@@ -60,12 +71,14 @@ class MarketTests(unittest.TestCase):
                 self.assertEqual(d['sources']['funding']['provider'], 'Kraken Futures')
                 self.assertEqual(d['interest']['unit'], symbol[:3])
                 self.assertEqual(d['funding']['period_hours'], 1)
-                self.assertNotIn('interest_history', d)
+                self.assertIn('interest_history', d)
+                self.assertEqual(d['sources']['interest_history']['provider'], 'Kraken Futures')
+                self.assertEqual(d['oi_changes']['24h']['change_pct'], 0)
                 self.assertEqual(sum(t['q'] * (-1 if t['m'] else 1) for t in d['trades']), 1)
                 risk = assess(d, Rules(), NOW)
-                self.assertEqual(risk['missing'], ['insufficient interest history', 'interest_history'])
+                self.assertEqual(risk['missing'], [])
                 for horizon in ('SCALP', 'DAY TRADE'):
-                    self.assertEqual(plan(d, risk, horizon, True, NOW)['status'], 'NO TRADE')
+                    self.assertEqual(plan(d, risk, horizon, True, NOW)['status'], 'WAIT')
 
     def test_http_failure_uses_fallbacks_with_native_units(self):
         def fail(url, **kwargs):
@@ -80,6 +93,9 @@ class MarketTests(unittest.TestCase):
         self.assertEqual(d['funding']['period_hours'], 8)
         self.assertIn('24h price change', assess(d, Rules(), NOW)['missing'])
         self.assertTrue(any(a['http_status'] == 503 for a in d['attempts']))
+        self.assertEqual(len(d['interest_history']), 1)
+        self.assertIsNone(d['oi_changes']['15m']['change_pct'])
+        self.assertFalse(any('open-interest' in a['url'] for a in d['attempts']))
 
     def test_one_malformed_derivative_field_does_not_discard_other(self):
         def malformed(url, **kwargs):
@@ -115,6 +131,55 @@ class MarketTests(unittest.TestCase):
         self.assertEqual(d['sources']['trades']['provider'], 'Coinbase')
         self.assertEqual(d['candles'][-1][2:6], [110, 90, 100, 10])
         self.assertEqual(sum(t['q'] * (-1 if t['m'] else 1) for t in d['trades']), 1)
+
+    def test_history_endpoint_failure_uses_persistent_snapshots_and_blocks_warmup(self):
+        def unavailable(url, **kwargs):
+            if url.endswith('/open-interest'):
+                return Response({}, 503)
+            return response(url, **kwargs)
+        d = self.fetch(unavailable)
+        self.assertEqual(d['sources']['interest_history']['method'], 'persistent OI snapshots')
+        self.assertEqual(len(d['interest_history']), 1)
+        risk = assess(d, Rules(), NOW)
+        self.assertTrue(risk['missing'])
+        self.assertEqual(plan(d, risk, 'SCALP', True, NOW)['status'], 'NO TRADE')
+
+    def test_malformed_history_does_not_turn_current_oi_into_history(self):
+        def malformed(url, **kwargs):
+            r = response(url, **kwargs)
+            if url.endswith('/open-interest'):
+                r.body['result']['data'].pop()
+            return r
+        d = self.fetch(malformed)
+        self.assertEqual(d['sources']['interest_history']['method'], 'persistent OI snapshots')
+        self.assertIsNone(d['oi_changes']['4h']['change_pct'])
+
+    def test_storage_failure_has_warning_and_remote_history_still_works(self):
+        self.history_path.mkdir()
+        d = self.fetch()
+        self.assertIn('oi_storage', d['errors'])
+        self.assertEqual(d['oi_changes']['24h']['change_pct'], 0)
+
+    def test_verified_stored_coverage_supports_outage_but_not_different_provider(self):
+        for i in range(1441):
+            ts = MS - (1440-i)*60000
+            SnapshotStore(self.history_path).record_and_read(point(
+                ('Kraken Futures', 'PF_XBTUSD', 'BTC'), ts, 123, ts, 'server snapshot'))
+        def unavailable(url, **kwargs):
+            if url.endswith('/open-interest'):
+                return Response({}, 503)
+            return response(url, **kwargs)
+        d = self.fetch(unavailable)
+        self.assertEqual(d['sources']['interest_history']['method'], 'persistent OI snapshots')
+        self.assertEqual(assess(d, Rules(), NOW)['missing'], [])
+        def failover(url, **kwargs):
+            if url.endswith('/tickers'):
+                return Response({}, 503)
+            return response(url, **kwargs)
+        d = self.fetch(failover)
+        self.assertEqual(d['sources']['interest_history']['provider'], 'Deribit')
+        self.assertEqual(len(d['interest_history']), 1)
+        self.assertIsNone(d['oi_changes']['24h']['change_pct'])
 
     def test_gapped_candles_trigger_fallback(self):
         def gap(url, **kwargs):

@@ -1,6 +1,7 @@
 import unittest
 from datetime import datetime, timezone, timedelta
 from analysis import Rules, assess, plan
+from oi_history import point
 
 NOW = datetime(2026, 10, 10, tzinfo=timezone.utc)
 MS = int(NOW.timestamp() * 1000)
@@ -9,13 +10,20 @@ def bars(step):
     return [[MS - (50-i)*step, '100', '110', '90', '100', '10', MS-(49-i)*step-1] for i in range(50)]
 
 def fixture():
-    return {'retrieved_at': NOW,
+    data = {'retrieved_at': NOW,
             'sources': {key: {'source_time_ms': MS, 'provider': 'Test provider', 'instrument': 'Test instrument', 'timestamp_kind': 'test fixture'}
                         for key in ('ticker', 'funding', 'interest', 'trades', 'candles', 'scalp_candles')},
             'ticker': {'priceChangePercent': '1', 'closeTime': MS},
-            'funding': {'lastFundingRate': '0.0001', 'time': MS}, 'interest': {'time': MS},
-            'interest_history': [{'sumOpenInterest': '100', 'timestamp': MS-86400000}, {'sumOpenInterest': '101', 'timestamp': MS}],
+            'funding': {'lastFundingRate': '0.0001', 'time': MS}, 'interest': {'time': MS, 'openInterest': 101, 'unit': 'BTC'},
             'trades': [{'T': MS}], 'candles': bars(3600000), 'scalp_candles': bars(300000)}
+    source = dict(provider='Kraken Futures', instrument='PF_XBTUSD', unit='BTC', source_time_ms=MS,
+                  timestamp_kind='server snapshot', verified=True, method='test fixture')
+    data['sources']['interest'] = source.copy()
+    data['sources']['interest_history'] = source.copy()
+    key = ('Kraken Futures', 'PF_XBTUSD', 'BTC')
+    data['interest_history'] = [point(key, MS - (1440-i)*60000, 100 if i < 1440 else 101,
+                                     MS - (1440-i)*60000, 'server snapshot') for i in range(1441)]
+    return data
 
 class AnalysisTests(unittest.TestCase):
     def test_complete_low_wait(self):
@@ -30,6 +38,7 @@ class AnalysisTests(unittest.TestCase):
     def test_extreme(self):
         d = fixture(); d['ticker']['priceChangePercent'] = '-8'; d['funding']['lastFundingRate'] = '-0.001'
         d['interest_history'][-1]['sumOpenInterest'] = '120'
+        d['interest']['openInterest'] = 120
         self.assertEqual(assess(d, Rules(), NOW)['level'], 'EXTREME')
     def test_stale(self):
         d = fixture(); d['retrieved_at'] -= timedelta(minutes=4)
@@ -63,6 +72,7 @@ class AnalysisTests(unittest.TestCase):
             d = fixture(); d['ticker']['priceChangePercent'] = 8
             d['funding']['lastFundingRate'] = 0.001
             d['interest_history'][-1]['sumOpenInterest'] = oi
+            d['interest']['openInterest'] = oi
             d['scalp_candles'][-1][4:6] = ['115', '20']
             r = assess(d, Rules(), NOW)
             self.assertIn(r['level'], ('HIGH', 'EXTREME'))
