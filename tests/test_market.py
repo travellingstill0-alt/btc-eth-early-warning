@@ -24,7 +24,7 @@ class Response:
 
 
 def response(url, params, timeout):
-    if url.endswith(('/cvd', '/liquidation-volume', '/history')):
+    if url.endswith(('/cvd', '/liquidation-volume', '/history', '/asset-metrics')):
         return Response({}, 503)
     if url.endswith('/ticker') and 'coinbase' in url:
         return Response(dict(price='100', volume='10', time=NOW.isoformat()))

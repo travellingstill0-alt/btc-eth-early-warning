@@ -4,6 +4,7 @@ import math
 import sqlite3
 import requests
 from context_data import collect as collect_context
+from exchange_flows import collect as collect_exchange_flows
 from oi_history import SnapshotStore, current_point, parse_kraken_history, calculate_changes, WINDOWS
 
 KRAKEN = 'https://api.kraken.com'
@@ -265,6 +266,11 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
         data['sources'][key] = metadata(item['provider'], item['instrument'], item['end_ms'],
             'completed observation window end', unit=item['unit'], method=item['method'],
             note='Single-contract executed observations only; no whole-market coverage or future liquidation levels.')
+    data['exchange_flow_diagnostics'] = collect_exchange_flows(
+        context_request, asset, lambda: int(clock().timestamp()*1000), max_age)
+    flow = data['exchange_flow_diagnostics']
+    data['errors']['context:exchange flows'] = flow.get('error', flow['reason'])
+    data['warnings'].append('Exchange wallet flows: ' + flow['reason'])
     if data.get('ticker', {}).get('priceChangePercent') is None:
         data['warnings'].append('Rolling 24h spot price change unavailable; ENTER is blocked.')
     data['retrieved_at'] = clock()

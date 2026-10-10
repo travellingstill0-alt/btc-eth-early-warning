@@ -103,6 +103,7 @@ def dashboard():
                     st.write(f"{key.replace('_', ' ').capitalize()}: {value:,.2f}" if isinstance(value, float) else f"{key.replace('_', ' ').capitalize()}: {value}")
         st.info('Liquidation heatmap: UNAVAILABLE — future liquidation levels are not inferred from executed liquidations. Exchange inflow/outflow: UNAVAILABLE — no reliable free exchange-labelled on-chain feed integrated. These are not estimated from price or volume.')
         with st.expander('Source diagnostics and timestamps'):
+            st.json(data.get('exchange_flow_diagnostics', {'status': 'unavailable', 'safety_eligible': False}))
             st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. OI history: Kraken minute analytics or persistent observations for the selected provider, contract and units. No history is fabricated or interpolated. Perpetual CVD: Kraken analytics → complete Deribit tape. Executed liquidations: Kraken analytics → complete Kraken execution history; gaps fail closed.')
             st.json({key: value for key, value in data['errors'].items()})
             st.json(data.get('sources', {}))

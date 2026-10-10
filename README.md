@@ -81,3 +81,5 @@ Read-only verification:
 ```
 
 This checks real primary/secondary responses under simulated primary outages. It requires the primary feeds to validate; secondary coverage failure is recorded as unavailable rather than hidden. See [provider investigation](docs/context-provider-validation.md) for costs, observed limitations and validation.
+
+Exchange-wallet flows: a read-only Coin Metrics Community availability adapter now checks paired Kraken-labelled daily BTC/ETH inflow/outflow metrics. These remain **unverified diagnostics**, never a safety input: daily timestamps, unknown entitlement, wallet completeness and finality cannot satisfy the current rules. Network/provider errors remain explicit warnings; exchange flows still block ENTER. See [provider investigation, costs and limitations](docs/exchange-flow-provider-validation.md). Run `python scripts/check_exchange_flow_apis.py` for live access checks; it exits nonzero if provider responses cannot be validated.
