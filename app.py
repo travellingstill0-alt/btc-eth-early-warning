@@ -36,23 +36,27 @@ def dashboard():
         st.write('; '.join(risk['reasons']) or 'No configured threshold triggered in available inputs.')
         if risk['missing']:
             st.error('Missing/stale inputs: ' + ', '.join(risk['missing']))
-        ticker, interest, funding_data = data.get('ticker', {}), data.get('interest', {}), data.get('funding', {})
+        def current(key):
+            return {} if 'stale retrieval' in risk['missing'] or f'stale {key}' in risk['missing'] else data.get(key, {})
+        ticker, interest, funding_data = current('ticker'), current('interest'), current('funding')
         cols = st.columns(3)
-        cols[0].metric('Spot price (USDT)', f"{float(ticker['lastPrice']):,.2f}" if ticker else 'Unavailable', f"{float(ticker['priceChangePercent']):+.2f}% / 24h" if ticker else None)
-        cols[1].metric('24h spot quote volume (USDT)', f"{float(ticker['quoteVolume']):,.0f}" if ticker else 'Unavailable')
-        cols[2].metric('Perpetual OI (base asset)', f"{float(interest['openInterest']):,.2f}" if interest else 'Unavailable')
-        st.write('Latest funding rate: ' + (f"{float(funding_data['lastFundingRate']) * 100:.4f}%" if funding_data else 'Unavailable'))
-        st.write('OI change over returned hourly history: ' + (f"{risk['oi_change']:+.2f}%" if risk['oi_change'] is not None else 'Unavailable'))
-        st.write('Hourly market structure: **' + risk['structure'] + '** (comparison of two completed 20-hour ranges)')
-        trades = data.get('trades', [])
+        cols[0].metric('Spot price (USDT)', f"{float(ticker['lastPrice']):,.2f}" if ticker else 'Unavailable / stale', f"{float(ticker['priceChangePercent']):+.2f}% / 24h" if ticker else None)
+        cols[1].metric('24h spot quote volume (USDT)', f"{float(ticker['quoteVolume']):,.0f}" if ticker else 'Unavailable / stale')
+        cols[2].metric('Perpetual OI (base asset)', f"{float(interest['openInterest']):,.2f}" if interest else 'Unavailable / stale')
+        st.write('Latest funding rate: ' + (f"{float(funding_data['lastFundingRate']) * 100:.4f}%" if funding_data else 'Unavailable / stale'))
+        st.write('OI change over returned hourly history: ' + (f"{risk['oi_change']:+.2f}%" if risk['oi_change'] is not None and 'stale interest history' not in risk['missing'] and 'stale retrieval' not in risk['missing'] else 'Unavailable / stale'))
+        structure = 'Unavailable / stale' if 'stale candles' in risk['missing'] or 'stale retrieval' in risk['missing'] else risk['structure']
+        st.write('Hourly market structure: **' + structure + '** (comparison of two completed 20-hour ranges)')
+        trades = [] if 'stale order flow' in risk['missing'] or 'stale retrieval' in risk['missing'] else data.get('trades', [])
         if trades:
             delta = sum(float(t['q']) * (-1 if t['m'] else 1) for t in trades)
             start, end = [datetime.fromtimestamp(int(t['T']) / 1000, timezone.utc).isoformat() for t in (trades[0], trades[-1])]
             st.write(f'Sampled spot taker flow delta: **{delta:+,.3f} base units**, {len(trades)} aggregate trades, {start} to {end}.')
             st.caption('Buy taker minus sell taker volume, classified by buyer-is-maker flag. This limited sample is an order-flow proxy, not full-session or cross-exchange CVD.')
         else:
-            st.write('CVD/order flow: Unavailable')
-        rows = data.get('candles', [])
+            st.write('Sampled taker flow: Unavailable or stale')
+        st.caption('CVD: UNAVAILABLE — no complete cumulative volume delta feed integrated.')
+        rows = [] if 'stale candles' in risk['missing'] or 'stale retrieval' in risk['missing'] else data.get('candles', [])
         if rows:
             frame = pd.DataFrame({'UTC': [pd.to_datetime(r[0], unit='ms', utc=True) for r in rows], 'Close': [float(r[4]) for r in rows]})
             st.line_chart(frame.set_index('UTC'))
@@ -67,7 +71,10 @@ def dashboard():
         with st.expander('Source diagnostics and timestamps'):
             st.write('Spot: api.binance.com; USDT perpetuals: fapi.binance.com. Regional restrictions may block either source. There is no synthetic fallback.')
             st.json({key: value for key, value in data['errors'].items()})
-            st.json({'spot_close_ms': ticker.get('closeTime'), 'funding_time_ms': funding_data.get('time'), 'oi_time_ms': interest.get('time')})
+            st.json({'source_retrieved_at_utc': data.get('source_retrieved_at', {}),
+                     'spot_close_ms': data.get('ticker', {}).get('closeTime'),
+                     'funding_time_ms': data.get('funding', {}).get('time'),
+                     'oi_time_ms': data.get('interest', {}).get('time')})
     st.caption('No background alerts, notifications, scheduled monitoring or trading execution are implemented. Refresh stops when the session is inactive.')
 
 dashboard()

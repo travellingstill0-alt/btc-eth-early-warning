@@ -33,3 +33,11 @@ Liquidation heatmaps and exchange-labelled inflow/outflow are unavailable, rathe
 ## Validation
 
 Unit tests cover scoring, missing/stale input protection, macro gating, confirmed breakouts and exclusion of incomplete candles. Live API connectivity and UI rendering must be checked in each deployment; public API availability is not guaranteed. Android layout uses Streamlit's responsive components; physical-device testing is still required.
+
+## Live-data verification
+
+Run `python scripts/check_live_apis.py` from the repository root. It makes only public GET requests, validates payloads, prints timestamped per-endpoint results and exits nonzero if required data is missing or stale. It does not trade or deploy.
+
+Responses are validated before use; endpoint failures remain independent. Retrievals run concurrently with 12-second request timeouts and record individual UTC completion timestamps. Stale or excessively future-dated source timestamps block signals, and stale metrics, charts and sampled flow are hidden. No last-good or synthetic fallback is presented as current data. CVD remains explicitly unavailable; sampled taker flow is separately labelled.
+
+The 60-second cache expiry and manual refresh are covered by automated Streamlit tests. The active-browser fragment scheduler still requires verification in the actual hosted environment. See `reports/verification.md` and `reports/live-api-results.json` for this audit's results and limits.

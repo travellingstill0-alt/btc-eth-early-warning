@@ -31,6 +31,14 @@ class AnalysisTests(unittest.TestCase):
     def test_stale(self):
         d = fixture(); d['retrieved_at'] -= timedelta(minutes=4)
         self.assertIn('stale retrieval', assess(d, Rules(), NOW)['missing'])
+    def test_future_source_times_block(self):
+        d = fixture()
+        for key, field in [('ticker', 'closeTime'), ('interest', 'time'), ('funding', 'time')]:
+            d[key][field] += 60000
+        r = assess(d, Rules(), NOW)
+        self.assertTrue(all('stale ' + key in r['missing'] for key in ('ticker', 'interest', 'funding')))
+        self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'NO TRADE')
+
     def test_macro_blocks(self):
         d = fixture(); r = assess(d, Rules(), NOW)
         self.assertEqual(plan(d, r, 'SCALP', False, NOW)['status'], 'NO TRADE')
