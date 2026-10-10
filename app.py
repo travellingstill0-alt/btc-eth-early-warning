@@ -5,11 +5,12 @@ from market import fetch
 from analysis import Rules, assess, plan
 from macro_calendar import fetch_calendar, evaluate as evaluate_calendar, CalendarRules
 from trading_sessions import sessions
+from context import fetch_context, COVERAGE_GAPS, retrieval_issues
 
 st.set_page_config(page_title='BTC & ETH Early Warning', page_icon='⚠️', layout='wide')
 st.title('BTC & ETH Early Warning')
 st.caption('Informational research only • No trades • Public USD spot and perpetual data • Heuristics, not predictions')
-st.warning('Exchange flows remain unavailable. Unavailable, stale or unverified global macro calendars also block ENTER. High-risk event windows independently return NO TRADE.')
+st.warning('NO TRADE research hold active. Daily exchange flows are context only. Unavailable, stale or unverified global macro calendars also block ENTER. High-risk event windows independently return NO TRADE.')
 with st.sidebar:
     st.header('Transparent rules')
     move = st.number_input('24h absolute move threshold (%)', min_value=0.1, value=4.0)
@@ -38,8 +39,54 @@ def snapshot(symbol, maximum_age):
 def calendar_snapshot():
     return fetch_calendar()
 
+@st.cache_data(ttl=60)
+def context_snapshot():
+    return fetch_context()
+
+def render_context(context):
+    now = datetime.now(timezone.utc)
+    st.subheader('Economic calendar — BLS, partial US coverage')
+    calendar = context.get('calendar')
+    if calendar:
+        issues = calendar['issues'] + retrieval_issues(calendar['retrieved_at'], now, 3600)
+        st.caption(f"Retrieved {calendar['retrieved_at'].isoformat()} • event times UTC • 45-day horizon")
+        st.write(calendar['note'])
+        if issues:
+            st.warning('Calendar UNVERIFIED: ' + '; '.join(issues))
+        else:
+            st.info('BLS schedule validated; global macro coverage remains incomplete.')
+        st.dataframe([{'Release': e['title'], 'Scheduled UTC': e['time'].isoformat()} for e in calendar['events']], hide_index=True)
+    else:
+        st.warning('BLS calendar UNAVAILABLE')
+    with st.expander('Macro coverage gaps', expanded=True):
+        for region, gap in COVERAGE_GAPS.items():
+            st.write(f'{region}: {gap}')
+    st.subheader('Daily exchange flows — broader market context')
+    st.caption('Exchange-labelled on-chain flows in native BTC/ETH units. Daily intervals begin at 00:00 UTC. Positive net inflow = inflow minus outflow; no directional trade recommendation. Not real-time scalp confirmation or cross-exchange taker flow.')
+    for asset in ('btc', 'eth'):
+        flow = context.get('flows', {}).get(asset)
+        if not flow:
+            st.warning(f'{asset.upper()} exchange flows UNAVAILABLE')
+            continue
+        issues = flow['issues'] + retrieval_issues(flow['retrieved_at'], now, 3600)
+        st.caption(f"{asset.upper()} retrieved {flow['retrieved_at'].isoformat()} • seven completed daily intervals required • latest observation maximum age 72h")
+        if flow['rows']:
+            st.caption('Latest metric publication timestamps: ' + str(flow['rows'][-1]['updated_at']))
+        if issues:
+            st.warning(f"{asset.upper()} exchange flows UNVERIFIED: " + '; '.join(issues))
+        if flow['provisional']:
+            st.warning(f'{asset.upper()} PROVISIONAL — Coin Metrics flash data may be revised. Cannot unlock ENTER.')
+        st.dataframe([{'Day UTC': r['time'].date().isoformat(), 'Inflow': str(r['inflow']),
+                       'Outflow': str(r['outflow']), 'Net inflow': str(r['net_inflow']),
+                       'Status': 'PROVISIONAL (flash)' if r['provisional'] else ' / '.join(r['statuses'].values())}
+                      for r in flow['rows']], hide_index=True)
+    if context.get('errors'):
+        with st.expander('Context source errors'):
+            st.json(context['errors'])
+
 @st.fragment(run_every='60s')
 def dashboard():
+    render_context(context_snapshot())
     calendar_data = calendar_snapshot()
     macro = evaluate_calendar(calendar_data, rules=CalendarRules(int(pre), int(post), int(calendar_age), int(macro_horizon)))
     st.subheader('Global macro calendar · Colombia time')
@@ -130,7 +177,7 @@ def dashboard():
                 st.markdown(f"**{p.pop('status')}**")
                 for key, value in p.items():
                     st.write(f"{key.replace('_', ' ').capitalize()}: {value:,.2f}" if isinstance(value, float) else f"{key.replace('_', ' ').capitalize()}: {value}")
-        st.info('Liquidation heatmap: UNAVAILABLE — future liquidation levels are not inferred from executed liquidations. Exchange inflow/outflow: UNAVAILABLE — no reliable free exchange-labelled on-chain feed integrated. These are not estimated from price or volume.')
+        st.info('Liquidation heatmap: UNAVAILABLE — future liquidation levels are not inferred from executed liquidations. Daily Coin Metrics exchange flows are shown above as context only; their provisional/daily resolution cannot satisfy the required fresh exchange-flow safety input.')
         with st.expander('Source diagnostics and timestamps'):
             st.json(data.get('exchange_flow_diagnostics', {'status': 'unavailable', 'safety_eligible': False}))
             st.write('Spot: Coinbase → Kraken. Candles and sampled taker flow: Kraken → Coinbase. Perpetual OI/funding: Kraken Futures → Deribit. OI history: Kraken minute analytics or persistent observations for the selected provider, contract and units. No history is fabricated or interpolated. Perpetual CVD: Kraken analytics → complete Deribit tape. Executed liquidations: Kraken analytics → complete Kraken execution history; gaps fail closed.')

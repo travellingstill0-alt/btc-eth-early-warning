@@ -6,6 +6,8 @@ from hashlib import sha256
 from context_data import parse as parse_context
 from macro_calendar import CalendarRules, evaluate as evaluate_calendar
 
+NO_TRADE_HOLD = True
+
 # All three remain mandatory; exchange flows have no verified integration.
 REQUIRED_CONTEXT = ('CVD', 'liquidation data', 'exchange flows')
 
@@ -139,6 +141,8 @@ def plan(data, risk, timeframe, macro_clear=False, now=None):
         output['reason_code'] = 'HIGH_RISK_AND_MISSING_DATA' if high_risk and missing else 'HIGH_RISK' if high_risk else 'MISSING_DATA' if missing else 'MANUAL_REVIEW_REQUIRED'
         output['reason'] = ('High risk: ' + '; '.join(macro['high_risk'] or [risk['level']]) + '. ' if high_risk else '') + ('Missing/stale inputs: ' + ', '.join(risk['missing'] + macro['missing']) + '. ' if missing else '') + ('Manual macro review required.' if not macro_clear else '')
         return output
+    if NO_TRADE_HOLD:
+        return dict(status='NO TRADE', reason='Research hold active: required inputs and global coverage remain unverified.', reason_code='RESEARCH_HOLD')
     step = 300000 if timeframe == 'SCALP' else 3600000
     if ms - int(rows[-1][6]) > step * 2:
         output['reason'] = 'Signal candles are stale.'

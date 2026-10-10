@@ -38,7 +38,7 @@ class CalendarRules:
 
 def local_time(value, zone):
     """Reject ambiguous/nonexistent local times, rather than choosing a DST fold."""
-    tz = ZoneInfo(zone)
+    tz = ZoneInfo('America/New_York' if zone == 'US-Eastern' else zone)
     a, b = value.replace(tzinfo=tz, fold=0), value.replace(tzinfo=tz, fold=1)
     if a.utcoffset() != b.utcoffset() or a.astimezone(UTC).astimezone(tz).replace(tzinfo=None) != value:
         raise ValueError('Ambiguous or nonexistent event time')
@@ -110,10 +110,10 @@ def parse_bls(text, source=BLS):
             start = datetime.strptime(value, '%Y%m%dT%H%M%SZ').replace(tzinfo=UTC)
         else:
             match = re.search(r';TZID="?([^;"\s]+)"?', head)
-            if not match or match[1] not in ('America/New_York', 'US/Eastern'):
+            if not match or match[1] not in ('America/New_York', 'US/Eastern', 'US-Eastern'):
                 raise ValueError('Unverified/floating BLS timezone')
             start = local_time(datetime.strptime(value, '%Y%m%dT%H%M%S'), match[1])
-        if 'DURATION' in row: raise ValueError('Unsupported event duration')
+        if 'DURATION' in row and row['DURATION'][1] != 'PT0M': raise ValueError('Unsupported event duration')
         end = start
         if 'DTEND' in row:
             end_head,end_value=row['DTEND']
@@ -121,7 +121,7 @@ def parse_bls(text, source=BLS):
                 end=datetime.strptime(end_value,'%Y%m%dT%H%M%SZ').replace(tzinfo=UTC)
             else:
                 zone=re.search(r';TZID="?([^;"\s]+)"?',end_head)
-                if not zone or zone[1] not in ('America/New_York','US/Eastern'): raise ValueError('Invalid end timezone')
+                if not zone or zone[1] not in ('America/New_York','US/Eastern','US-Eastern'): raise ValueError('Invalid end timezone')
                 end=local_time(datetime.strptime(end_value,'%Y%m%dT%H%M%S'),zone[1])
         events.append(event(kind,title,start,end,source,status=='CONFIRMED',
                             {'CONFIRMED':'scheduled','CANCELLED':'cancelled','TENTATIVE':'tentative'}[status]))

@@ -85,3 +85,35 @@ This checks real primary/secondary responses under simulated primary outages. It
 Exchange-wallet flows: a read-only Coin Metrics Community availability adapter now checks paired Kraken-labelled daily BTC/ETH inflow/outflow metrics. These remain **unverified diagnostics**, never a safety input: daily timestamps, unknown entitlement, wallet completeness and finality cannot satisfy the current rules. Network/provider errors remain explicit warnings; exchange flows still block ENTER. See [provider investigation, costs and limitations](docs/exchange-flow-provider-validation.md). Run `python scripts/check_exchange_flow_apis.py` for live access checks; it exits nonzero if provider responses cannot be validated.
 
 Global macro calendar and indicative Asia/Europe/USA sessions now display America/Bogota times with international DST handling, configurable pre/post-event windows, and separate missing-data versus high-risk NO TRADE reasons. Official source access is blocked in this environment, several region-specific adapters and numerical results/forecasts remain missing, and no calendar provider is safety-approved. See [coverage, tests, costs and limitations](docs/global-macro-calendar-validation.md). Run `python scripts/check_macro_sources.py` for read-only live access checks.
+
+## Context validation and safety hold
+
+BLS iCalendar is fetched read-only with a 15-second timeout. Event timestamps require UTC or a supported US Eastern timezone; DST is converted to UTC. Incomplete envelopes/events, duplicate IDs, missing titles and unsupported recurrence/timezones fail closed. The next 45 days must include CPI and Employment Situation. A retrieved schedule expires after one hour; future retrieval times are invalid. BLS supplies no publisher update timestamp in this feed, so a fresh fetch cannot prove schedule currency or full release coverage. Scheduled future releases are expected, not observations.
+
+Coin Metrics requests each asset separately with a bounded eight-day lookback. Validation requires seven consecutive completed UTC daily intervals, finite nonnegative inflow/outflow values, matching assets, unique midnight UTC timestamps, recognized metric status, valid publication timestamps after interval completion, and no unconsumed pagination. Retrieval expires after one hour; latest daily observation start must be no older than 72 hours. Missing/stale/malformed data is explicitly unavailable or unverified. Cached feeds refresh every 60 seconds in an active session; retrieval age is also checked during rendering.
+
+`flash` is prominently marked PROVISIONAL and may be revised. Native-unit daily net inflow means inflow minus outflow, not an order recommendation. Daily flows are broader market context, never real-time scalp confirmation. Neither final nor provisional flows, nor a BLS schedule, can release the unconditional NO TRADE hold. Source completeness and timeliness do not establish exchange attribution accuracy or market-wide coverage.
+
+## Persistent integration checks
+
+```bash
+.venv/bin/python -m unittest discover -s tests -v
+RUN_LIVE_INTEGRATION=1 .venv/bin/python -m unittest discover -s tests -v
+```
+
+The default suite uses deterministic source fixtures and verifies malformed data, missing days, stale/future timestamps, DST, pagination, flash labels, source failure isolation, dashboard rendering and the research hold. Opt-in live tests require both actual context feeds to pass validation and render the dashboard with four NO TRADE signals. Isolated legacy heuristic tests temporarily disable the hold inside the test process to preserve regression coverage of the original safety gates. This is not an application control.
+
+## Market-data alternatives checked October 10, 2026
+
+Read-only probes from this environment returned HTTP 200 for Coinbase Exchange BTC-USD and ETH-USD tickers, Kraken BTC/ETH spot tickers, Kraken Futures tickers, and Deribit BTC futures summaries. Binance still returns HTTP 451 for restricted location. No proxy bypass, trading credentials or order endpoints are used.
+
+Coinbase Exchange or Kraken are candidates for spot prices, candles and trades. Kraken Futures or Deribit are candidates for derivatives context. These are reachable candidates, not verified replacements: adapters must validate timestamps, candle completeness, history depth, native/contract/notional OI units, funding period conventions and venue eligibility. A reachable ticker does not verify historical OI or complete funding coverage. Never splice their data into Binance series or silently substitute USD instruments for USDT. Label each venue/instrument explicitly, establish its own baseline and test stale/failure behavior before considering it required-input coverage. PR #2 retains its existing Coinbase/Kraken spot and Kraken Futures/Deribit fallback adapters; endpoint reachability alone does not certify every required input.
+
+## Remaining macro coverage
+
+- US: BLS covers selected labor, inflation and related statistical releases only. Missing Federal Reserve/FOMC decisions, minutes and speeches; BEA GDP/PCE; Census retail sales and other releases.
+- Europe: missing ECB decisions/speeches, Eurostat inflation/GDP/employment and national calendars.
+- UK: missing Bank of England decisions/speeches and ONS inflation/GDP/employment/retail sales.
+- Asia: missing BOJ/Japan statistics, PBOC/China NBS, RBA/Australia ABS and other regional calendars.
+
+These sources require access checks, official-calendar adapters, timezone/DST normalization, coverage and revision checks. No global all-clear is inferred from an empty calendar. Existing global-calendar pre/post-event blackout windows and required-input checks remain active; complete official-source coverage certification remains future work; the unconditional hold stays active while these gaps remain. Nothing was merged, deployed or connected to automated trading.

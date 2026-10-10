@@ -8,6 +8,9 @@ class UITests(unittest.TestCase):
     def setUp(self):
         import streamlit as st
         st.cache_data.clear()
+        context = patch('context.fetch_context', return_value={'calendar': None, 'flows': {}, 'errors': {}})
+        context.start()
+        self.addCleanup(context.stop)
         calendar = patch('macro_calendar.fetch_calendar', return_value={'fetched_at': datetime.now(timezone.utc).isoformat(), 'sources': {}, 'events': []})
         calendar.start()
         self.addCleanup(calendar.stop)
