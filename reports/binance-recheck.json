@@ -1,0 +1,195 @@
+{
+  "checked_at_utc": "2026-10-10T17:05:55.286555+00:00",
+  "symbols": {
+    "BTCUSDT": {
+      "retrieved_at_utc": "2026-10-10T17:05:55.693696+00:00",
+      "connections": {
+        "ticker": {
+          "url": "https://api.binance.com/api/v3/ticker/24hr",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.514023+00:00"
+        },
+        "candles": {
+          "url": "https://api.binance.com/api/v3/klines",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=100",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.512309+00:00"
+        },
+        "scalp_candles": {
+          "url": "https://api.binance.com/api/v3/klines",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=5m&limit=100",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.571166+00:00"
+        },
+        "trades": {
+          "url": "https://api.binance.com/api/v3/aggTrades",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/aggTrades?symbol=BTCUSDT&limit=1000",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.567024+00:00"
+        },
+        "interest": {
+          "url": "https://fapi.binance.com/fapi/v1/openInterest",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.587489+00:00"
+        },
+        "funding": {
+          "url": "https://fapi.binance.com/fapi/v1/premiumIndex",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.691643+00:00"
+        },
+        "interest_history": {
+          "url": "https://fapi.binance.com/futures/data/openInterestHist",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=25",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.631256+00:00"
+        }
+      },
+      "missing_or_stale": [
+        "candles",
+        "funding",
+        "insufficient candles",
+        "insufficient interest history",
+        "insufficient scalp_candles",
+        "insufficient structure candles",
+        "interest",
+        "interest_history",
+        "scalp_candles",
+        "ticker",
+        "trades"
+      ]
+    },
+    "ETHUSDT": {
+      "retrieved_at_utc": "2026-10-10T17:05:55.967852+00:00",
+      "connections": {
+        "ticker": {
+          "url": "https://api.binance.com/api/v3/ticker/24hr",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.872713+00:00"
+        },
+        "candles": {
+          "url": "https://api.binance.com/api/v3/klines",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1h&limit=100",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.835292+00:00"
+        },
+        "scalp_candles": {
+          "url": "https://api.binance.com/api/v3/klines",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=5m&limit=100",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.908922+00:00"
+        },
+        "trades": {
+          "url": "https://api.binance.com/api/v3/aggTrades",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://api.binance.com/api/v3/aggTrades?symbol=ETHUSDT&limit=1000",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.818060+00:00"
+        },
+        "interest": {
+          "url": "https://fapi.binance.com/fapi/v1/openInterest",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://fapi.binance.com/fapi/v1/openInterest?symbol=ETHUSDT",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.870575+00:00"
+        },
+        "funding": {
+          "url": "https://fapi.binance.com/fapi/v1/premiumIndex",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=ETHUSDT",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.964161+00:00"
+        },
+        "interest_history": {
+          "url": "https://fapi.binance.com/futures/data/openInterestHist",
+          "status": "failed",
+          "error": "HTTPError: 451 Client Error: Unknown for url: https://fapi.binance.com/futures/data/openInterestHist?symbol=ETHUSDT&period=1h&limit=25",
+          "failure_details": {
+            "category": "provider_restricted",
+            "http_status": 451,
+            "action": "Provider refused access. Keep this source unavailable; do not bypass restrictions."
+          },
+          "received_at_utc": "2026-10-10T17:05:55.930783+00:00"
+        }
+      },
+      "missing_or_stale": [
+        "candles",
+        "funding",
+        "insufficient candles",
+        "insufficient interest history",
+        "insufficient scalp_candles",
+        "insufficient structure candles",
+        "interest",
+        "interest_history",
+        "scalp_candles",
+        "ticker",
+        "trades"
+      ]
+    }
+  }
+}

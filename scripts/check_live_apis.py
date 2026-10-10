@@ -14,7 +14,7 @@ for symbol in ('BTCUSDT', 'ETHUSDT'):
     report['symbols'][symbol] = {
         'retrieved_at_utc': snapshot['retrieved_at'].isoformat(),
         'connections': {key: {'url': base + path, 'status': 'failed' if key in snapshot['errors'] else 'response validated',
-                              'error': snapshot['errors'].get(key), 'received_at_utc': snapshot['source_retrieved_at'][key]}
+                              'error': snapshot['errors'].get(key), 'failure_details': snapshot['source_failures'].get(key), 'received_at_utc': snapshot['source_retrieved_at'][key]}
                         for key, (base, path, _) in ENDPOINTS.items()},
         'missing_or_stale': risk['missing'],
     }
