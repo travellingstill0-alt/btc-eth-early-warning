@@ -64,8 +64,8 @@ test_flow_completeness_freshness_and_pagination (test_feed_context.ContextTests.
 test_http_failures_render_as_unavailable (test_feed_context.ContextTests.test_http_failures_render_as_unavailable) ... ok
 test_http_integration_and_source_isolation (test_feed_context.ContextTests.test_http_integration_and_source_isolation) ... ok
 test_malformed_flows (test_feed_context.ContextTests.test_malformed_flows) ... ok
-test_populated_context_renders_and_hold_survives_checkbox (test_feed_context.ContextTests.test_populated_context_renders_and_hold_survives_checkbox) ... 2026-10-11 04:37:55.120 WARNING streamlit.runtime.caching.cache_data_api: No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:37:55.121 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_populated_context_renders_and_hold_survives_checkbox (test_feed_context.ContextTests.test_populated_context_renders_and_hold_survives_checkbox) ... 2026-10-11 04:47:59.658 WARNING streamlit.runtime.caching.cache_data_api: No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:47:59.659 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 ok
@@ -146,46 +146,46 @@ test_gap_stop (test_research.ReplayTests.test_gap_stop) ... ok
 test_next_open_and_two_sided_costs (test_research.ReplayTests.test_next_open_and_two_sided_costs) ... ok
 test_short_pnl (test_research.ReplayTests.test_short_pnl) ... ok
 test_stop_first_collision (test_research.ReplayTests.test_stop_first_collision) ... ok
-test_automatic_macro_warnings_sessions_and_manual_review_cannot_override (test_ui.UITests.test_automatic_macro_warnings_sessions_and_manual_review_cannot_override) ... 2026-10-11 04:37:59.142 No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:37:59.143 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_automatic_macro_warnings_sessions_and_manual_review_cannot_override (test_ui.UITests.test_automatic_macro_warnings_sessions_and_manual_review_cannot_override) ... 2026-10-11 04:48:03.548 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:48:03.549 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 ok
-test_fallback_units_timestamps_and_stale_warning (test_ui.UITests.test_fallback_units_timestamps_and_stale_warning) ... 2026-10-11 04:38:00.045 No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:38:00.046 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  seconds: float = pd.Timedelta(t).total_seconds()
-/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  seconds: float = pd.Timedelta(t).total_seconds()
-ok
-test_oi_windows_warmup_and_explicit_required_lookback_selection (test_ui.UITests.test_oi_windows_warmup_and_explicit_required_lookback_selection) ... 2026-10-11 04:38:00.508 No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:38:00.509 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
-  seconds: float = pd.Timedelta(t).total_seconds()
+test_fallback_units_timestamps_and_stale_warning (test_ui.UITests.test_fallback_units_timestamps_and_stale_warning) ... 2026-10-11 04:48:04.293 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:48:04.294 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 ok
-test_populated_dashboard_and_macro_gate (test_ui.UITests.test_populated_dashboard_and_macro_gate) ... 2026-10-11 04:38:01.194 No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:38:01.195 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_oi_windows_warmup_and_explicit_required_lookback_selection (test_ui.UITests.test_oi_windows_warmup_and_explicit_required_lookback_selection) ... 2026-10-11 04:48:04.710 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:48:04.710 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_populated_dashboard_and_macro_gate (test_ui.UITests.test_populated_dashboard_and_macro_gate) ... 2026-10-11 04:48:05.334 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:48:05.335 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 ok
-test_unavailable_sources_render_and_block_signals (test_ui.UITests.test_unavailable_sources_render_and_block_signals) ... 2026-10-11 04:38:01.787 No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:38:01.788 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_unavailable_sources_render_and_block_signals (test_ui.UITests.test_unavailable_sources_render_and_block_signals) ... 2026-10-11 04:48:05.931 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:48:05.931 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 ok
-test_verified_context_renders_but_exchange_flows_keep_no_trade (test_ui.UITests.test_verified_context_renders_but_exchange_flows_keep_no_trade) ... 2026-10-11 04:38:01.916 No runtime found, using MemoryCacheStorageManager
-2026-10-11 04:38:01.916 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_verified_context_renders_but_exchange_flows_keep_no_trade (test_ui.UITests.test_verified_context_renders_but_exchange_flows_keep_no_trade) ... 2026-10-11 04:48:06.062 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:48:06.063 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
 /workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   seconds: float = pd.Timedelta(t).total_seconds()
 ok
 
 ----------------------------------------------------------------------
-Ran 150 tests in 7.807s
+Ran 150 tests in 7.356s
 
 OK (skipped=2)

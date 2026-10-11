@@ -10,7 +10,7 @@ from scripts.collect_experiment_data import validate_candles
 
 def parse(payload,now_ms,max_age=180):
     asset=payload['asset'];expected={'BTC':'PF_XBTUSD','ETH':'PF_ETHUSD'}.get(asset)
-    if payload['provider']!='Kraken Futures' or payload['instrument']!=expected or payload['price_unit']!='USD' or payload['method']!='one-minute trade candles':
+    if expected is None or payload['provider']!='Kraken Futures' or payload['instrument']!=expected or payload['price_unit']!='USD' or payload['method']!='one-minute trade candles':
         raise ValueError('Unverified perpetual price identity')
     start,end=payload['start_ms'],payload['end_ms'];bounds(start,end,now_ms,max_age)
     if not -5000<=now_ms-integer(payload['received_at_ms'])<=max_age*1000:raise ValueError('Stale/future price receipt')

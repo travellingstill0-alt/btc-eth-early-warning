@@ -35,12 +35,13 @@ class PriceContextTests(unittest.TestCase):
         data.pop('perpetual_price');data['ticker']={'priceChangePercent':'-1'}
         self.assertIn('UNAVAILABLE',warnings(data,MS)['CVD divergence'])
     def test_missing_stale_future_malformed_windows_rejected(self):
-        for mutation in ('gap','stale','future','bad_price','bad_unit'):
+        for mutation in ('gap','stale','future','bad_price','bad_unit','unknown_asset'):
             p=price()
             if mutation=='gap':p['raw']['candles'].pop(5)
             elif mutation=='stale':p['received_at_ms']=MS-181000
             elif mutation=='future':p['received_at_ms']=MS+6000
             elif mutation=='bad_price':p['raw']['candles'][0]['close']='nan'
+            elif mutation=='unknown_asset':p.update(asset='DOGE',instrument=None)
             else:p['price_unit']='BTC'
             with self.subTest(mutation=mutation),self.assertRaises(ValueError):parse(p,MS)
     def test_transactional_dedup_invalid_never_saved(self):
