@@ -1,0 +1,426 @@
+[
+  {
+    "name": "Coin Metrics btc provider-labelled exchanges",
+    "requested_url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+    "params": {
+      "assets": "btc",
+      "metrics": "FlowInExNtv,FlowOutExNtv",
+      "frequency": "1d",
+      "start_time": "2026-10-08",
+      "page_size": 100
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.538681+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=FlowInExNtv%2CFlowOutExNtv&frequency=1d&start_time=2026-10-08&page_size=100",
+    "http_status": 200,
+    "content_type": "application/json",
+    "headers": {
+      "date": "Sun, 11 Oct 2026 22:41:05 GMT",
+      "x-ratelimit-plan": "download",
+      "x-ratelimit-limit": "6000, 6000;w=20;comment=\"sliding window\"",
+      "x-ratelimit-remaining": "5998",
+      "x-ratelimit-reset": "20"
+    },
+    "response": {
+      "data": [
+        {
+          "asset": "btc",
+          "time": "2026-10-08T00:00:00.000000000Z",
+          "FlowInExNtv": "28184.93440716",
+          "FlowInExNtv-status": "flash",
+          "FlowInExNtv-status-time": "2026-10-09T01:13:58.939027000Z",
+          "FlowOutExNtv": "27937.59643243",
+          "FlowOutExNtv-status": "flash",
+          "FlowOutExNtv-status-time": "2026-10-09T01:13:11.523543000Z"
+        },
+        {
+          "asset": "btc",
+          "time": "2026-10-09T00:00:00.000000000Z",
+          "FlowInExNtv": "27171.07520562",
+          "FlowInExNtv-status": "flash",
+          "FlowInExNtv-status-time": "2026-10-10T01:43:37.302445000Z",
+          "FlowOutExNtv": "22909.79804952",
+          "FlowOutExNtv-status": "flash",
+          "FlowOutExNtv-status-time": "2026-10-10T01:42:48.831328000Z"
+        },
+        {
+          "asset": "btc",
+          "time": "2026-10-10T00:00:00.000000000Z",
+          "FlowInExNtv": "16827.33541212",
+          "FlowInExNtv-status": "flash",
+          "FlowInExNtv-status-time": "2026-10-11T02:41:24.211186000Z",
+          "FlowOutExNtv": "16100.93017414",
+          "FlowOutExNtv-status": "flash",
+          "FlowOutExNtv-status-time": "2026-10-11T02:41:23.481672000Z"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Coin Metrics btc provider-labelled Kraken",
+    "requested_url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+    "params": {
+      "assets": "btc",
+      "metrics": "FlowInKRKNtv,FlowOutKRKNtv",
+      "frequency": "1d",
+      "start_time": "2026-10-08",
+      "page_size": 100
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.539128+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&start_time=2026-10-08&page_size=100",
+    "http_status": 403,
+    "content_type": "application/json",
+    "headers": {
+      "date": "Sun, 11 Oct 2026 22:41:05 GMT",
+      "x-ratelimit-plan": "download",
+      "x-ratelimit-limit": "6000, 6000;w=20;comment=\"sliding window\"",
+      "x-ratelimit-remaining": "5996",
+      "x-ratelimit-reset": "20"
+    },
+    "response": {
+      "error": {
+        "type": "forbidden",
+        "message": "Requested metric 'FlowInKRKNtv' with frequency '1d' for asset 'btc' is not available with supplied credentials."
+      }
+    }
+  },
+  {
+    "name": "Coin Metrics eth provider-labelled exchanges",
+    "requested_url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+    "params": {
+      "assets": "eth",
+      "metrics": "FlowInExNtv,FlowOutExNtv",
+      "frequency": "1d",
+      "start_time": "2026-10-08",
+      "page_size": 100
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.541458+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=eth&metrics=FlowInExNtv%2CFlowOutExNtv&frequency=1d&start_time=2026-10-08&page_size=100",
+    "http_status": 200,
+    "content_type": "application/json",
+    "headers": {
+      "date": "Sun, 11 Oct 2026 22:41:05 GMT",
+      "x-ratelimit-plan": "download",
+      "x-ratelimit-limit": "6000, 6000;w=20;comment=\"sliding window\"",
+      "x-ratelimit-remaining": "5997",
+      "x-ratelimit-reset": "20"
+    },
+    "response": {
+      "data": [
+        {
+          "asset": "eth",
+          "time": "2026-10-08T00:00:00.000000000Z",
+          "FlowInExNtv": "308940.977718173000018281",
+          "FlowInExNtv-status": "flash",
+          "FlowInExNtv-status-time": "2026-10-09T01:55:22.487745000Z",
+          "FlowOutExNtv": "303307.158015521024506431",
+          "FlowOutExNtv-status": "flash",
+          "FlowOutExNtv-status-time": "2026-10-09T02:25:25.502840000Z"
+        },
+        {
+          "asset": "eth",
+          "time": "2026-10-09T00:00:00.000000000Z",
+          "FlowInExNtv": "239883.356233962535100169",
+          "FlowInExNtv-status": "flash",
+          "FlowInExNtv-status-time": "2026-10-10T01:48:18.147617000Z",
+          "FlowOutExNtv": "168343.717377777571996081",
+          "FlowOutExNtv-status": "flash",
+          "FlowOutExNtv-status-time": "2026-10-10T02:16:18.424668000Z"
+        },
+        {
+          "asset": "eth",
+          "time": "2026-10-10T00:00:00.000000000Z",
+          "FlowInExNtv": "69514.181395931298951317",
+          "FlowInExNtv-status": "flash",
+          "FlowInExNtv-status-time": "2026-10-11T01:51:10.797501000Z",
+          "FlowOutExNtv": "68356.892371899821625458",
+          "FlowOutExNtv-status": "flash",
+          "FlowOutExNtv-status-time": "2026-10-11T02:19:12.732502000Z"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Coin Metrics eth provider-labelled Kraken",
+    "requested_url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+    "params": {
+      "assets": "eth",
+      "metrics": "FlowInKRKNtv,FlowOutKRKNtv",
+      "frequency": "1d",
+      "start_time": "2026-10-08",
+      "page_size": 100
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.543938+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=eth&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&start_time=2026-10-08&page_size=100",
+    "http_status": 403,
+    "content_type": "application/json",
+    "headers": {
+      "date": "Sun, 11 Oct 2026 22:41:05 GMT",
+      "x-ratelimit-plan": "download",
+      "x-ratelimit-limit": "6000, 6000;w=20;comment=\"sliding window\"",
+      "x-ratelimit-remaining": "5999",
+      "x-ratelimit-reset": "20"
+    },
+    "response": {
+      "error": {
+        "type": "forbidden",
+        "message": "Requested metric 'FlowInKRKNtv' with frequency '1d' for asset 'eth' is not available with supplied credentials."
+      }
+    }
+  },
+  {
+    "name": "Coin Metrics metric catalog",
+    "requested_url": "https://community-api.coinmetrics.io/v4/catalog/metrics",
+    "params": {
+      "metrics": "FlowInExNtv,FlowOutExNtv,FlowInKRKNtv,FlowOutKRKNtv"
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.759795+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "url": "https://community-api.coinmetrics.io/v4/catalog/metrics?metrics=FlowInExNtv%2CFlowOutExNtv%2CFlowInKRKNtv%2CFlowOutKRKNtv",
+    "http_status": 200,
+    "content_type": "application/json",
+    "headers": {
+      "date": "Sun, 11 Oct 2026 22:41:05 GMT",
+      "x-ratelimit-plan": "download",
+      "x-ratelimit-limit": "6000, 6000;w=20;comment=\"sliding window\"",
+      "x-ratelimit-remaining": "5999",
+      "x-ratelimit-reset": "20"
+    },
+    "response": {
+      "data": [
+        {
+          "metric": "FlowInExNtv",
+          "full_name": "Flow, in, to exchanges, native units",
+          "description": "The sum number of native units sent to exchanges that interval, excluding exchange to exchange activity. Metric values reflect activity of addresses currently known to belong to the entity, from each address's first non-zero balance.",
+          "category": "Exchange",
+          "subcategory": "Deposits",
+          "unit": "Native units",
+          "data_type": "decimal",
+          "type": "Sum",
+          "frequencies": [
+            {
+              "frequency": "1d",
+              "assets": [
+                "btc",
+                "eth"
+              ]
+            }
+          ],
+          "reviewable": true,
+          "display_name": "Exchange Deposits (native units)"
+        },
+        {
+          "metric": "FlowOutExNtv",
+          "full_name": "Flow, out, from exchanges, native units",
+          "description": "The sum in native units withdrawn from exchanges that interval, excluding exchange to exchange activity. Metric values reflect activity of addresses currently known to belong to the entity, from each address's first non-zero balance.",
+          "category": "Exchange",
+          "subcategory": "Withdrawals",
+          "unit": "Native units",
+          "data_type": "decimal",
+          "type": "Sum",
+          "frequencies": [
+            {
+              "frequency": "1d",
+              "assets": [
+                "btc",
+                "eth"
+              ]
+            }
+          ],
+          "reviewable": true,
+          "display_name": "Exchange Withdrawals (native units)"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Coin Metrics asset coverage",
+    "requested_url": "https://community-api.coinmetrics.io/v4/catalog/asset-metrics",
+    "params": {
+      "assets": "btc,eth",
+      "metrics": "FlowInExNtv,FlowOutExNtv,FlowInKRKNtv,FlowOutKRKNtv"
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.771832+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "url": "https://community-api.coinmetrics.io/v4/catalog/asset-metrics?assets=btc%2Ceth&metrics=FlowInExNtv%2CFlowOutExNtv%2CFlowInKRKNtv%2CFlowOutKRKNtv",
+    "http_status": 400,
+    "content_type": "application/json",
+    "headers": {
+      "date": "Sun, 11 Oct 2026 22:41:05 GMT"
+    },
+    "response": {
+      "error": {
+        "type": "unsupported_parameter",
+        "message": "Unsupported parameter 'assets'."
+      }
+    }
+  },
+  {
+    "name": "Coin Metrics API documentation",
+    "requested_url": "https://docs.coinmetrics.io/api/v4/",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.832380+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='docs.coinmetrics.io', port=443): Max retries exceeded with url: /api/v4/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "DefiLlama CEX dashboard",
+    "requested_url": "https://defillama.com/cexs",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.838222+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='defillama.com', port=443): Max retries exceeded with url: /cexs (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "DefiLlama public CEX protocol candidate",
+    "requested_url": "https://api.llama.fi/protocol/binance-cex",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.846124+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='api.llama.fi', port=443): Max retries exceeded with url: /protocol/binance-cex (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "DefiLlama API documentation",
+    "requested_url": "https://api-docs.defillama.com/",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.850350+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='api-docs.defillama.com', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "Glassnode BTC exchange transfer metric",
+    "requested_url": "https://api.glassnode.com/v1/metrics/transactions/transfers_volume_to_exchanges_sum",
+    "params": {
+      "a": "BTC",
+      "i": "24h"
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.856414+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='api.glassnode.com', port=443): Max retries exceeded with url: /v1/metrics/transactions/transfers_volume_to_exchanges_sum?a=BTC&i=24h (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "CryptoQuant BTC exchange inflow candidate",
+    "requested_url": "https://api.cryptoquant.com/v1/btc/exchange-flows/inflow",
+    "params": {
+      "exchange": "all_exchange",
+      "window": "day",
+      "limit": 2
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.859136+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='api.cryptoquant.com', port=443): Max retries exceeded with url: /v1/btc/exchange-flows/inflow?exchange=all_exchange&window=day&limit=2 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "Glassnode documentation",
+    "requested_url": "https://docs.glassnode.com/",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.863736+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='docs.glassnode.com', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "CryptoQuant documentation",
+    "requested_url": "https://userguide.cryptoquant.com/",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.866618+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='userguide.cryptoquant.com', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "Mempool public BTC block metadata",
+    "requested_url": "https://mempool.space/api/blocks",
+    "params": {},
+    "checked_at_utc": "2026-10-11T22:41:05.869251+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='mempool.space', port=443): Max retries exceeded with url: /api/blocks (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "Etherscan ETH supply candidate",
+    "requested_url": "https://api.etherscan.io/v2/api",
+    "params": {
+      "chainid": 1,
+      "module": "stats",
+      "action": "ethsupply"
+    },
+    "checked_at_utc": "2026-10-11T22:41:05.872343+00:00",
+    "safety_eligible": false,
+    "coverage_verified": false,
+    "error": "HTTPSConnectionPool(host='api.etherscan.io', port=443): Max retries exceeded with url: /v2/api?chainid=1&module=stats&action=ethsupply (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+  },
+  {
+    "name": "Coin Metrics asset coverage corrected parameter-free request",
+    "requested_url": "https://community-api.coinmetrics.io/v4/catalog/asset-metrics",
+    "params": {},
+    "http_status": 200,
+    "checked_at_utc": "2026-10-11T22:42:02.508503+00:00",
+    "response_filtered_to_flow_metrics": true,
+    "response": {
+      "data": [
+        {
+          "metric": "FlowInExNtv",
+          "full_name": "Flow, in, to exchanges, native units",
+          "description": "The sum number of native units sent to exchanges that interval, excluding exchange to exchange activity. Metric values reflect activity of addresses currently known to belong to the entity, from each address's first non-zero balance.",
+          "product": "Network Data",
+          "category": "Exchange",
+          "subcategory": "Deposits",
+          "unit": "Native units",
+          "data_type": "decimal",
+          "type": "Sum",
+          "frequencies": [
+            {
+              "frequency": "1d",
+              "assets": [
+                "btc",
+                "eth"
+              ]
+            }
+          ],
+          "reviewable": true,
+          "display_name": "Exchange Deposits (native units)"
+        },
+        {
+          "metric": "FlowOutExNtv",
+          "full_name": "Flow, out, from exchanges, native units",
+          "description": "The sum in native units withdrawn from exchanges that interval, excluding exchange to exchange activity. Metric values reflect activity of addresses currently known to belong to the entity, from each address's first non-zero balance.",
+          "product": "Network Data",
+          "category": "Exchange",
+          "subcategory": "Withdrawals",
+          "unit": "Native units",
+          "data_type": "decimal",
+          "type": "Sum",
+          "frequencies": [
+            {
+              "frequency": "1d",
+              "assets": [
+                "btc",
+                "eth"
+              ]
+            }
+          ],
+          "reviewable": true,
+          "display_name": "Exchange Withdrawals (native units)"
+        }
+      ]
+    },
+    "safety_eligible": false,
+    "coverage_verified": false
+  }
+]
