@@ -1,0 +1,361 @@
+{
+  "provider": "Kraken Futures",
+  "instrument": "PF_ETHUSD",
+  "kind": "open-interest",
+  "start": 1789185600,
+  "end": 1791676800,
+  "records": 41520,
+  "complete": true,
+  "missing_timestamps": [],
+  "original_asof_availability_verified": false,
+  "attempts": [
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789185600,
+        "to": 1789272000
+      },
+      "received_at": "2026-10-11T04:28:03.616422+00:00",
+      "http_status": 200,
+      "file": "raw-000.json",
+      "sha256": "d250dedd600cef589b66a6e2300fce87f771bbbc679cff97d0086502339a77e3"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789272000,
+        "to": 1789358400
+      },
+      "received_at": "2026-10-11T04:28:03.947684+00:00",
+      "http_status": 200,
+      "file": "raw-001.json",
+      "sha256": "486c1070c9d43e8ebfda86ef7f249f89da404d514dea3fd367e5f7b64b90e473"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789358400,
+        "to": 1789444800
+      },
+      "received_at": "2026-10-11T04:28:04.227512+00:00",
+      "http_status": 200,
+      "file": "raw-002.json",
+      "sha256": "6425562b9ba42b6fb9639484b3e5b2077b9152443c6837701837acb95e1ba059"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789444800,
+        "to": 1789531200
+      },
+      "received_at": "2026-10-11T04:28:04.514738+00:00",
+      "http_status": 200,
+      "file": "raw-003.json",
+      "sha256": "01af0a8a534e09981f2c6b254d5c1482ada3c6510ae8a111faa99931bd1b56c6"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789531200,
+        "to": 1789617600
+      },
+      "received_at": "2026-10-11T04:28:04.788889+00:00",
+      "http_status": 200,
+      "file": "raw-004.json",
+      "sha256": "963f996f6173945013dc443f03e3c0e4a5b90e4a296719fd91f8d8f9f1324c79"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789617600,
+        "to": 1789704000
+      },
+      "received_at": "2026-10-11T04:28:05.097675+00:00",
+      "http_status": 200,
+      "file": "raw-005.json",
+      "sha256": "fbd7ae421fb4269057069867789a2af14140fa2c5d6a0ee6fd1cd938e3ebc543"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789704000,
+        "to": 1789790400
+      },
+      "received_at": "2026-10-11T04:28:05.393906+00:00",
+      "http_status": 200,
+      "file": "raw-006.json",
+      "sha256": "0067d36bd42522f67dbc53c10216baecdba162b19f9e8a052d1d305ecce64100"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789790400,
+        "to": 1789876800
+      },
+      "received_at": "2026-10-11T04:28:05.664895+00:00",
+      "http_status": 200,
+      "file": "raw-007.json",
+      "sha256": "a2c95279113a6fb9065b75dc623f6801e6a0b268c53486a8ea1eeba646e33a95"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789876800,
+        "to": 1789963200
+      },
+      "received_at": "2026-10-11T04:28:05.959707+00:00",
+      "http_status": 200,
+      "file": "raw-008.json",
+      "sha256": "6bda963702e06eb4ccdfa82c8c75b5b6e2ec69c9e13b611bb564dcdafbe6a036"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1789963200,
+        "to": 1790049600
+      },
+      "received_at": "2026-10-11T04:28:06.238693+00:00",
+      "http_status": 200,
+      "file": "raw-009.json",
+      "sha256": "7a2ed0922a9a9e6791065be4adee7bb49f341e5ef8bbf4cc5ce2b446fd152122"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790049600,
+        "to": 1790136000
+      },
+      "received_at": "2026-10-11T04:28:06.513843+00:00",
+      "http_status": 200,
+      "file": "raw-010.json",
+      "sha256": "6141ba6ea4b60e9e2a01a9c21babbf62001ba03f7d6e10bf07ce70fd28b86b28"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790136000,
+        "to": 1790222400
+      },
+      "received_at": "2026-10-11T04:28:06.919218+00:00",
+      "http_status": 200,
+      "file": "raw-011.json",
+      "sha256": "73bada38aafff06d4bea791233a6e8f85977d972d4af482f1d20c9708093c598"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790222400,
+        "to": 1790308800
+      },
+      "received_at": "2026-10-11T04:28:07.211259+00:00",
+      "http_status": 200,
+      "file": "raw-012.json",
+      "sha256": "6f89761d3b18b956b0ca9b7541635b3d87806d63fa92f1ec5009c0915e2810ec"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790308800,
+        "to": 1790395200
+      },
+      "received_at": "2026-10-11T04:28:07.497540+00:00",
+      "http_status": 200,
+      "file": "raw-013.json",
+      "sha256": "1559cb49aca284ab31d5352c7603b14776f035192b7ad31cdf466d2645d72f38"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790395200,
+        "to": 1790481600
+      },
+      "received_at": "2026-10-11T04:28:07.800347+00:00",
+      "http_status": 200,
+      "file": "raw-014.json",
+      "sha256": "dcfdb5d86b0bb89e120e889688d0423a2915370943dcad4946b1daedab08ff6b"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790481600,
+        "to": 1790568000
+      },
+      "received_at": "2026-10-11T04:28:08.069361+00:00",
+      "http_status": 200,
+      "file": "raw-015.json",
+      "sha256": "3e3faf9952fa3857911ee217733cbb530f7369603ea70868d14650a44bdf39b3"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790568000,
+        "to": 1790654400
+      },
+      "received_at": "2026-10-11T04:28:08.652955+00:00",
+      "http_status": 200,
+      "file": "raw-016.json",
+      "sha256": "d739074fa326b3815fb6f7c8861d1512f533d3d237b3cb8b73b2c277173f16ff"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790654400,
+        "to": 1790740800
+      },
+      "received_at": "2026-10-11T04:28:08.924076+00:00",
+      "http_status": 200,
+      "file": "raw-017.json",
+      "sha256": "1410ff6757edefdcd517ffedffe3a6d6e698559e235bc8d78ef44442496a4d12"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790740800,
+        "to": 1790827200
+      },
+      "received_at": "2026-10-11T04:28:09.218747+00:00",
+      "http_status": 200,
+      "file": "raw-018.json",
+      "sha256": "ab9a91a26d939b14c5f780ba089ecf65021eba6fc98d41f835e2fc281bc6d458"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790827200,
+        "to": 1790913600
+      },
+      "received_at": "2026-10-11T04:28:09.468139+00:00",
+      "http_status": 200,
+      "file": "raw-019.json",
+      "sha256": "09bc0ad6e12113dc30eeb55a0679801ae86d6e19b72420f6f4a4208180999c6c"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1790913600,
+        "to": 1791000000
+      },
+      "received_at": "2026-10-11T04:28:09.740299+00:00",
+      "http_status": 200,
+      "file": "raw-020.json",
+      "sha256": "e3f4f057782075291d9882aaeb77600c5ca74addf6862566c24b91c0e80247ae"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791000000,
+        "to": 1791086400
+      },
+      "received_at": "2026-10-11T04:28:10.019346+00:00",
+      "http_status": 200,
+      "file": "raw-021.json",
+      "sha256": "2758f7244a23fd70d3ec13c0b9f163d36ac400f7a3c9e0294272e0dece4fb253"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791086400,
+        "to": 1791172800
+      },
+      "received_at": "2026-10-11T04:28:10.311208+00:00",
+      "http_status": 200,
+      "file": "raw-022.json",
+      "sha256": "a0eb95fd50e703aaf0f837f9768b48d21e7ed8cb0438de0a9f466092d8a9dfbb"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791172800,
+        "to": 1791259200
+      },
+      "received_at": "2026-10-11T04:28:10.646061+00:00",
+      "http_status": 200,
+      "file": "raw-023.json",
+      "sha256": "b9222f63ef28e6798af4c4fa24bd4d1af93dc111bec94585db60c648cae7e6fd"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791259200,
+        "to": 1791345600
+      },
+      "received_at": "2026-10-11T04:28:10.907056+00:00",
+      "http_status": 200,
+      "file": "raw-024.json",
+      "sha256": "fed992575abde67a59b0692f8a0f77df7cef4c605366b2cc40642369af6aecbb"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791345600,
+        "to": 1791432000
+      },
+      "received_at": "2026-10-11T04:28:11.195549+00:00",
+      "http_status": 200,
+      "file": "raw-025.json",
+      "sha256": "760417e5d49d52092e11c6ff8bbc340ca40428327fc1b21e2868487b0c363c3a"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791432000,
+        "to": 1791518400
+      },
+      "received_at": "2026-10-11T04:28:11.485856+00:00",
+      "http_status": 200,
+      "file": "raw-026.json",
+      "sha256": "8bb6de1676722330fc0aa9993735fdb3e0ab4ee5d6cfc31caa9b66d0f1f6cd0e"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791518400,
+        "to": 1791604800
+      },
+      "received_at": "2026-10-11T04:28:11.775080+00:00",
+      "http_status": 200,
+      "file": "raw-027.json",
+      "sha256": "a7dc4aceb1766c6361adef6a78e31b40a5e0ceb9589cc95cc9faf2c6776db01a"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/open-interest",
+      "params": {
+        "interval": 60,
+        "since": 1791604800,
+        "to": 1791676800
+      },
+      "received_at": "2026-10-11T04:28:12.082883+00:00",
+      "http_status": 200,
+      "file": "raw-028.json",
+      "sha256": "2b0adb57b8e982ecd42350769543c2bcf6a4ec9678cb07c352d98f8710174ec4"
+    }
+  ]
+}

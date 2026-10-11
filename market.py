@@ -277,6 +277,20 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
             note='Single-contract executed observations only; no whole-market coverage or future liquidation levels.')
     data['exchange_flow_diagnostics'] = collect_exchange_flows(
         context_request, asset, lambda: int(clock().timestamp()*1000), max_age)
+    if data.get('cvd'):
+        from price_context import collect as collect_price, preserve as preserve_price
+        try:
+            payload = collect_price(context_request, data['cvd'], lambda: int(clock().timestamp()*1000), max_age)
+            data['perpetual_price'] = payload
+            data['sources']['perpetual_price'] = metadata(payload['provider'], payload['instrument'], payload['end_ms'], 'completed observation window end', price_unit='USD')
+            try:
+                preserve_price(payload, int(clock().timestamp()*1000), max_age)
+            except (ValueError, OSError, sqlite3.Error) as exc:
+                data['errors']['storage:perpetual_price'] = str(exc)
+                data['warnings'].append('Aligned price persistence failed; observation was not saved.')
+        except (ValueError, KeyError, TypeError) as exc:
+            data['errors']['context:perpetual_price'] = str(exc)
+            data['warnings'].append('CVD divergence unavailable: no verified aligned same-contract price window.')
     flow = data['exchange_flow_diagnostics']
     data['errors']['context:exchange flows'] = flow.get('error', flow['reason'])
     data['warnings'].append('Exchange wallet flows: ' + flow['reason'])

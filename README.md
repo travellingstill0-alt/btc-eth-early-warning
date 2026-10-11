@@ -170,3 +170,26 @@ missing context stays visible. Tests must isolate both snapshot archives:
 ```bash
 FUNDING_HISTORY_DB_PATH=/tmp/btc-funding-test-fixtures.sqlite3 CONTEXT_HISTORY_DB_PATH=/tmp/btc-context-test-fixtures.sqlite3 .venv/bin/python -m unittest discover -s tests -v
 ```
+
+## Entry and exit research v1
+
+Start with [research index v3](research_artifacts/INDEX-v3.md) and
+[confirmation/exit report](research_artifacts/confirmation-v1/REPORT.md).
+The frozen baseline remains unchanged. Price retests, 0.5R targets and halved
+holding deadlines have versioned comparisons, full ledgers, equal-entry exit
+counterfactuals, excursion/peak-time diagnostics and causal regime metrics.
+Historical Kraken CVD/OI values are complete, but original as-of availability is
+unknown: the full CVD/OI/funding entry variant is explicitly NOT EVALUATED.
+The reused 28 days are retrospective research, never a pristine holdout.
+
+The dashboard independently validates aligned single-contract perpetual price
+and CVD windows. A sign divergence is an observation, not a reversal forecast.
+Verified price windows persist in `data/perpetual_price_windows.sqlite3`
+(`PRICE_CONTEXT_DB_PATH` override). Missing/mismatched/stale coverage stays
+unavailable. LOW/MODERATE/HIGH/EXTREME scoring and NO TRADE hold remain unchanged.
+
+Isolate all new test snapshot stores:
+
+```bash
+PRICE_CONTEXT_DB_PATH=/tmp/btc-price-test-fixtures.sqlite3 FUNDING_HISTORY_DB_PATH=/tmp/btc-funding-test-fixtures.sqlite3 CONTEXT_HISTORY_DB_PATH=/tmp/btc-context-test-fixtures.sqlite3 .venv/bin/python -m unittest discover -s tests -v
+```

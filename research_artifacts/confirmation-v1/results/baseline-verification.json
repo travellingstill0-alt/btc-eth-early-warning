@@ -1,0 +1,11 @@
+{
+  "baseline_trades_identically_reproduced": 3321,
+  "main_and_walk_forward_ledgers_not_additive": true,
+  "retest_candidates": {
+    "('BTC', 'SCALP')": 114,
+    "('BTC', 'DAY TRADE')": 8,
+    "('ETH', 'SCALP')": 80,
+    "('ETH', 'DAY TRADE')": 8
+  },
+  "full_context_qualified": 0
+}

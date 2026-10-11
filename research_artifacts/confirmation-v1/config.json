@@ -1,0 +1,71 @@
+{
+  "version": "confirmation-and-exit-research-v1",
+  "baseline_artifact": "research_artifacts/experiment-v1",
+  "baseline_config_sha256": "1b183c9bc9a79e64c722536bb868e167608a2abcb1cd8abc7267829b97f6c01e",
+  "reproduces_original_missing_backtest": false,
+  "selection_policy": "Fixed small hypothesis set. No parameter grid, ranking, auto-selection or tuning on performance.",
+  "variants": [
+    {
+      "id": "baseline_unchanged",
+      "entry": "breakout",
+      "target_r": 1.0,
+      "timeout_multiplier": 1.0
+    },
+    {
+      "id": "price_retest_v1",
+      "entry": "confirmed_retest",
+      "target_r": 1.0,
+      "timeout_multiplier": 1.0
+    },
+    {
+      "id": "verified_context_retest_v1",
+      "entry": "confirmed_retest_with_verified_context",
+      "target_r": 1.0,
+      "timeout_multiplier": 1.0
+    },
+    {
+      "id": "half_r_target_v1",
+      "entry": "breakout",
+      "target_r": 0.5,
+      "timeout_multiplier": 1.0
+    },
+    {
+      "id": "half_timeout_v1",
+      "entry": "breakout",
+      "target_r": 1.0,
+      "timeout_multiplier": 0.5
+    }
+  ],
+  "retest": {
+    "maximum_wait_signal_bars": 3,
+    "LONG": "Original bullish volume breakout; subsequent candle touches broken resistance from above, closes above it and above its open; its low is above the minimum low of three completed pre-breakout bars; no intervening candle closes below broken resistance.",
+    "SHORT": "Original bearish volume breakout; subsequent candle touches broken support from below, closes below it and below its open; its high is below the maximum high of three completed pre-breakout bars; no intervening candle closes above broken support.",
+    "stop": "Original breakout opposite range edge, fixed; no tighter fitted stop.",
+    "entry": "Next minute after completed retest confirmation; 1R distance from retest close to original fixed stop."
+  },
+  "context": {
+    "provider": "Kraken Futures",
+    "unit": "Native BTC/ETH contract units; no spot or cross-provider proxies",
+    "window_signal_bars": 3,
+    "minimum_completed_bar_lag_seconds": 60,
+    "LONG": "Aligned price window nonpositive while verified taker buy-minus-sell delta is positive; OI increases over same window; absolute known native funding does not exceed 0.03% per 8h equivalent threshold.",
+    "SHORT": "Aligned price window nonnegative while verified taker buy-minus-sell delta is negative; OI increases over same window; same absolute funding crowding cap.",
+    "funding_threshold_pct_per_8h": 0.03,
+    "divergence_definition": "Directional price-flow sign disagreement over aligned completed windows; no claim that this predicts reversal or is a confirmed swing divergence.",
+    "availability": "Require independently recorded availability timestamps at or before signal, in addition to verified complete raw values. Later historical retrieval is not original as-of availability proof. Missing publication/availability blocks full-context strategy; no assumed timestamp can release it."
+  },
+  "regimes": {
+    "lookback_completed_signal_bars": 20,
+    "trend_efficiency_threshold": 0.3,
+    "trend": "Absolute first-to-last close movement divided by sum absolute successive close changes; trending if >=0.3, direction from signed movement; otherwise RANGE.",
+    "high_volatility_atr_fraction": {
+      "SCALP": 0.0025,
+      "DAY TRADE": 0.01
+    },
+    "volatility": "Mean true range / latest close, above fixed horizon threshold is HIGH_VOL, otherwise NORMAL_VOL; no data-fitted quantiles.",
+    "available_at": "Signal close; use only completed candles."
+  },
+  "splits_and_costs": "Exactly baseline v1 chronological/walk-forward partitions, sizing, official current base-tier fee and slippage scenarios, native rounding and funding accrual assumptions; horizon-specific maximum holding purge per variant.",
+  "known_oos_limitation": "All 28 days have already been inspected. These are retrospective chronological comparisons, not a pristine untouched holdout. Repeated evaluation is research only; prospective validation required.",
+  "diagnostics": "Time to MFE reported as minute interval and ambiguity flag; exit OHLC extrema remain bounded, never exact fabricated paths. Post-entry returns censored at actual exit."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-development-1",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-development-74",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-validation-35",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-validation-37",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-validation-31",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-chronological_test-1",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-chronological_test-2",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-chronological_test-3",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-chronological_test-36",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-chronological_test-32",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-chronological_test-34",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-chronological_test-35",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-walk_forward_1-35",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-walk_forward_2-35",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-walk_forward_2-37",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-walk_forward_2-31",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-walk_forward_3-1",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-walk_forward_3-2",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-walk_forward_3-3",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-LONG-SCALP-adverse_slippage-walk_forward_3-36",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-walk_forward_3-32",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-walk_forward_3-34",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "BTC-SHORT-SCALP-adverse_slippage-walk_forward_3-35",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  },
+  {
+    "baseline_trade_id": "ETH-SHORT-SCALP-adverse_slippage-development-1",
+    "strategy": "half_r_target_v1",
+    "reason": "ENTRY_GAP_INVALIDATES_LEVELS"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "source_sha256": "05128b28f8690949f08c586ad44241ea36883396893e350ade63114c2cebeedd",
+  "inputs_sha256": {
+    "config.json": "f68246cbaaaa26007cffcde4c0f8c6ef2e9dd603a5a676bd39f0af538a54e5ac",
+    "results/ledger.json": "930ca500f6b69aed5e931303d3080cc51f19a72cbd22c76ebfc34987dfc39da3",
+    "results/trade-diagnostics.json": "65f7de926ed091c46dbc6e4ff3907ba7a5a5f5715376691758a480c1cb1c25c8",
+    "results/paired-exit-ledger.json": "daa7ac8b1d16d3948adfc05468699401fba91af7ca170ea793e337056eff5c47"
+  },
+  "note": "Peak-time medians use midpoint of verified minute intervals only, not exact extrema timestamps. Cost hurdle is realized cost accounting, not an entry filter."
+}

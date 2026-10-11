@@ -1,0 +1,74 @@
+[
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_ETHUSD",
+    "unit": "ETH",
+    "timestamp": 1791687346813,
+    "value": 28790.788,
+    "received_at_ms": 1791687347278,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_XBTUSD",
+    "unit": "BTC",
+    "timestamp": 1791687346904,
+    "value": 2288.3816,
+    "received_at_ms": 1791687347294,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_ETHUSD",
+    "unit": "ETH",
+    "timestamp": 1791691298545,
+    "value": 28870.778,
+    "received_at_ms": 1791691298948,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_XBTUSD",
+    "unit": "BTC",
+    "timestamp": 1791691298644,
+    "value": 2263.5307,
+    "received_at_ms": 1791691299320,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_XBTUSD",
+    "unit": "BTC",
+    "timestamp": 1791691967783,
+    "value": 2263.1779,
+    "received_at_ms": 1791691968112,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_ETHUSD",
+    "unit": "ETH",
+    "timestamp": 1791691967798,
+    "value": 28854.788,
+    "received_at_ms": 1791691968132,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_XBTUSD",
+    "unit": "BTC",
+    "timestamp": 1791693317405,
+    "value": 2258.7653,
+    "received_at_ms": 1791693317734,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_ETHUSD",
+    "unit": "ETH",
+    "timestamp": 1791693317450,
+    "value": 28825.986,
+    "received_at_ms": 1791693317773,
+    "timestamp_kind": "server snapshot"
+  }
+]

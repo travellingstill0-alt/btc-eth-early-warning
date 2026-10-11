@@ -1,0 +1,274 @@
+{
+  "context_windows": {
+    "rows": 16,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "cvd"
+        ],
+        "observations": 4,
+        "observed_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ],
+          [
+            1791692400000,
+            1791693299999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ],
+          [
+            1791691920000,
+            1791692400000
+          ]
+        ],
+        "definition": "Unobserved [previous inclusive end+1,next start); overlapping windows are not additive"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "liquidations"
+        ],
+        "observations": 4,
+        "observed_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ],
+          [
+            1791692400000,
+            1791693299999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ],
+          [
+            1791691920000,
+            1791692400000
+          ]
+        ],
+        "definition": "Unobserved [previous inclusive end+1,next start); overlapping windows are not additive"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "cvd"
+        ],
+        "observations": 4,
+        "observed_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ],
+          [
+            1791692400000,
+            1791693299999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ],
+          [
+            1791691920000,
+            1791692400000
+          ]
+        ],
+        "definition": "Unobserved [previous inclusive end+1,next start); overlapping windows are not additive"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "liquidations"
+        ],
+        "observations": 4,
+        "observed_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ],
+          [
+            1791692400000,
+            1791693299999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ],
+          [
+            1791691920000,
+            1791692400000
+          ]
+        ],
+        "definition": "Unobserved [previous inclusive end+1,next start); overlapping windows are not additive"
+      }
+    ]
+  },
+  "oi_snapshots": {
+    "rows": 8,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "ETH"
+        ],
+        "observations": 4,
+        "first_ms": 1791687346813,
+        "last_ms": 1791693317450,
+        "gaps_over_180s_ms": [
+          [
+            1791687346813,
+            1791691298545
+          ],
+          [
+            1791691298545,
+            1791691967798
+          ],
+          [
+            1791691967798,
+            1791693317450
+          ]
+        ],
+        "definition": "No locally captured source snapshots between endpoints; retrospective remote history is separate"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "BTC"
+        ],
+        "observations": 4,
+        "first_ms": 1791687346904,
+        "last_ms": 1791693317405,
+        "gaps_over_180s_ms": [
+          [
+            1791687346904,
+            1791691298644
+          ],
+          [
+            1791691298644,
+            1791691967783
+          ],
+          [
+            1791691967783,
+            1791693317405
+          ]
+        ],
+        "definition": "No locally captured source snapshots between endpoints; retrospective remote history is separate"
+      }
+    ]
+  },
+  "funding_snapshots": {
+    "rows": 4,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          1
+        ],
+        "observations": 2,
+        "first_ms": 1791691967798,
+        "last_ms": 1791693317450,
+        "gaps_over_180s_ms": [
+          [
+            1791691967798,
+            1791693317450
+          ]
+        ],
+        "definition": "No locally captured source snapshots between endpoints; retrospective remote history is separate"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          1
+        ],
+        "observations": 2,
+        "first_ms": 1791691967783,
+        "last_ms": 1791693317405,
+        "gaps_over_180s_ms": [
+          [
+            1791691967783,
+            1791693317405
+          ]
+        ],
+        "definition": "No locally captured source snapshots between endpoints; retrospective remote history is separate"
+      }
+    ]
+  },
+  "perpetual_price_windows": {
+    "rows": 2,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "USD price"
+        ],
+        "observations": 1,
+        "observed_ranges_ms": [
+          [
+            1791692400000,
+            1791693299999
+          ]
+        ],
+        "missing_intervals_ms": [],
+        "definition": "Unobserved [previous inclusive end+1,next start); overlapping windows are not additive"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "USD price"
+        ],
+        "observations": 1,
+        "observed_ranges_ms": [
+          [
+            1791692400000,
+            1791693299999
+          ]
+        ],
+        "missing_intervals_ms": [],
+        "definition": "Unobserved [previous inclusive end+1,next start); overlapping windows are not additive"
+      }
+    ]
+  }
+}

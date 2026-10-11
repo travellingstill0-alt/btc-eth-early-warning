@@ -1,0 +1,14 @@
+{
+  "simulation_rows": 11660,
+  "paired_exit_rows": 6618,
+  "checks": [
+    "P&L reconciliation",
+    "Unique ledger IDs",
+    "Nonoverlapping independent positions",
+    "Regime data causal at entry",
+    "Excursion bounds ordered",
+    "Regime counts and P&L reconcile to group totals",
+    "Frozen code hashes match"
+  ],
+  "passed": true
+}

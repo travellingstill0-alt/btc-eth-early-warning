@@ -26,6 +26,9 @@ class Response:
 def response(url, params, timeout):
     if url.endswith(('/cvd', '/liquidation-volume', '/history', '/asset-metrics')):
         return Response({}, 503)
+    if '/api/charts/v1/trade/' in url and url.endswith('/1m'):
+        return Response({'candles': [dict(time=t*1000, open='100', high='101', low='99', close='100', volume='10')
+                                     for t in range(params['from'], params['to']+1, 60)]})
     if url.endswith('/ticker') and 'coinbase' in url:
         return Response(dict(price='100', volume='10', time=NOW.isoformat()))
     if url.endswith('/stats'):

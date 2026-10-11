@@ -1,0 +1,361 @@
+{
+  "provider": "Kraken Futures",
+  "instrument": "PF_XBTUSD",
+  "kind": "cvd",
+  "start": 1789185600,
+  "end": 1791676800,
+  "records": 41520,
+  "complete": true,
+  "missing_timestamps": [],
+  "original_asof_availability_verified": false,
+  "attempts": [
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789185600,
+        "to": 1789272000
+      },
+      "received_at": "2026-10-11T04:27:53.480239+00:00",
+      "http_status": 200,
+      "file": "raw-000.json",
+      "sha256": "a46ff0cc0a91369f88bc4edf8db7bf53a63ed072810f2c1655742c1daecbc76c"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789272000,
+        "to": 1789358400
+      },
+      "received_at": "2026-10-11T04:27:53.849655+00:00",
+      "http_status": 200,
+      "file": "raw-001.json",
+      "sha256": "5efa599837d7f00e5ac8b22eda154ae42408461a3d3dc32d9bdc431c397e9310"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789358400,
+        "to": 1789444800
+      },
+      "received_at": "2026-10-11T04:27:54.165510+00:00",
+      "http_status": 200,
+      "file": "raw-002.json",
+      "sha256": "cab60d9a653641bfeb4060f77e0061a629dbca98153fe7be1a0ef24fdd3ced63"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789444800,
+        "to": 1789531200
+      },
+      "received_at": "2026-10-11T04:27:54.486762+00:00",
+      "http_status": 200,
+      "file": "raw-003.json",
+      "sha256": "62db9485c69f2097fdcbb3282940ca43b755a6302ab4b9e514926d61d053e95f"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789531200,
+        "to": 1789617600
+      },
+      "received_at": "2026-10-11T04:27:54.875756+00:00",
+      "http_status": 200,
+      "file": "raw-004.json",
+      "sha256": "960f564bbe22fa06de98f06f369aaa5972516bd9c9bb553a4823ebbc49892cd3"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789617600,
+        "to": 1789704000
+      },
+      "received_at": "2026-10-11T04:27:55.282653+00:00",
+      "http_status": 200,
+      "file": "raw-005.json",
+      "sha256": "0b52d0a5da92b9356b4ec6e377eccafc2b1c779646ce5b8373b377606e490eae"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789704000,
+        "to": 1789790400
+      },
+      "received_at": "2026-10-11T04:27:55.564281+00:00",
+      "http_status": 200,
+      "file": "raw-006.json",
+      "sha256": "079b7f1d7df654d8b73b7d3042a513abb0b93414c121fd2e0104438ce6fd20df"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789790400,
+        "to": 1789876800
+      },
+      "received_at": "2026-10-11T04:27:55.893904+00:00",
+      "http_status": 200,
+      "file": "raw-007.json",
+      "sha256": "80cce1521f6425d458bdff6b1275190a25014c5a37398e8ad93384d0cf7dedb0"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789876800,
+        "to": 1789963200
+      },
+      "received_at": "2026-10-11T04:27:56.256272+00:00",
+      "http_status": 200,
+      "file": "raw-008.json",
+      "sha256": "4ec3a5de62455b60f707d4484f404f31372d8dfaa096f2062108e55c676dba40"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789963200,
+        "to": 1790049600
+      },
+      "received_at": "2026-10-11T04:27:56.557801+00:00",
+      "http_status": 200,
+      "file": "raw-009.json",
+      "sha256": "0c03bc3ecaa04f734f48ceca274c4fdba90800776b5a52214838d1d4060f65dc"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790049600,
+        "to": 1790136000
+      },
+      "received_at": "2026-10-11T04:27:56.853935+00:00",
+      "http_status": 200,
+      "file": "raw-010.json",
+      "sha256": "439a50c63105e566a5cb0e0137d122997e67dc5d7694bdce7cb211e653f55b35"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790136000,
+        "to": 1790222400
+      },
+      "received_at": "2026-10-11T04:27:57.124440+00:00",
+      "http_status": 200,
+      "file": "raw-011.json",
+      "sha256": "92b2f79d61d84f9709132ee768b725dc04598878c1a3328a8cfb0f1b2bcf856c"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790222400,
+        "to": 1790308800
+      },
+      "received_at": "2026-10-11T04:27:57.408939+00:00",
+      "http_status": 200,
+      "file": "raw-012.json",
+      "sha256": "720d1a81c0dd95015239aa1f6fbd4e93e8c4d50bdab882c1cc978a2aa8a7b5c3"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790308800,
+        "to": 1790395200
+      },
+      "received_at": "2026-10-11T04:27:57.676456+00:00",
+      "http_status": 200,
+      "file": "raw-013.json",
+      "sha256": "3e22931159cdf6c5363b1c53ae9572556576725a388b636275131f72cf1844ae"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790395200,
+        "to": 1790481600
+      },
+      "received_at": "2026-10-11T04:27:58.967382+00:00",
+      "http_status": 200,
+      "file": "raw-014.json",
+      "sha256": "ef4e30eebfcf01c91134ccd32167ca3a554fe5def2778ae308c4220dd24cc9fa"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790481600,
+        "to": 1790568000
+      },
+      "received_at": "2026-10-11T04:27:59.277315+00:00",
+      "http_status": 200,
+      "file": "raw-015.json",
+      "sha256": "9bbbbd6a1747095a0c27bd23324c2504fda0062f818b944860a572ec5ad7c686"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790568000,
+        "to": 1790654400
+      },
+      "received_at": "2026-10-11T04:27:59.577894+00:00",
+      "http_status": 200,
+      "file": "raw-016.json",
+      "sha256": "53586952ecc8d96e64a9874b0fff68e22cea46adc7b8100def82b8141b7088a5"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790654400,
+        "to": 1790740800
+      },
+      "received_at": "2026-10-11T04:27:59.844173+00:00",
+      "http_status": 200,
+      "file": "raw-017.json",
+      "sha256": "744026fb063821820cb1545d8fd55ee530c3988f46e666ba16fba05cea2b8dab"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790740800,
+        "to": 1790827200
+      },
+      "received_at": "2026-10-11T04:28:00.247081+00:00",
+      "http_status": 200,
+      "file": "raw-018.json",
+      "sha256": "5e4f81c2885d5583629166e57c6f3ea9494b9eef564b0038c9bbbfdadaba31c2"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790827200,
+        "to": 1790913600
+      },
+      "received_at": "2026-10-11T04:28:00.601950+00:00",
+      "http_status": 200,
+      "file": "raw-019.json",
+      "sha256": "f0894a36260c51cf0fdc8c5a6b31ce83dd95b0176052b8ae9edf65ef66d1df93"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790913600,
+        "to": 1791000000
+      },
+      "received_at": "2026-10-11T04:28:00.885120+00:00",
+      "http_status": 200,
+      "file": "raw-020.json",
+      "sha256": "aa3ad14fda442286d15e6868054957be06ade1e79ff20382a58633d2e03b1b1b"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791000000,
+        "to": 1791086400
+      },
+      "received_at": "2026-10-11T04:28:01.141852+00:00",
+      "http_status": 200,
+      "file": "raw-021.json",
+      "sha256": "bad3abd3bfb6771ccbd6fbb6a560937d03ba5c13125665785fd01e566035d15c"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791086400,
+        "to": 1791172800
+      },
+      "received_at": "2026-10-11T04:28:01.489008+00:00",
+      "http_status": 200,
+      "file": "raw-022.json",
+      "sha256": "5007e18eeacc655bad97795154f5be118a188b37b7861f207fa413f33e8dc1d3"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791172800,
+        "to": 1791259200
+      },
+      "received_at": "2026-10-11T04:28:01.773941+00:00",
+      "http_status": 200,
+      "file": "raw-023.json",
+      "sha256": "82afe3d30cb95786d4e28c7ab95f8f87a6ef9e09cf43153d986b314d869539d9"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791259200,
+        "to": 1791345600
+      },
+      "received_at": "2026-10-11T04:28:02.028752+00:00",
+      "http_status": 200,
+      "file": "raw-024.json",
+      "sha256": "9ab0ddd193bae0a035fb38a48a1dcde9328cc3494474eb37340a31931551d9df"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791345600,
+        "to": 1791432000
+      },
+      "received_at": "2026-10-11T04:28:02.366828+00:00",
+      "http_status": 200,
+      "file": "raw-025.json",
+      "sha256": "cf313f8f25f0def13253c215555fd853aae7204a068bcff3b8a3f4c01603c5e2"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791432000,
+        "to": 1791518400
+      },
+      "received_at": "2026-10-11T04:28:02.628642+00:00",
+      "http_status": 200,
+      "file": "raw-026.json",
+      "sha256": "c0d9c070ba31e89aac547b094b5d10e0ce553b9b1567f66bbe5aa0682169f802"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791518400,
+        "to": 1791604800
+      },
+      "received_at": "2026-10-11T04:28:02.907712+00:00",
+      "http_status": 200,
+      "file": "raw-027.json",
+      "sha256": "2e080bc14738ee5f2f93b6b82477c9c773f3c0c679dce87cd7caf7c9539366b7"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791604800,
+        "to": 1791676800
+      },
+      "received_at": "2026-10-11T04:28:03.240931+00:00",
+      "http_status": 200,
+      "file": "raw-028.json",
+      "sha256": "f076a706cede149da58880dbb8fdb5a02d9b0c967a87dd2d41f729a0b6e3c3b9"
+    }
+  ]
+}

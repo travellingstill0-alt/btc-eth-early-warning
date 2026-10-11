@@ -1,0 +1,361 @@
+{
+  "provider": "Kraken Futures",
+  "instrument": "PF_ETHUSD",
+  "kind": "cvd",
+  "start": 1789185600,
+  "end": 1791676800,
+  "records": 41520,
+  "complete": true,
+  "missing_timestamps": [],
+  "original_asof_availability_verified": false,
+  "attempts": [
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789185600,
+        "to": 1789272000
+      },
+      "received_at": "2026-10-11T04:28:02.908868+00:00",
+      "http_status": 200,
+      "file": "raw-000.json",
+      "sha256": "de1072d16178f46cc90b6607920102650bbc4fc89a30ba5bb55087370a238a25"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789272000,
+        "to": 1789358400
+      },
+      "received_at": "2026-10-11T04:28:03.175316+00:00",
+      "http_status": 200,
+      "file": "raw-001.json",
+      "sha256": "eb0b6d3c83e2050477093594f69346378f5b934072b51e7f606d9af42bc92a26"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789358400,
+        "to": 1789444800
+      },
+      "received_at": "2026-10-11T04:28:03.442826+00:00",
+      "http_status": 200,
+      "file": "raw-002.json",
+      "sha256": "4ad24d42648ddb29d2e9b761618273e25948ecbc33465f11ed9bc56f7bf605a8"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789444800,
+        "to": 1789531200
+      },
+      "received_at": "2026-10-11T04:28:03.879929+00:00",
+      "http_status": 200,
+      "file": "raw-003.json",
+      "sha256": "6ffa26310c3ad3165fad2b16edcfd80634ba05aff46b5c50eccb8189e09b136f"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789531200,
+        "to": 1789617600
+      },
+      "received_at": "2026-10-11T04:28:04.187104+00:00",
+      "http_status": 200,
+      "file": "raw-004.json",
+      "sha256": "e4b4d4e11f1ee2618b4df5461eec23055d53b1a1ac1af550683913e225c239a8"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789617600,
+        "to": 1789704000
+      },
+      "received_at": "2026-10-11T04:28:04.505645+00:00",
+      "http_status": 200,
+      "file": "raw-005.json",
+      "sha256": "9e6310aa3dbb07f5b396d679e7e5c3a7ef7b2f73aa34745a6c0575578c0946b4"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789704000,
+        "to": 1789790400
+      },
+      "received_at": "2026-10-11T04:28:04.799343+00:00",
+      "http_status": 200,
+      "file": "raw-006.json",
+      "sha256": "f823ddd8725f8029fa56ff19c8a5541ab8bbd5d4e4c88bade74bf2a5d1ac8637"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789790400,
+        "to": 1789876800
+      },
+      "received_at": "2026-10-11T04:28:05.072069+00:00",
+      "http_status": 200,
+      "file": "raw-007.json",
+      "sha256": "8e4bc2ead17a767779f9a9c5de5731adac71431b56687416941a3717be89fe57"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789876800,
+        "to": 1789963200
+      },
+      "received_at": "2026-10-11T04:28:05.357813+00:00",
+      "http_status": 200,
+      "file": "raw-008.json",
+      "sha256": "eef3ceaccc1eb1110a7f85ecce760a8b8ea8035637136a5ae486fcad26e164c9"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1789963200,
+        "to": 1790049600
+      },
+      "received_at": "2026-10-11T04:28:05.681889+00:00",
+      "http_status": 200,
+      "file": "raw-009.json",
+      "sha256": "5377b3131d9013c06d0238c91abbb7fb0b8e2e0a61302b3c48655136e09953b6"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790049600,
+        "to": 1790136000
+      },
+      "received_at": "2026-10-11T04:28:06.017944+00:00",
+      "http_status": 200,
+      "file": "raw-010.json",
+      "sha256": "14797a7a379fc0a1827c7a3ace8b68a650eb67a8eb591ec0c553a6ec23cd87b4"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790136000,
+        "to": 1790222400
+      },
+      "received_at": "2026-10-11T04:28:06.340824+00:00",
+      "http_status": 200,
+      "file": "raw-011.json",
+      "sha256": "a40a6aad30b3ac1527e241919b4d4910d5072978fb01e44297366ef9b42cf63a"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790222400,
+        "to": 1790308800
+      },
+      "received_at": "2026-10-11T04:28:06.602109+00:00",
+      "http_status": 200,
+      "file": "raw-012.json",
+      "sha256": "a966d565a4bc5728fe75a0922586e539c835a2cda3c3e5cbfb11030a2d770e7b"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790308800,
+        "to": 1790395200
+      },
+      "received_at": "2026-10-11T04:28:07.198228+00:00",
+      "http_status": 200,
+      "file": "raw-013.json",
+      "sha256": "bf3e9be6c733fb93b8e12c47396557baca99313f37c2929c6905f53b8aa1a4c7"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790395200,
+        "to": 1790481600
+      },
+      "received_at": "2026-10-11T04:28:07.563659+00:00",
+      "http_status": 200,
+      "file": "raw-014.json",
+      "sha256": "16054133714c2592cfe40bd65f74d196ccaa72d0d13a9dc146999e70739dcf35"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790481600,
+        "to": 1790568000
+      },
+      "received_at": "2026-10-11T04:28:07.910115+00:00",
+      "http_status": 200,
+      "file": "raw-015.json",
+      "sha256": "f965333d301ac63a8b0cb9790594df8ae8a1de694d5865531903abbeef0f7c97"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790568000,
+        "to": 1790654400
+      },
+      "received_at": "2026-10-11T04:28:08.206516+00:00",
+      "http_status": 200,
+      "file": "raw-016.json",
+      "sha256": "041bc0a1e4374663f8cdc98f09184e78a8e6fc9725162e1ad1e05dffaf6bc91e"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790654400,
+        "to": 1790740800
+      },
+      "received_at": "2026-10-11T04:28:08.503939+00:00",
+      "http_status": 200,
+      "file": "raw-017.json",
+      "sha256": "d0cd1f944c5215caae9ddce9b339264a9151e868ec8bbb89d22bb35943715083"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790740800,
+        "to": 1790827200
+      },
+      "received_at": "2026-10-11T04:28:08.765388+00:00",
+      "http_status": 200,
+      "file": "raw-018.json",
+      "sha256": "9d3bc83d6d67a65ccab67bb4ad99c7bb6d44a44b45c8179a85ed280742904740"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790827200,
+        "to": 1790913600
+      },
+      "received_at": "2026-10-11T04:28:09.031938+00:00",
+      "http_status": 200,
+      "file": "raw-019.json",
+      "sha256": "9b438e87f5f3fb8ba224a33507f6f5895354101d2c8aaaae669c8666ebea37c8"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1790913600,
+        "to": 1791000000
+      },
+      "received_at": "2026-10-11T04:28:09.431239+00:00",
+      "http_status": 200,
+      "file": "raw-020.json",
+      "sha256": "b91cf1dd01d3275f5b8adf084529b752a1175b3ae980440ec370459e6925c6ad"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791000000,
+        "to": 1791086400
+      },
+      "received_at": "2026-10-11T04:28:09.705759+00:00",
+      "http_status": 200,
+      "file": "raw-021.json",
+      "sha256": "ac28793d48c5e9f515cc96721ae28f82769d62893d051a6ba41d7b475ef86042"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791086400,
+        "to": 1791172800
+      },
+      "received_at": "2026-10-11T04:28:10.035745+00:00",
+      "http_status": 200,
+      "file": "raw-022.json",
+      "sha256": "79da0060f30b4ca1ea4ff03c883a052184f9187c0b77a41877e3452eef8ac10f"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791172800,
+        "to": 1791259200
+      },
+      "received_at": "2026-10-11T04:28:10.394818+00:00",
+      "http_status": 200,
+      "file": "raw-023.json",
+      "sha256": "d47f94a8bd59574f7f1cfe1ec8a38609dc3e9bbd0cbbc43e36872271118d719c"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791259200,
+        "to": 1791345600
+      },
+      "received_at": "2026-10-11T04:28:10.672844+00:00",
+      "http_status": 200,
+      "file": "raw-024.json",
+      "sha256": "66fbd1d6b790e6783527be8b8d41b9015935e35f3f7fc58b0fc5b73412d66a5b"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791345600,
+        "to": 1791432000
+      },
+      "received_at": "2026-10-11T04:28:10.954338+00:00",
+      "http_status": 200,
+      "file": "raw-025.json",
+      "sha256": "36fa6a45183b66245d028ed7d23ae13e35818784955205b456def1d830bd3df3"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791432000,
+        "to": 1791518400
+      },
+      "received_at": "2026-10-11T04:28:11.178433+00:00",
+      "http_status": 200,
+      "file": "raw-026.json",
+      "sha256": "c13f91e3282cfd20fff7d01b8dbebbf02590b4c56639d8f717fbdd1ffdaa5e05"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791518400,
+        "to": 1791604800
+      },
+      "received_at": "2026-10-11T04:28:11.452154+00:00",
+      "http_status": 200,
+      "file": "raw-027.json",
+      "sha256": "6fd82e186acee9cc75475719369b7fdc819c77b3fc461a1f06e2310a619f56a1"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_ETHUSD/cvd",
+      "params": {
+        "interval": 60,
+        "since": 1791604800,
+        "to": 1791676800
+      },
+      "received_at": "2026-10-11T04:28:11.721721+00:00",
+      "http_status": 200,
+      "file": "raw-028.json",
+      "sha256": "e65c70edeb3229e252508e3232abe65373bd1b2c00a8411ed1cc39cf318028fd"
+    }
+  ]
+}
