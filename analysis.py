@@ -1,6 +1,18 @@
 """Deterministic, configurable informational heuristics; never executes trades."""
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
+from oi_history import calculate_changes
+from hashlib import sha256
+from context_data import parse as parse_context
+from macro_calendar import CalendarRules, evaluate as evaluate_calendar
+
+NO_TRADE_HOLD = True
+
+# All three remain mandatory; exchange flows have no verified integration.
+REQUIRED_CONTEXT = ('CVD', 'liquidation data', 'exchange flows')
+
+def data_digest(data):
+    return sha256(repr(data).encode()).hexdigest()
 
 @dataclass
 class Rules:
@@ -8,6 +20,11 @@ class Rules:
     funding_pct: float = 0.03
     oi_growth_pct: float = 10.0
     stale_seconds: int = 180
+    oi_window: str = '24h'
+    macro_pre_minutes: int = 60
+    macro_post_minutes: int = 60
+    macro_max_age_seconds: int = 900
+    macro_horizon_hours: int = 24
 
 
 def closed(rows, now_ms):
@@ -18,17 +35,39 @@ def assess(data, rules, now=None):
     now = now or datetime.now(timezone.utc)
     ms = now.timestamp() * 1000
     reasons, missing, score = [], [], 0
+    context = {}
+    for label in REQUIRED_CONTEXT:
+        key = {'CVD': 'cvd', 'liquidation data': 'liquidations'}.get(label)
+        if key:
+            try:
+                item = data[key]
+                if item['asset'] != data['symbol'][:3]:
+                    raise ValueError('Wrong context asset')
+                context[key] = parse_context(item, ms, rules.stale_seconds)
+                continue
+            except (KeyError, TypeError, ValueError, OverflowError, IndexError, AttributeError):
+                pass
+        missing.append(label)
     for key in ('ticker', 'candles', 'scalp_candles', 'funding', 'interest', 'interest_history', 'trades'):
         if not data.get(key):
             missing.append(key)
     age = (now - data['retrieved_at']).total_seconds()
-    if age > rules.stale_seconds:
+    if age < -5 or age > rules.stale_seconds:
         missing.append('stale retrieval')
     for key, field in [('ticker', 'closeTime'), ('funding', 'time'), ('interest', 'time')]:
-        if data.get(key) and (ms - int(data[key].get(field, 0))) / 1000 > rules.stale_seconds:
+        if data.get(key) and not -5 <= (ms - int(data[key].get(field, 0))) / 1000 <= rules.stale_seconds:
             missing.append(f'stale {key}')
+    for key, limit in [('ticker', rules.stale_seconds), ('funding', rules.stale_seconds),
+                       ('interest', rules.stale_seconds), ('trades', rules.stale_seconds),
+                       ('candles', 7200), ('scalp_candles', 600)]:
+        if data.get(key):
+            source_time = data.get('sources', {}).get(key, {}).get('source_time_ms')
+            if source_time is None:
+                missing.append(f'unknown timestamp {key}')
+            elif not -5 <= (ms - source_time) / 1000 <= limit:
+                missing.append(f'stale {key}')
     trades = data.get('trades', [])
-    if trades and ms - int(trades[-1].get('T', 0)) > rules.stale_seconds * 1000:
+    if trades and not -5000 <= ms - int(trades[-1].get('T', 0)) <= rules.stale_seconds * 1000:
         missing.append('stale order flow')
     for key, step in [('candles', 3600000), ('scalp_candles', 300000)]:
         finished = closed(data.get(key, []), ms)
@@ -36,23 +75,32 @@ def assess(data, rules, now=None):
             missing.append(f'insufficient {key}')
         elif ms - int(finished[-1][6]) > step * 2:
             missing.append(f'stale {key}')
-    if data.get('ticker') and abs(float(data['ticker']['priceChangePercent'])) >= rules.move_pct:
+        required = 40 if key == 'candles' else 21
+        recent = finished[-required:]
+        if any(int(b[0]) - int(a[0]) != step for a, b in zip(recent, recent[1:])):
+            missing.append(f'gaps in {key}')
+    move = data.get('ticker', {}).get('priceChangePercent')
+    if move is None:
+        missing.append('24h price change')
+    if move is not None and abs(float(move)) >= rules.move_pct:
         score += 2
         reasons.append('Large absolute 24h price move (+2)')
-    if data.get('funding') and abs(float(data['funding']['lastFundingRate']) * 100) >= rules.funding_pct:
+    funding = data.get('funding', {})
+    period = funding.get('period_hours', 8)
+    if period not in (1, 8):
+        missing.append('unknown funding period')
+    if funding and period in (1, 8) and abs(float(funding['lastFundingRate']) * 100) >= rules.funding_pct * period / 8:
         score += 2
-        reasons.append('Elevated absolute funding (+2)')
-    history = data.get('interest_history', [])
-    oi_change = None
-    if len(history) >= 2 and float(history[0]['sumOpenInterest']) > 0:
-        oi_change = (float(history[-1]['sumOpenInterest']) / float(history[0]['sumOpenInterest']) - 1) * 100
+        reasons.append(f'Elevated absolute funding over {period}h (+2)')
+    oi_changes = calculate_changes(data, int(ms), rules.stale_seconds)
+    selected = oi_changes.get(rules.oi_window)
+    oi_change = selected['change_pct'] if selected else None
+    if oi_change is not None:
         if oi_change >= rules.oi_growth_pct:
             score += 2
-            reasons.append('Rapid open interest growth (+2)')
-        if ms - int(history[-1]['timestamp']) > 2 * 3600 * 1000:
-            missing.append('stale interest history')
+            reasons.append(f'Rapid {rules.oi_window} open interest growth (+2)')
     else:
-        missing.append('insufficient interest history')
+        missing.append(f'OI {rules.oi_window}: ' + (selected['reason'] if selected else 'unknown required window'))
     bars = closed(data.get('candles', []), ms)
     structure = 'Unavailable'
     if len(bars) >= 40:
@@ -66,16 +114,35 @@ def assess(data, rules, now=None):
     else:
         missing.append('insufficient structure candles')
     level = 'EXTREME' if score >= 6 else 'HIGH' if score >= 4 else 'MODERATE' if score >= 2 else 'LOW'
-    return {'level': level, 'score': score, 'reasons': reasons, 'missing': sorted(set(missing)), 'structure': structure, 'oi_change': oi_change}
+    return {'level': level, 'score': score, 'reasons': reasons, 'missing': sorted(set(missing)), 'structure': structure,
+            'oi_change': oi_change, 'oi_changes': oi_changes, 'oi_window': rules.oi_window,
+            'context': context, 'assessed_at_ms': ms, 'rules': asdict(rules), 'data_digest': data_digest(data)}
 
 
 def plan(data, risk, timeframe, macro_clear=False, now=None):
     now = now or datetime.now(timezone.utc)
     ms = now.timestamp() * 1000
-    rows = closed(data.get('scalp_candles' if timeframe == 'SCALP' else 'candles', []), ms)
-    output = {'status': 'NO TRADE', 'reason': 'Missing or stale data, high risk, or macro events not reviewed.'}
-    if risk['missing'] or risk['level'] in ('HIGH', 'EXTREME') or not macro_clear or len(rows) < 21:
+    output = {'status': 'NO TRADE', 'reason': 'Missing or stale data, high risk, or macro events not reviewed.', 'reason_code': 'MISSING_DATA'}
+    try:
+        rules = Rules(**risk['rules'])
+        assessment_age = (ms - risk['assessed_at_ms']) / 1000
+        if not 0 <= assessment_age <= rules.stale_seconds or risk['data_digest'] != data_digest(data):
+            return dict(status='NO TRADE', reason='Expired or outdated risk assessment.', reason_code='MISSING_DATA')
+        risk = assess(data, rules, now)
+        rows = closed(data.get('scalp_candles' if timeframe == 'SCALP' else 'candles', []), ms)
+    except (KeyError, TypeError, ValueError, OverflowError, AttributeError):
+        return dict(status='NO TRADE', reason='Invalid or missing risk assessment or market data.', reason_code='MISSING_DATA')
+    macro = evaluate_calendar(data.get('macro_calendar'), now,
+        CalendarRules(rules.macro_pre_minutes, rules.macro_post_minutes,
+                      rules.macro_max_age_seconds, rules.macro_horizon_hours))
+    missing = bool(risk['missing']) or bool(macro['missing']) or len(rows) < 21
+    high_risk = risk['level'] in ('HIGH', 'EXTREME') or bool(macro['high_risk'])
+    if missing or high_risk or not macro['clear'] or not macro_clear:
+        output['reason_code'] = 'HIGH_RISK_AND_MISSING_DATA' if high_risk and missing else 'HIGH_RISK' if high_risk else 'MISSING_DATA' if missing else 'MANUAL_REVIEW_REQUIRED'
+        output['reason'] = ('High risk: ' + '; '.join(macro['high_risk'] or [risk['level']]) + '. ' if high_risk else '') + ('Missing/stale inputs: ' + ', '.join(risk['missing'] + macro['missing']) + '. ' if missing else '') + ('Manual macro review required.' if not macro_clear else '')
         return output
+    if NO_TRADE_HOLD:
+        return dict(status='NO TRADE', reason='Research hold active: required inputs and global coverage remain unverified.', reason_code='RESEARCH_HOLD')
     step = 300000 if timeframe == 'SCALP' else 3600000
     if ms - int(rows[-1][6]) > step * 2:
         output['reason'] = 'Signal candles are stale.'

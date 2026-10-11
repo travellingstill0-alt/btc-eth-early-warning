@@ -1,0 +1,245 @@
+{
+  "checked_at_colombia": "2026-10-10T16:53:29.768607-05:00",
+  "policy_mode": "restricted",
+  "rows": [
+    {
+      "name": "Kraken public control",
+      "url": "https://api.kraken.com/0/public/Time",
+      "params": {},
+      "host_allowed_in_snapshot": true,
+      "provider_http_status": 200,
+      "result": "REACHABLE",
+      "key_used": false,
+      "content_type": "application/json",
+      "response_excerpt": "{\"error\":[],\"result\":{\"unixtime\":1791669207,\"rfc1123\":\"Sat, 10 Oct 26 21:53:27 +0000\"}}"
+    },
+    {
+      "name": "Coinbase public control",
+      "url": "https://api.exchange.coinbase.com/time",
+      "params": {},
+      "host_allowed_in_snapshot": true,
+      "provider_http_status": 200,
+      "result": "REACHABLE",
+      "key_used": false,
+      "content_type": "application/json; charset=utf-8",
+      "response_excerpt": "{\"iso\":\"2026-10-10T21:53:27.951Z\",\"epoch\":1791669207.951}"
+    },
+    {
+      "name": "Binance public control",
+      "url": "https://fapi.binance.com/fapi/v1/time",
+      "params": {},
+      "host_allowed_in_snapshot": true,
+      "provider_http_status": 451,
+      "result": "REGIONAL_OR_LEGAL_RESTRICTION",
+      "key_used": false,
+      "content_type": "application/json",
+      "response_excerpt": "{\n  \"code\": 0,\n  \"msg\": \"Service unavailable from a restricted location according to 'b. Eligibility' in https://www.binance.com/en/terms. Please contact customer service if you believe you received this message in error.\"\n}"
+    },
+    {
+      "name": "Coin Metrics official documentation",
+      "url": "https://raw.githubusercontent.com/coinmetrics/product-docs/master/docs/packages/coin-metrics-community-data.md",
+      "params": {},
+      "host_allowed_in_snapshot": true,
+      "provider_http_status": 200,
+      "result": "REACHABLE",
+      "key_used": false,
+      "content_type": "text/plain; charset=utf-8",
+      "response_excerpt": "# Coin Metrics Community Data\n\n{% hint style=\"info\" %}\nAvailable to the community under the [Creative Commons](https://creativecommons.org/licenses/by-nc/4.0/) license.\n{% endhint %}\n\n## Community Data Offering\n\n**Coin Metrics Community Metrics**(Community [API](https://docs.coinmetrics.io/access-our-data/api), [Data Visualization](../data-visualiz"
+    },
+    {
+      "name": "Coin Metrics BTC",
+      "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+      "params": {
+        "assets": "btc",
+        "metrics": "FlowInKRKNtv,FlowOutKRKNtv",
+        "frequency": "1d",
+        "limit_per_asset": 2,
+        "page_size": 2,
+        "sort": "desc"
+      },
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='community-api.coinmetrics.io', port=443): Max retries exceeded with url: /v4/timeseries/asset-metrics?assets=btc&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "Coin Metrics ETH",
+      "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+      "params": {
+        "assets": "eth",
+        "metrics": "FlowInKRKNtv,FlowOutKRKNtv",
+        "frequency": "1d",
+        "limit_per_asset": 2,
+        "page_size": 2,
+        "sort": "desc"
+      },
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='community-api.coinmetrics.io', port=443): Max retries exceeded with url: /v4/timeseries/asset-metrics?assets=eth&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "BLS",
+      "url": "https://www.bls.gov/schedule/news_release/bls.ics",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.bls.gov', port=443): Max retries exceeded with url: /schedule/news_release/bls.ics (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "ISM",
+      "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.ismworld.org', port=443): Max retries exceeded with url: /supply-management-news-and-reports/reports/rob-report-calendar (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "ECB",
+      "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.ecb.europa.eu', port=443): Max retries exceeded with url: /press/calendars/mgcgc/html/index.en.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "BOJ",
+      "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.boj.or.jp', port=443): Max retries exceeded with url: /en/mopo/mpmsche_minu/index.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "FED:2026-09",
+      "url": "https://www.federalreserve.gov/newsevents/2026-september.htm",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/2026-september.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "FED:2026-10",
+      "url": "https://www.federalreserve.gov/newsevents/2026-october.htm",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/2026-october.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "FED:2026-11",
+      "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.federalreserve.gov', port=443): Max retries exceeded with url: /newsevents/2026-november.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "ECB_SPEECH",
+      "url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.ecb.europa.eu', port=443): Max retries exceeded with url: /press/calendars/weekly/html/index.en.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "EUROSTAT",
+      "url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='ec.europa.eu', port=443): Max retries exceeded with url: /eurostat/news/euro-indicators/release-calendar (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "SPGLOBAL",
+      "url": "https://www.pmi.spglobal.com/Public/Release/ReleaseDates?language=en",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.pmi.spglobal.com', port=443): Max retries exceeded with url: /Public/Release/ReleaseDates?language=en (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "DESTATIS",
+      "url": "https://www.destatis.de/EN/Press/Dates/Weekly-Preview/_node.html",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.destatis.de', port=443): Max retries exceeded with url: /EN/Press/Dates/Weekly-Preview/_node.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "BOE",
+      "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.bankofengland.co.uk', port=443): Max retries exceeded with url: /monetary-policy/upcoming-mpc-dates (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "ONS",
+      "url": "https://www.ons.gov.uk/releasecalendar?release-type=type-upcoming",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.ons.gov.uk', port=443): Max retries exceeded with url: /releasecalendar?release-type=type-upcoming (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "BOJ_SPEECH",
+      "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.boj.or.jp', port=443): Max retries exceeded with url: /en/about/calendar/index.htm (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "CHINA_NBS",
+      "url": "https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.stats.gov.cn', port=443): Max retries exceeded with url: /english/PressRelease/ReleaseCalendar/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    {
+      "name": "PBOC",
+      "url": "https://www.pbc.gov.cn/en/3688229/3688335/3730276/index.html",
+      "params": {},
+      "host_allowed_in_snapshot": false,
+      "provider_http_status": null,
+      "result": "PROXY_POLICY_DENIAL",
+      "key_used": false,
+      "error": "HTTPSConnectionPool(host='www.pbc.gov.cn', port=443): Max retries exceeded with url: /en/3688229/3688335/3730276/index.html (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    }
+  ],
+  "safety": "NO TRADE: no verified exchange-flow or complete macro-calendar coverage"
+}

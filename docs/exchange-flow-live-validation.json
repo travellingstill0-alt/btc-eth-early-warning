@@ -1,0 +1,64 @@
+[
+  {
+    "report": {
+      "provider": "Coin Metrics Community",
+      "asset": "BTC",
+      "exchange": "Kraken",
+      "unit": "BTC",
+      "frequency": "1d",
+      "classification": "provider-labelled wallet aggregate; unverified coverage",
+      "verified": false,
+      "safety_eligible": false,
+      "status": "unavailable",
+      "reason": "No validated fresh and complete exchange-wallet provider; NO TRADE.",
+      "received_at_ms": null,
+      "error": "HTTPSConnectionPool(host='community-api.coinmetrics.io', port=443): Max retries exceeded with url: /v4/timeseries/asset-metrics?assets=btc&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "attempts": [
+      {
+        "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+        "params": {
+          "assets": "btc",
+          "metrics": "FlowInKRKNtv,FlowOutKRKNtv",
+          "frequency": "1d",
+          "limit_per_asset": 2,
+          "page_size": 2,
+          "sort": "desc"
+        },
+        "http_status": null,
+        "error": "HTTPSConnectionPool(host='community-api.coinmetrics.io', port=443): Max retries exceeded with url: /v4/timeseries/asset-metrics?assets=btc&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+      }
+    ]
+  },
+  {
+    "report": {
+      "provider": "Coin Metrics Community",
+      "asset": "ETH",
+      "exchange": "Kraken",
+      "unit": "ETH",
+      "frequency": "1d",
+      "classification": "provider-labelled wallet aggregate; unverified coverage",
+      "verified": false,
+      "safety_eligible": false,
+      "status": "unavailable",
+      "reason": "No validated fresh and complete exchange-wallet provider; NO TRADE.",
+      "received_at_ms": null,
+      "error": "HTTPSConnectionPool(host='community-api.coinmetrics.io', port=443): Max retries exceeded with url: /v4/timeseries/asset-metrics?assets=eth&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    },
+    "attempts": [
+      {
+        "url": "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics",
+        "params": {
+          "assets": "eth",
+          "metrics": "FlowInKRKNtv,FlowOutKRKNtv",
+          "frequency": "1d",
+          "limit_per_asset": 2,
+          "page_size": 2,
+          "sort": "desc"
+        },
+        "http_status": null,
+        "error": "HTTPSConnectionPool(host='community-api.coinmetrics.io', port=443): Max retries exceeded with url: /v4/timeseries/asset-metrics?assets=eth&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+      }
+    ]
+  }
+]
