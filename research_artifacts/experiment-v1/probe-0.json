@@ -1,0 +1,338 @@
+{
+  "url": "https://futures.kraken.com/derivatives/api/v3/feeschedules",
+  "status": 200,
+  "retrieved_at": "2026-10-11T04:06:50.290825+00:00",
+  "payload": {
+    "result": "success",
+    "serverTime": "2026-10-11T04:06:50.23Z",
+    "feeSchedules": [
+      {
+        "uid": "4845910e-81a7-4578-bdeb-8faada1b972f",
+        "name": "Incentive Rebate MTF Linear Fees",
+        "tiers": [
+          {
+            "makerFee": 0.02,
+            "takerFee": 0.05,
+            "usdVolume": 0.0
+          },
+          {
+            "makerFee": 0.0175,
+            "takerFee": 0.045,
+            "usdVolume": 5000000.0
+          },
+          {
+            "makerFee": 0.015,
+            "takerFee": 0.04,
+            "usdVolume": 10000000.0
+          },
+          {
+            "makerFee": 0.0125,
+            "takerFee": 0.035,
+            "usdVolume": 15000000.0
+          },
+          {
+            "makerFee": 0.01,
+            "takerFee": 0.03,
+            "usdVolume": 25000000.0
+          },
+          {
+            "makerFee": 0.005,
+            "takerFee": 0.025,
+            "usdVolume": 50000000.0
+          },
+          {
+            "makerFee": 0.0,
+            "takerFee": 0.02,
+            "usdVolume": 100000000.0
+          },
+          {
+            "makerFee": -0.005,
+            "takerFee": 0.0175,
+            "usdVolume": 250000000.0
+          },
+          {
+            "makerFee": -0.007,
+            "takerFee": 0.015,
+            "usdVolume": 500000000.0
+          },
+          {
+            "makerFee": -0.01,
+            "takerFee": 0.0135,
+            "usdVolume": 1000000000.0
+          },
+          {
+            "makerFee": -0.01,
+            "takerFee": 0.0125,
+            "usdVolume": 5000000000.0
+          }
+        ]
+      },
+      {
+        "uid": "535cacd9-217d-442b-98e3-489c81019eb9",
+        "name": "Consumer MTF Linear Fees",
+        "tiers": [
+          {
+            "makerFee": 0.25,
+            "takerFee": 0.25,
+            "usdVolume": 0.0
+          }
+        ]
+      },
+      {
+        "uid": "723888f7-0a8e-4183-8648-f920a22339e3",
+        "name": "MTF Linear Rebate Fees",
+        "tiers": [
+          {
+            "makerFee": 0.02,
+            "takerFee": 0.05,
+            "usdVolume": 0.0
+          },
+          {
+            "makerFee": 0.0175,
+            "takerFee": 0.045,
+            "usdVolume": 5000000.0
+          },
+          {
+            "makerFee": 0.015,
+            "takerFee": 0.04,
+            "usdVolume": 10000000.0
+          },
+          {
+            "makerFee": 0.0125,
+            "takerFee": 0.035,
+            "usdVolume": 15000000.0
+          },
+          {
+            "makerFee": 0.01,
+            "takerFee": 0.03,
+            "usdVolume": 25000000.0
+          },
+          {
+            "makerFee": 0.005,
+            "takerFee": 0.025,
+            "usdVolume": 50000000.0
+          },
+          {
+            "makerFee": 0.0,
+            "takerFee": 0.02,
+            "usdVolume": 100000000.0
+          },
+          {
+            "makerFee": -0.003,
+            "takerFee": 0.0175,
+            "usdVolume": 250000000.0
+          },
+          {
+            "makerFee": -0.005,
+            "takerFee": 0.015,
+            "usdVolume": 500000000.0
+          },
+          {
+            "makerFee": -0.006,
+            "takerFee": 0.0135,
+            "usdVolume": 1000000000.0
+          },
+          {
+            "makerFee": -0.006,
+            "takerFee": 0.0125,
+            "usdVolume": 5000000000.0
+          }
+        ]
+      },
+      {
+        "uid": "873d5b70-3446-45cd-9cdf-956a025605c2",
+        "name": "Incentive Rebate Linear Multi-Collateral Fees",
+        "tiers": [
+          {
+            "makerFee": 0.02,
+            "takerFee": 0.05,
+            "usdVolume": 0.0
+          },
+          {
+            "makerFee": 0.0175,
+            "takerFee": 0.045,
+            "usdVolume": 5000000.0
+          },
+          {
+            "makerFee": 0.015,
+            "takerFee": 0.04,
+            "usdVolume": 10000000.0
+          },
+          {
+            "makerFee": 0.0125,
+            "takerFee": 0.035,
+            "usdVolume": 15000000.0
+          },
+          {
+            "makerFee": 0.01,
+            "takerFee": 0.03,
+            "usdVolume": 25000000.0
+          },
+          {
+            "makerFee": 0.005,
+            "takerFee": 0.025,
+            "usdVolume": 50000000.0
+          },
+          {
+            "makerFee": 0.0,
+            "takerFee": 0.02,
+            "usdVolume": 100000000.0
+          },
+          {
+            "makerFee": -0.005,
+            "takerFee": 0.0175,
+            "usdVolume": 250000000.0
+          },
+          {
+            "makerFee": -0.007,
+            "takerFee": 0.015,
+            "usdVolume": 500000000.0
+          },
+          {
+            "makerFee": -0.01,
+            "takerFee": 0.0135,
+            "usdVolume": 1000000000.0
+          },
+          {
+            "makerFee": -0.01,
+            "takerFee": 0.0125,
+            "usdVolume": 5000000000.0
+          }
+        ]
+      },
+      {
+        "uid": "8d8f99b6-2978-44e3-a86b-39bee91fe3f0",
+        "name": "Consumer Linear Fees",
+        "tiers": [
+          {
+            "makerFee": 0.25,
+            "takerFee": 0.25,
+            "usdVolume": 0.0
+          }
+        ]
+      },
+      {
+        "uid": "97ae0cc8-2964-43ea-91e9-d8e720b02b19",
+        "name": "Linear Multi-Collateral Rebate Fees",
+        "tiers": [
+          {
+            "makerFee": 0.02,
+            "takerFee": 0.05,
+            "usdVolume": 0.0
+          },
+          {
+            "makerFee": 0.0175,
+            "takerFee": 0.045,
+            "usdVolume": 5000000.0
+          },
+          {
+            "makerFee": 0.015,
+            "takerFee": 0.04,
+            "usdVolume": 10000000.0
+          },
+          {
+            "makerFee": 0.0125,
+            "takerFee": 0.035,
+            "usdVolume": 15000000.0
+          },
+          {
+            "makerFee": 0.01,
+            "takerFee": 0.03,
+            "usdVolume": 25000000.0
+          },
+          {
+            "makerFee": 0.005,
+            "takerFee": 0.025,
+            "usdVolume": 50000000.0
+          },
+          {
+            "makerFee": 0.0,
+            "takerFee": 0.02,
+            "usdVolume": 100000000.0
+          },
+          {
+            "makerFee": -0.003,
+            "takerFee": 0.0175,
+            "usdVolume": 250000000.0
+          },
+          {
+            "makerFee": -0.005,
+            "takerFee": 0.015,
+            "usdVolume": 500000000.0
+          },
+          {
+            "makerFee": -0.006,
+            "takerFee": 0.0135,
+            "usdVolume": 1000000000.0
+          },
+          {
+            "makerFee": -0.006,
+            "takerFee": 0.0125,
+            "usdVolume": 5000000000.0
+          }
+        ]
+      },
+      {
+        "uid": "a6cbc326-9477-4a6c-911a-d4cb3ed7481e",
+        "name": "Inverse Single-Collateral Rebate Fees",
+        "tiers": [
+          {
+            "makerFee": 0.02,
+            "takerFee": 0.05,
+            "usdVolume": 0.0
+          },
+          {
+            "makerFee": 0.0175,
+            "takerFee": 0.045,
+            "usdVolume": 5000000.0
+          },
+          {
+            "makerFee": 0.015,
+            "takerFee": 0.04,
+            "usdVolume": 10000000.0
+          },
+          {
+            "makerFee": 0.0125,
+            "takerFee": 0.035,
+            "usdVolume": 15000000.0
+          },
+          {
+            "makerFee": 0.01,
+            "takerFee": 0.03,
+            "usdVolume": 25000000.0
+          },
+          {
+            "makerFee": 0.005,
+            "takerFee": 0.025,
+            "usdVolume": 50000000.0
+          },
+          {
+            "makerFee": 0.0,
+            "takerFee": 0.02,
+            "usdVolume": 100000000.0
+          },
+          {
+            "makerFee": -0.003,
+            "takerFee": 0.0175,
+            "usdVolume": 250000000.0
+          },
+          {
+            "makerFee": -0.005,
+            "takerFee": 0.015,
+            "usdVolume": 500000000.0
+          },
+          {
+            "makerFee": -0.006,
+            "takerFee": 0.0135,
+            "usdVolume": 1000000000.0
+          },
+          {
+            "makerFee": -0.006,
+            "takerFee": 0.0125,
+            "usdVolume": 5000000000.0
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "main_trade_rows": 1920,
+  "walk_forward_trade_rows": 1401,
+  "checks": [
+    "Unique simulation IDs",
+    "Ordered nonoverlapping positions per independent group",
+    "Positive holding duration",
+    "Excursion bounds ordered",
+    "Execution-cost decomposition reconciled",
+    "Net P&L reconciled"
+  ],
+  "passed": true
+}

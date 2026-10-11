@@ -282,5 +282,12 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
     data['warnings'].append('Exchange wallet flows: ' + flow['reason'])
     if data.get('ticker', {}).get('priceChangePercent') is None:
         data['warnings'].append('Rolling 24h spot price change unavailable; ENTER is blocked.')
+    if data.get('funding'):
+        from funding_history import preserve as preserve_funding
+        try:
+            preserve_funding(data, int(clock().timestamp()*1000), max_age)
+        except (ValueError, KeyError, TypeError, OSError, sqlite3.Error) as exc:
+            data['errors']['storage:funding'] = str(exc)
+            data['warnings'].append('Funding persistence failed; observation was not saved.')
     data['retrieved_at'] = clock()
     return data

@@ -1,0 +1,28 @@
+{
+  "version": "breakout-experiment-v1",
+  "is_original_backtest_reproduction": false,
+  "research_start": "2026-09-13T00:00:00+00:00",
+  "research_end_exclusive": "2026-10-11T00:00:00+00:00",
+  "warmup_hours": 20,
+  "venue": "Kraken Futures",
+  "instruments": {"BTC": "PF_XBTUSD", "ETH": "PF_ETHUSD"},
+  "signal": {"lookback_bars": 20, "volume_multiplier": 1.2, "confirmation": "completed close strictly outside prior range and volume strictly above reference mean times 1.2", "context_filters": "none; live safety gates never overridden"},
+  "stop": "opposite edge of prior 20-bar range, fixed at signal time",
+  "take_profit": {"risk_multiple": 1.0, "basis": "signal-close distance to fixed stop", "partials": false, "trailing": false},
+  "timeout_seconds": {"SCALP": 3600, "DAY TRADE": 43200},
+  "signal_seconds": {"SCALP": 300, "DAY TRADE": 3600},
+  "execution": {"resolution_seconds": 60, "entry": "first following minute open with adverse slippage and adverse tick rounding", "exit": "stop/target market trigger; adverse slippage and tick rounding; open fills for gaps; stop first for ambiguous intraminute collisions", "exit_timestamp": "intraminute exit recorded at exit-minute end with interval bounds; gaps at minute open; timeout at exact deadline", "no_overlap": "one position per asset/direction/horizon/scenario/partition; independent portfolios", "late_signal": "skip unless full maximum timeout fits partition; no censored final trades", "spread": "included in slippage assumption", "depth_queue": "not modeled"},
+  "position": {"initial_equity_usd": 10000, "notional_cap_usd": 1000, "quantity": "floor notional/entry to native contract quantity precision; fixed notional without compounding", "capital": "independent USD equity per group; no portfolio aggregation or collateral conversion model"},
+  "cost_scenarios": [
+    {"name": "published_base", "fee_bps": 5, "slippage_bps_per_fill": 2},
+    {"name": "adverse_slippage", "fee_bps": 5, "slippage_bps_per_fill": 10},
+    {"name": "higher_fee_sensitivity", "fee_bps": 25, "slippage_bps_per_fill": 2}
+  ],
+  "fee_assumption": "Both fills taker. Public current contract-linked base tier, not verified account entitlement or historical tier. Higher fee case is sensitivity, not assigned account tier.",
+  "funding": "reported historical absolute fundingRate USD per native base unit per hour; accrue rate at timestamp over following hour, prorated to holding duration; positive rate costs LONG and credits SHORT. Timestamp/accrual convention is a modeling assumption, not verified exchange accounting.",
+  "development_end": "2026-09-27T00:00:00+00:00",
+  "validation_end": "2026-10-04T00:00:00+00:00",
+  "walk_forward": "expanding historical context, three successive seven-day evaluation windows after first seven days; fixed parameters and no refitting",
+  "out_of_sample_limit": "retrospective chronological splits, no tuning; final week was previously inspected in candidate research and is not a pristine untouched holdout",
+  "optimization": "none"
+}

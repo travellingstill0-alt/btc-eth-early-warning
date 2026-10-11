@@ -1,0 +1,16 @@
+{
+  "url": "https://futures.kraken.com/derivatives/api/v3/historicalfundingrates?symbol=PF_XBTUSD",
+  "status": 404,
+  "retrieved_at": "2026-10-11T04:06:50.294985+00:00",
+  "payload": {
+    "status": "NOT_FOUND",
+    "result": "error",
+    "errors": [
+      {
+        "code": 0,
+        "message": "404 NOT_FOUND"
+      }
+    ],
+    "serverTime": "2026-10-11T04:06:50.233Z"
+  }
+}

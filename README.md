@@ -145,3 +145,28 @@ exports, collection gaps and test logs. No original trade ledger was recovered;
 `ledger-status.json` distinguishes missing records from zero trades. Do not
 represent these candle candidates as the previous backtest or infer fills,
 fees, slippage, outcomes or excursions from them.
+
+## Frozen experimental backtest v1
+
+[Experiment report](research_artifacts/experiment-v1/REPORT.md) documents the
+separate Kraken Futures experiment, assumptions and limitations. It preserves
+28 days of real same-contract one-minute candles and historical funding, current
+published base-tier fee evidence, all simulated trades and chronological/
+walk-forward/cost metrics. It is not the missing original backtest. No tuning,
+trading, notifications or live safety overrides are performed.
+
+Offline deterministic reproduction:
+
+```bash
+.venv/bin/python scripts/run_experiment.py --root research_artifacts/experiment-v1 --output /tmp/btc-experiment-replay
+```
+
+Use a new output directory. Frozen environment versions are in the experiment's
+`environment-requirements.txt`. Funding snapshots persist separately in
+`data/funding_snapshots.sqlite3` (`FUNDING_HISTORY_DB_PATH` override), with native
+period and source identity. Independent funding/OI warnings use validated inputs;
+missing context stays visible. Tests must isolate both snapshot archives:
+
+```bash
+FUNDING_HISTORY_DB_PATH=/tmp/btc-funding-test-fixtures.sqlite3 CONTEXT_HISTORY_DB_PATH=/tmp/btc-context-test-fixtures.sqlite3 .venv/bin/python -m unittest discover -s tests -v
+```

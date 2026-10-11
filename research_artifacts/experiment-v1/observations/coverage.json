@@ -1,0 +1,186 @@
+{
+  "context_windows": {
+    "rows": 12,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "cvd"
+        ],
+        "observations": 3,
+        "observed_intervals_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ],
+        "definition": "Unobserved intervals [previous inclusive end+1, next start); no backfill"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "liquidations"
+        ],
+        "observations": 3,
+        "observed_intervals_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ],
+        "definition": "Unobserved intervals [previous inclusive end+1, next start); no backfill"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "cvd"
+        ],
+        "observations": 3,
+        "observed_intervals_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ],
+        "definition": "Unobserved intervals [previous inclusive end+1, next start); no backfill"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "liquidations"
+        ],
+        "observations": 3,
+        "observed_intervals_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691919999
+          ]
+        ],
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ],
+        "definition": "Unobserved intervals [previous inclusive end+1, next start); no backfill"
+      }
+    ]
+  },
+  "oi_snapshots": {
+    "rows": 6,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "ETH"
+        ],
+        "observations": 3,
+        "first_ms": 1791687346813,
+        "last_ms": 1791691967798,
+        "gaps_over_180s_ms": [
+          [
+            1791687346813,
+            1791691298545
+          ],
+          [
+            1791691298545,
+            1791691967798
+          ]
+        ],
+        "definition": "No locally stored snapshots between these endpoints; no continuity claim"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "BTC"
+        ],
+        "observations": 3,
+        "first_ms": 1791687346904,
+        "last_ms": 1791691967783,
+        "gaps_over_180s_ms": [
+          [
+            1791687346904,
+            1791691298644
+          ],
+          [
+            1791691298644,
+            1791691967783
+          ]
+        ],
+        "definition": "No locally stored snapshots between these endpoints; no continuity claim"
+      }
+    ]
+  },
+  "funding_snapshots": {
+    "rows": 2,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          1
+        ],
+        "observations": 1,
+        "first_ms": 1791691967798,
+        "last_ms": 1791691967798,
+        "gaps_over_180s_ms": [],
+        "definition": "No locally stored snapshots between these endpoints; no continuity claim"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          1
+        ],
+        "observations": 1,
+        "first_ms": 1791691967783,
+        "last_ms": 1791691967783,
+        "gaps_over_180s_ms": [],
+        "definition": "No locally stored snapshots between these endpoints; no continuity claim"
+      }
+    ]
+  }
+}

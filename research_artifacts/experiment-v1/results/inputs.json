@@ -1,0 +1,153 @@
+{
+  "configuration": {
+    "version": "breakout-experiment-v1",
+    "is_original_backtest_reproduction": false,
+    "research_start": "2026-09-13T00:00:00+00:00",
+    "research_end_exclusive": "2026-10-11T00:00:00+00:00",
+    "warmup_hours": 20,
+    "venue": "Kraken Futures",
+    "instruments": {
+      "BTC": "PF_XBTUSD",
+      "ETH": "PF_ETHUSD"
+    },
+    "signal": {
+      "lookback_bars": 20,
+      "volume_multiplier": 1.2,
+      "confirmation": "completed close strictly outside prior range and volume strictly above reference mean times 1.2",
+      "context_filters": "none; live safety gates never overridden"
+    },
+    "stop": "opposite edge of prior 20-bar range, fixed at signal time",
+    "take_profit": {
+      "risk_multiple": 1.0,
+      "basis": "signal-close distance to fixed stop",
+      "partials": false,
+      "trailing": false
+    },
+    "timeout_seconds": {
+      "SCALP": 3600,
+      "DAY TRADE": 43200
+    },
+    "signal_seconds": {
+      "SCALP": 300,
+      "DAY TRADE": 3600
+    },
+    "execution": {
+      "resolution_seconds": 60,
+      "entry": "first following minute open with adverse slippage and adverse tick rounding",
+      "exit": "stop/target market trigger; adverse slippage and tick rounding; open fills for gaps; stop first for ambiguous intraminute collisions",
+      "exit_timestamp": "intraminute exit recorded at exit-minute end with interval bounds; gaps at minute open; timeout at exact deadline",
+      "no_overlap": "one position per asset/direction/horizon/scenario/partition; independent portfolios",
+      "late_signal": "skip unless full maximum timeout fits partition; no censored final trades",
+      "spread": "included in slippage assumption",
+      "depth_queue": "not modeled"
+    },
+    "position": {
+      "initial_equity_usd": 10000,
+      "notional_cap_usd": 1000,
+      "quantity": "floor notional/entry to native contract quantity precision; fixed notional without compounding",
+      "capital": "independent USD equity per group; no portfolio aggregation or collateral conversion model"
+    },
+    "cost_scenarios": [
+      {
+        "name": "published_base",
+        "fee_bps": 5,
+        "slippage_bps_per_fill": 2
+      },
+      {
+        "name": "adverse_slippage",
+        "fee_bps": 5,
+        "slippage_bps_per_fill": 10
+      },
+      {
+        "name": "higher_fee_sensitivity",
+        "fee_bps": 25,
+        "slippage_bps_per_fill": 2
+      }
+    ],
+    "fee_assumption": "Both fills taker. Public current contract-linked base tier, not verified account entitlement or historical tier. Higher fee case is sensitivity, not assigned account tier.",
+    "funding": "reported historical absolute fundingRate USD per native base unit per hour; accrue rate at timestamp over following hour, prorated to holding duration; positive rate costs LONG and credits SHORT. Timestamp/accrual convention is a modeling assumption, not verified exchange accounting.",
+    "development_end": "2026-09-27T00:00:00+00:00",
+    "validation_end": "2026-10-04T00:00:00+00:00",
+    "walk_forward": "expanding historical context, three successive seven-day evaluation windows after first seven days; fixed parameters and no refitting",
+    "out_of_sample_limit": "retrospective chronological splits, no tuning; final week was previously inspected in candidate research and is not a pristine untouched holdout",
+    "optimization": "none"
+  },
+  "sha256": {
+    "config.json": "1b183c9bc9a79e64c722536bb868e167608a2abcb1cd8abc7267829b97f6c01e",
+    "data/PF_ETHUSD/candles-raw-000.json": "a4c92663c96bb34bd2638e786734f10fad7f64b088fe7f4b065bbed103db77d7",
+    "data/PF_ETHUSD/candles-raw-001.json": "d29b5bf9b0f9f260087390ff8a5a1af8ceee40826c2fb572af907c1568e06bfa",
+    "data/PF_ETHUSD/candles-raw-002.json": "de0016dfbd2b377fd6fb1b1f15c7a7b7775890d0b69faed0b2e7c633ea85b987",
+    "data/PF_ETHUSD/candles-raw-003.json": "167f5eeaf8489f764b2a5286689568c085b21f4c33be4b74a1b98d3d216c8bba",
+    "data/PF_ETHUSD/candles-raw-004.json": "ec0f6a208f67db60ab22bbc999825253ece876b89bd2bae1360d0b4ee8350508",
+    "data/PF_ETHUSD/candles-raw-005.json": "d8e23fafed941512ffad796080a61bee576c4488869cb00a5e5ab2b233ec0fd0",
+    "data/PF_ETHUSD/candles-raw-006.json": "f1cb9904f7b78dcdcf73052003c9d501a55525f52f89ca8a68485760f59f9e44",
+    "data/PF_ETHUSD/candles-raw-007.json": "fcfffa3bd2371ed68715c7ca6d5400d32235fd9642efcf2929ac8f760497e004",
+    "data/PF_ETHUSD/candles-raw-008.json": "72b4202bdbc546a71276dc77a0ff90e384b6a69a78193bd7865ad3e53129e8ae",
+    "data/PF_ETHUSD/candles-raw-009.json": "4c673510a0839db95bb5e2b416f7c6e9a0184e8b2b231ba61414ecfaedbed545",
+    "data/PF_ETHUSD/candles-raw-010.json": "fe1656be264726d3787958537f33f45a6bf7f222c1cfca567d72268c40d7fa89",
+    "data/PF_ETHUSD/candles-raw-011.json": "81a04b32c12d09f35a4f9a56ca58bb4a71f624876823ff11c7d9a70eab1ffe15",
+    "data/PF_ETHUSD/candles-raw-012.json": "8987ecea0fe3c177f9f06e51757fbf3bfdf87bbfcdf77e2899e98e111db3d82b",
+    "data/PF_ETHUSD/candles-raw-013.json": "f7dccec3a3fc6f0341efb395bd18d9e68ccba36f97401e776cf886fce2e8ad04",
+    "data/PF_ETHUSD/candles-raw-014.json": "38bf5c9fa7d7e6d901237b350df0427d4d54ca8b7171a752d45f12c67e672223",
+    "data/PF_ETHUSD/candles-raw-015.json": "4cde24bcb516dad40c2546d9dd9ba6f375da437a87c3bd561fab10b000223623",
+    "data/PF_ETHUSD/candles-raw-016.json": "133d78940600c283e7580728b021fbd78d241add8311c096902b64961ef921f5",
+    "data/PF_ETHUSD/candles-raw-017.json": "b93e50db93e065244dd330e5e4d45998087157ea8558f3340d5678cc51e4dc4c",
+    "data/PF_ETHUSD/candles-raw-018.json": "483e2f4f83b12993f51e78180ef2a0c9e92107549727b75767832a125fed5cdd",
+    "data/PF_ETHUSD/candles-raw-019.json": "f9bf59a23715a9133466a89667947ff4279b7f4601ace3f4591d4901398fde0a",
+    "data/PF_ETHUSD/candles-raw-020.json": "221953b5a8d71659a8881af83375654f1ef93b57a769c610660ee7c6153e15bc",
+    "data/PF_ETHUSD/candles-raw-021.json": "84ffac03d8bdd7c1a00901a5f158809053ae8df1ac7afc41c8d9f268b96c09df",
+    "data/PF_ETHUSD/candles-raw-022.json": "b45c3473e602a76749326ba5238f74c2d35fc3994ccaeb30cfb9a898e61e6876",
+    "data/PF_ETHUSD/candles-raw-023.json": "12d81e2388ab05317a4dd31c07b1b0ad3f5f1e3f286595dac4223c755721c359",
+    "data/PF_ETHUSD/candles-raw-024.json": "4f72cf7aed4da70d72df21ea5e46a30c82e4635479826d458404496d83513c7f",
+    "data/PF_ETHUSD/candles-raw-025.json": "a2a48eb723f0f7703f032d06a7c19b49e101c221bdff680716bc8c9b92d9cf91",
+    "data/PF_ETHUSD/candles-raw-026.json": "2f2afec2c83fee6f9f0375a2fe58d5c624b347f1b8631e2775a84bb36ffe467b",
+    "data/PF_ETHUSD/candles-raw-027.json": "bae02806e750a27dca65b8593673f3d4e4f9ed39e031f7ff033836f7139e84d4",
+    "data/PF_ETHUSD/candles-raw-028.json": "01452f45b9d73ea136a64c4eea346ccb8143e84861d88e0470873a5cfc727576",
+    "data/PF_ETHUSD/candles.json": "11db4835015f2c14106eab3effbef0b40f71eb6e95daeee84dee26c51c3615a5",
+    "data/PF_ETHUSD/funding-raw.json": "2a9baa0a900a7c987788f8bf281cb6eca6693effa4bb04f28a1b34afc98b4c98",
+    "data/PF_ETHUSD/funding.json": "acedc338d328aa38a42d0dad9ad677811c864b1f4b0dd90710335c9b8775bb71",
+    "data/PF_ETHUSD/manifest.json": "7e9eae24edd995d7efeb568369608e0105632f262017b77709944a717d606aa7",
+    "data/PF_XBTUSD/candles-raw-000.json": "cdfe38d088c0b12cba888de61a25b0f3ba3b6dfd18cca892925989e8b9e3dbc2",
+    "data/PF_XBTUSD/candles-raw-001.json": "7608f1a50b45569c52bb6df4906ac4db5b1ba8a7ae87165f3145bc91c5908572",
+    "data/PF_XBTUSD/candles-raw-002.json": "30bb053b3d26401fc42d397be78363a9bdfc893443b4b87fd53cf751f6d3e824",
+    "data/PF_XBTUSD/candles-raw-003.json": "775d2455f9995b005e1bb64a33ccc6205374e02e4bc78dec275ed3fdcf2feb02",
+    "data/PF_XBTUSD/candles-raw-004.json": "46173a05625035e9dc5fa98184e0f22ad8d08fa47e85c3cc4d5d32409aee1c35",
+    "data/PF_XBTUSD/candles-raw-005.json": "b7527ba0ca3a29a997f264a40b465410d4a0d3e4bcea8888ec63e1d196e57cd0",
+    "data/PF_XBTUSD/candles-raw-006.json": "d7cabfa0d108a61c2cfc7f5076f83c8a5886fc03795492ba05dabf78548804ff",
+    "data/PF_XBTUSD/candles-raw-007.json": "d4c8e24dec8d0192e08697ff55955a9377bfe611a084614d8c3428aa19fec797",
+    "data/PF_XBTUSD/candles-raw-008.json": "bcb5c737f34d425c04099f93ccd891b8c946b796cd10fe3c14250200ecdf4817",
+    "data/PF_XBTUSD/candles-raw-009.json": "12f2712b449ab33e2de2d35964de332a12c5c226f77135837010dc5f8120dfc2",
+    "data/PF_XBTUSD/candles-raw-010.json": "afdeb0215b6c172af27d4fcd158f84e6bc5a1b80eb91ca88b5444478830babd4",
+    "data/PF_XBTUSD/candles-raw-011.json": "700599098c228a9133c5642dfeba93dc9c741b5a709fe1c775be269509dd69c6",
+    "data/PF_XBTUSD/candles-raw-012.json": "4bf4bbf752e52324dd03cd1249cf9f67a5dc432e2ccc7cf5a0dcaed5e6212c78",
+    "data/PF_XBTUSD/candles-raw-013.json": "5b05378685af8c11a1eab76e4ac2258218a3f92f8ba9da3e84663a94651e14f1",
+    "data/PF_XBTUSD/candles-raw-014.json": "9b52df45a46020fce40172d289a8261954027e03892ca4f5d48bf674e6314f15",
+    "data/PF_XBTUSD/candles-raw-015.json": "c98b1889b88d208928f965fa0aed25096ec1bb2e73f02e8ce2b631e7c20952f9",
+    "data/PF_XBTUSD/candles-raw-016.json": "90a6eb82e11bdbd96fe934214a272b852a778af20c36f114fc99a406b7d6f161",
+    "data/PF_XBTUSD/candles-raw-017.json": "a6ab41a284965c7edfd1ca81aeeee68a4194a97415292fa7218718603f4fe38a",
+    "data/PF_XBTUSD/candles-raw-018.json": "ba530075e5fb970026e6e38065d535328b4ea30e297333fc9b544d9b101dc292",
+    "data/PF_XBTUSD/candles-raw-019.json": "aee9d2bf4685db882292a79a83747029bfb1b0053247f33560c835240a927cc2",
+    "data/PF_XBTUSD/candles-raw-020.json": "47c0fc8ffa965753cf40da4895e8905e3a48633f36b620b44fc76686a2385916",
+    "data/PF_XBTUSD/candles-raw-021.json": "e409cd31ba52927fd55826d9d945a39673864e9a00b98f8e3e7c5e8c13ab92f9",
+    "data/PF_XBTUSD/candles-raw-022.json": "af403e2fede5435c87018aade01258fa16edc55b32896301f82e85a9a093e149",
+    "data/PF_XBTUSD/candles-raw-023.json": "9c275b31f8a1ba579fb84618ad4b6b35d3bf4b819272ec9e0284c110aedeed7c",
+    "data/PF_XBTUSD/candles-raw-024.json": "89607891178dc1ac138dbac1dc457c90ee36be8f3c71d6a91dd391ca9a00521b",
+    "data/PF_XBTUSD/candles-raw-025.json": "8095fb6ba8ffd6223fde7961b93c868a27494fb54b7b701b825940db9f13b662",
+    "data/PF_XBTUSD/candles-raw-026.json": "56faf3e1042b50cb5f0c74c555fa2d0f31652f9aa7cb81f22623305bc5bcd9da",
+    "data/PF_XBTUSD/candles-raw-027.json": "1a327b4955a82fa7688902a69125e028ad4ed6c9e7ae7f1971260ba0148072b5",
+    "data/PF_XBTUSD/candles-raw-028.json": "867f3c7b0f16d3441a4dd72f79353886063cbcabcb59f932b376ce779c0dff76",
+    "data/PF_XBTUSD/candles.json": "66b40de02beb88539f1fb012dd40a952c5722b131efa2eca311a79a7d0f06397",
+    "data/PF_XBTUSD/funding-raw.json": "dbc9e0e6c31f0110fc011500155c97286f570ac1a3536eeb6db4151d69b9123e",
+    "data/PF_XBTUSD/funding.json": "9bc2de32e12c1411d71aab7951c1639375afd8b020d325d65850e661331ad900",
+    "data/PF_XBTUSD/manifest.json": "c4270948597faba764d85316a689d724afe2f02d1664410b599b23fe819ebd22",
+    "data/manifest.json": "2c0a41bb1a4069fefaccf3e032f6a5b94117e28457c5bbe4e1275a0cf7dce0ee",
+    "probe-0.json": "3966522d8dd9e99341a4f2a2f12cfbdadd61a75ba1fbeaabaf748998a18600bf",
+    "probe-1.json": "838e737ff1b7db5b9d72e48331dd09a5bc7958d0985ddac0b0cb24928355754f"
+  },
+  "deterministic": true,
+  "source_sha256": {
+    "experiment.py": "88b8ebc2560e4623e2466dec346b12c7d6fb07498030a3cb8a96a43e6782d7fc",
+    "scripts/run_experiment.py": "48db41572195b36bca3fadc7af746d42f66f0969c465c5bf3f48d75531353b77",
+    "scripts/collect_experiment_data.py": "951cb39045066cc38ec05dd979ba5eea31628539d9aba0c6a288a67cd9c3723f"
+  }
+}

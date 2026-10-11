@@ -1,0 +1,17 @@
+{
+  "url": "https://futures.kraken.com/api/charts/v1/analytics/PF_XBTUSD/funding-rate?interval=3600&since=1791072000&to=1791676800",
+  "status": 404,
+  "payload": {
+    "result": null,
+    "errors": [
+      {
+        "severity": "E",
+        "error_class": "General",
+        "type": "Unknown method",
+        "msg": "funding-rate",
+        "value": null,
+        "field": null
+      }
+    ]
+  }
+}

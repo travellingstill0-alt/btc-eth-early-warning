@@ -1,0 +1,20 @@
+[
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_ETHUSD",
+    "period_hours": 1,
+    "timestamp": 1791691967798,
+    "rate_fraction": -8.476875e-07,
+    "received_at_ms": 1791691969512,
+    "timestamp_kind": "server snapshot"
+  },
+  {
+    "provider": "Kraken Futures",
+    "instrument": "PF_XBTUSD",
+    "period_hours": 1,
+    "timestamp": 1791691967783,
+    "rate_fraction": -3.030125e-07,
+    "received_at_ms": 1791691969551,
+    "timestamp_kind": "server snapshot"
+  }
+]

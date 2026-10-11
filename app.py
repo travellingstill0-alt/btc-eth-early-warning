@@ -110,7 +110,7 @@ def dashboard():
     for symbol in ('BTCUSD', 'ETHUSD'):
         data = dict(snapshot(symbol, int(stale)), macro_calendar=calendar_data)
         with st.expander('Independent early warnings'):
-            st.json(independent_warnings(data, int(datetime.now(timezone.utc).timestamp()*1000), int(stale)))
+            st.json(independent_warnings(data, int(datetime.now(timezone.utc).timestamp()*1000), int(stale), funding, oi, oi_window))
         risk = assess(data, Rules(move, funding, oi, int(stale), oi_window, int(pre), int(post), int(calendar_age), int(macro_horizon)))
         st.subheader(symbol.replace('USD', ' / USD'))
         st.caption(f"Retrieved {data['retrieved_at'].isoformat()} • UI evaluated {datetime.now(timezone.utc).isoformat()} • UTC • refresh every 60s while this page is active")

@@ -1,0 +1,399 @@
+{
+  "asset": "BTC",
+  "instrument": "PF_XBTUSD",
+  "start": 1789185600,
+  "end": 1791676800,
+  "candle_count": 41520,
+  "funding_count": 692,
+  "complete": true,
+  "attempts": [
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789185600,
+        "to": 1789272000
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-000.json",
+      "sha256": "cdfe38d088c0b12cba888de61a25b0f3ba3b6dfd18cca892925989e8b9e3dbc2",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789272000,
+        "to": 1789358400
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-001.json",
+      "sha256": "7608f1a50b45569c52bb6df4906ac4db5b1ba8a7ae87165f3145bc91c5908572",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789358400,
+        "to": 1789444800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-002.json",
+      "sha256": "30bb053b3d26401fc42d397be78363a9bdfc893443b4b87fd53cf751f6d3e824",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789444800,
+        "to": 1789531200
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-003.json",
+      "sha256": "775d2455f9995b005e1bb64a33ccc6205374e02e4bc78dec275ed3fdcf2feb02",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789531200,
+        "to": 1789617600
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-004.json",
+      "sha256": "46173a05625035e9dc5fa98184e0f22ad8d08fa47e85c3cc4d5d32409aee1c35",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789617600,
+        "to": 1789704000
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-005.json",
+      "sha256": "b7527ba0ca3a29a997f264a40b465410d4a0d3e4bcea8888ec63e1d196e57cd0",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789704000,
+        "to": 1789790400
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-006.json",
+      "sha256": "d7cabfa0d108a61c2cfc7f5076f83c8a5886fc03795492ba05dabf78548804ff",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789790400,
+        "to": 1789876800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-007.json",
+      "sha256": "d4c8e24dec8d0192e08697ff55955a9377bfe611a084614d8c3428aa19fec797",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789876800,
+        "to": 1789963200
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-008.json",
+      "sha256": "bcb5c737f34d425c04099f93ccd891b8c946b796cd10fe3c14250200ecdf4817",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1789963200,
+        "to": 1790049600
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-009.json",
+      "sha256": "12f2712b449ab33e2de2d35964de332a12c5c226f77135837010dc5f8120dfc2",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790049600,
+        "to": 1790136000
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-010.json",
+      "sha256": "afdeb0215b6c172af27d4fcd158f84e6bc5a1b80eb91ca88b5444478830babd4",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790136000,
+        "to": 1790222400
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-011.json",
+      "sha256": "700599098c228a9133c5642dfeba93dc9c741b5a709fe1c775be269509dd69c6",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790222400,
+        "to": 1790308800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-012.json",
+      "sha256": "4bf4bbf752e52324dd03cd1249cf9f67a5dc432e2ccc7cf5a0dcaed5e6212c78",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790308800,
+        "to": 1790395200
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-013.json",
+      "sha256": "5b05378685af8c11a1eab76e4ac2258218a3f92f8ba9da3e84663a94651e14f1",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790395200,
+        "to": 1790481600
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-014.json",
+      "sha256": "9b52df45a46020fce40172d289a8261954027e03892ca4f5d48bf674e6314f15",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790481600,
+        "to": 1790568000
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-015.json",
+      "sha256": "c98b1889b88d208928f965fa0aed25096ec1bb2e73f02e8ce2b631e7c20952f9",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790568000,
+        "to": 1790654400
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-016.json",
+      "sha256": "90a6eb82e11bdbd96fe934214a272b852a778af20c36f114fc99a406b7d6f161",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790654400,
+        "to": 1790740800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-017.json",
+      "sha256": "a6ab41a284965c7edfd1ca81aeeee68a4194a97415292fa7218718603f4fe38a",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790740800,
+        "to": 1790827200
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-018.json",
+      "sha256": "ba530075e5fb970026e6e38065d535328b4ea30e297333fc9b544d9b101dc292",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790827200,
+        "to": 1790913600
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-019.json",
+      "sha256": "aee9d2bf4685db882292a79a83747029bfb1b0053247f33560c835240a927cc2",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1790913600,
+        "to": 1791000000
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-020.json",
+      "sha256": "47c0fc8ffa965753cf40da4895e8905e3a48633f36b620b44fc76686a2385916",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791000000,
+        "to": 1791086400
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-021.json",
+      "sha256": "e409cd31ba52927fd55826d9d945a39673864e9a00b98f8e3e7c5e8c13ab92f9",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791086400,
+        "to": 1791172800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-022.json",
+      "sha256": "af403e2fede5435c87018aade01258fa16edc55b32896301f82e85a9a093e149",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791172800,
+        "to": 1791259200
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-023.json",
+      "sha256": "9c275b31f8a1ba579fb84618ad4b6b35d3bf4b819272ec9e0284c110aedeed7c",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791259200,
+        "to": 1791345600
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-024.json",
+      "sha256": "89607891178dc1ac138dbac1dc457c90ee36be8f3c71d6a91dd391ca9a00521b",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791345600,
+        "to": 1791432000
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-025.json",
+      "sha256": "8095fb6ba8ffd6223fde7961b93c868a27494fb54b7b701b825940db9f13b662",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791432000,
+        "to": 1791518400
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-026.json",
+      "sha256": "56faf3e1042b50cb5f0c74c555fa2d0f31652f9aa7cb81f22623305bc5bcd9da",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791518400,
+        "to": 1791604800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-027.json",
+      "sha256": "1a327b4955a82fa7688902a69125e028ad4ed6c9e7ae7f1971260ba0148072b5",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/api/charts/v1/trade/PF_XBTUSD/1m",
+      "params": {
+        "from": 1791604800,
+        "to": 1791676800
+      },
+      "status": null,
+      "received_at": null,
+      "file": "candles-raw-028.json",
+      "sha256": "867f3c7b0f16d3441a4dd72f79353886063cbcabcb59f932b376ce779c0dff76",
+      "reused_existing_raw": true,
+      "receipt_limit": "First attempt receipt metadata unavailable; raw response preserved"
+    },
+    {
+      "url": "https://futures.kraken.com/derivatives/api/v4/historicalfundingrates",
+      "params": {
+        "symbol": "PF_XBTUSD"
+      },
+      "status": 200,
+      "received_at": "2026-10-11T04:10:18.961788+00:00",
+      "file": "funding-raw.json",
+      "sha256": "dbc9e0e6c31f0110fc011500155c97286f570ac1a3536eeb6db4151d69b9123e"
+    }
+  ],
+  "revision_limit": "No original publication/as-of revision history; current historical exchange responses"
+}
