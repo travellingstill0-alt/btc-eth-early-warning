@@ -1,0 +1,4 @@
+# Track A deployment dependencies; select Python 3.12.
+streamlit==1.65.0
+requests==2.34.2
+pandas==2.3.3

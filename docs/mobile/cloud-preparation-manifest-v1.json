@@ -1,0 +1,14 @@
+{
+  "version": "cloud-preparation-v1",
+  "research_branch_commit": "a1651944de21b06ffb267eac59cdf015ab94ee1c",
+  "files": {
+    ".gitignore": "96f4e9a216364a01a55457bd7870bdad318b8920381979943045b7b67e2b9f87",
+    ".streamlit/config.toml": "656c4ff47c9403614fe5c395a0f45c7cf33135766fc7a7a7e72daaaf20a3d2cc",
+    "mobile/cloud_app.py": "00edeba1f0d2f85e164583b5290a029d9d0989ebdea9dc3f0722e8723e849b0e",
+    "mobile/requirements.txt": "3127c47b8a7d33b65fc99361def8243df04672749f2a1096764b01e2c37c5179",
+    "tests/test_cloud_entry.py": "119f3c7cad245ca175e038a64ed38aa00e54b2aaa4aba1becb4a2ec37b44ccea",
+    "docs/mobile/COMMUNITY-CLOUD.md": "5deeb8e2c1f8f62d665069c12519c2f5096a651e77c2f5fb472da7b50a4b99e4",
+    "docs/mobile/CLOUD-TEST-SUMMARY.md": "5816c6b95b5b2996c0d53db10a22483d28025755f8c55496b8c8eadabe76c9cd",
+    "docs/mobile/community-cloud-verification-v1.json": "7f6bf5b49e066cb7a1d0dcf8809817402880d090563babb382edc0fe7a005b9a"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "verified_date_bogota": "2026-10-11",
+  "official_repository": "https://github.com/streamlit/docs",
+  "revision": "4ed872d6d437a762ca608ccecfa3e026098b6fe6",
+  "method": "Official documentation repository read via permitted GitHub access; docs website inaccessible",
+  "source_files": {
+    "content/deploy/community-cloud/_index.md": "998d87ab995291b2e5dd694c7c869a4020011f377400edbbf64f806ec20739d3",
+    "content/deploy/community-cloud/deploy-your-app/app-dependencies.md": "100c81b53a3953cae8faaca2f15e38853fc1c9a66440a1e7b850c298b39497bd",
+    "content/deploy/community-cloud/deploy-your-app/deploy.md": "2468f77a993bfc23b45994eb58220b2f8e73a871ef5612609637a1c8a86e194d",
+    "content/deploy/community-cloud/deploy-your-app/file-organization.md": "404ff34df3a8dddd68b9485e783fa73f025ef96c67be36bc9a5d9fd1945f4433",
+    "content/deploy/community-cloud/get-started/connect-github.md": "125523957fb1b2330ef40160d15436b853bf0eece8efac0538c2e5786e75b913",
+    "content/deploy/community-cloud/get-started/create-your-account.md": "c6e451453a7eb5977263593171b2187123137a2f5456c12d39aa8262a6957576",
+    "content/deploy/community-cloud/get-started/security-model.md": "04e2d98467f27aae90599308e18f76411f575f6f0b37023d8c9ed8df997fa2e3",
+    "content/deploy/community-cloud/manage-your-app/_index.md": "3ede680738d145f53751eb648f20feb998409fa2ba385dc3d4e611e5102ed86d",
+    "content/deploy/community-cloud/manage-your-app/app-settings.md": "e189055435168ad1af03690451ea3527cf8457a11cc447bf7e43e89e28dd4395",
+    "content/deploy/community-cloud/share-your-app/_index.md": "bdf1077571b6df2b48b197ba0feacb9f82e6f42a787b294ec11afee2979c0838",
+    "content/deploy/community-cloud/status-and-limitations.md": "1fd607368ef66e70f85b61f1df910bfd3cecc44eb92c9c17c0d51c13799b68c1",
+    "content/kb/deployments/resource-limits.md": "e27cecd5733316917665cb37abf527a12d6fa9c0d416c8a5965b9829fc06fd59"
+  },
+  "resource_limits_notice": "Published approximate February 2024 figures; current allocation not verified",
+  "durability_notice": "No durable storage guarantee found in reviewed docs; assume ephemeral",
+  "private_repository_verified": true
+}
