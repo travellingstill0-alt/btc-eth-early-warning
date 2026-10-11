@@ -74,7 +74,8 @@ class AnalysisTests(unittest.TestCase):
 
     def test_complete_low_wait(self):
         d = fixture(); r = assess(d, Rules(), NOW)
-        self.assertEqual(r['level'], 'LOW')
+        self.assertEqual(r['observed_level'], 'LOW')
+        self.assertEqual(r['level'], 'UNKNOWN')
         self.assertEqual(r['missing'], sorted(REQUIRED_CONTEXT))
         self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'NO TRADE')
     def test_missing_blocks(self):
@@ -85,7 +86,7 @@ class AnalysisTests(unittest.TestCase):
         d = fixture(); d['ticker']['priceChangePercent'] = '-8'; d['funding']['lastFundingRate'] = '-0.001'
         d['interest_history'][-1]['sumOpenInterest'] = '120'
         d['interest']['openInterest'] = 120
-        self.assertEqual(assess(d, Rules(), NOW)['level'], 'EXTREME')
+        self.assertEqual(assess(d, Rules(), NOW)['observed_level'], 'EXTREME')
     def test_stale(self):
         d = fixture(); d['retrieved_at'] -= timedelta(minutes=4)
         self.assertIn('stale retrieval', assess(d, Rules(), NOW)['missing'])
@@ -120,7 +121,8 @@ class AnalysisTests(unittest.TestCase):
             d['interest']['openInterest'] = oi
             d['scalp_candles'][-1][4:6] = ['115', '20']
             r = assess(d, Rules(), NOW)
-            self.assertIn(r['level'], ('HIGH', 'EXTREME'))
+            self.assertIn(r['observed_level'], ('HIGH', 'EXTREME'))
+            self.assertEqual(r['level'], 'UNKNOWN')
             self.assertEqual(plan(d, r, 'SCALP', True, NOW)['status'], 'NO TRADE')
 
 if __name__ == '__main__':
