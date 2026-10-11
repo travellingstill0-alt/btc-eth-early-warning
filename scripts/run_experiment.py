@@ -18,7 +18,7 @@ def csv_write(path,rows):
     if not rows:
         path.write_text('');return
     with path.open('w',newline='') as handle:
-        writer=csv.DictWriter(handle,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
+        writer=csv.DictWriter(handle,fieldnames=list(rows[0]),lineterminator='\n');writer.writeheader();writer.writerows(rows)
 
 
 def main():
