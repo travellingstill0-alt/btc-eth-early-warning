@@ -63,6 +63,7 @@ def render_context(context):
             st.write(f'{region}: {gap}')
     st.subheader('Daily exchange flows — broader market context')
     st.caption('Exchange-labelled on-chain flows in native BTC/ETH units. Daily intervals begin at 00:00 UTC. Positive net inflow = inflow minus outflow; no directional trade recommendation. Not real-time scalp confirmation or cross-exchange taker flow.')
+    st.caption('Required exchange-flow safety input: UNAVAILABLE. Coin Metrics daily context covers provider-known exchange addresses for each asset and excludes exchange-to-exchange transfers. Wallet attribution and full exchange coverage are not independently verified; reserves and trading volume are never substituted for netflows.')
     for asset in ('btc', 'eth'):
         flow = context.get('flows', {}).get(asset)
         if not flow:

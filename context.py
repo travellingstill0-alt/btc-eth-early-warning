@@ -97,6 +97,8 @@ def flows(payload, asset, retrieved_at, now=None):
             issues.append('Future or incomplete daily interval')
         values, statuses, updates = {}, {}, {}
         for metric in METRICS:
+            if isinstance(item[metric], bool) or item[metric] is None:
+                raise ValueError('Invalid flow value')
             value = Decimal(item[metric])
             if not value.is_finite() or value < 0:
                 raise ValueError('Invalid flow value')
@@ -121,6 +123,9 @@ def flows(payload, asset, retrieved_at, now=None):
     if not rows or (now - rows[-1]['time']).total_seconds() > 72 * 3600:
         issues.append('Stale or missing latest daily observation')
     return {'source': FLOW_URL, 'retrieved_at': retrieved_at, 'asset': asset, 'rows': rows,
+            'unit': asset.upper(), 'frequency': '1d', 'scope': 'provider-labelled exchanges for this asset',
+            'wallet_attribution': 'Provider-known addresses; independent wallet attribution unverified',
+            'coverage_verified': False, 'safety_eligible': False, 'safety_status': 'UNAVAILABLE',
             'issues': sorted(set(issues)), 'valid': not issues,
             'provisional': any(r['provisional'] for r in rows), 'confirmation_eligible': False}
 

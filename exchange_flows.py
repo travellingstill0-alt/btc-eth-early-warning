@@ -14,7 +14,7 @@ METRICS = ('FlowInKRKNtv', 'FlowOutKRKNtv')
 def inspect(raw, asset, now_ms, max_age=180):
     if asset not in ('BTC', 'ETH'):
         raise ValueError('Unsupported exchange-flow asset')
-    if not isinstance(raw, dict) or raw.get('error') or raw.get('next_page_url'):
+    if not isinstance(raw, dict) or raw.get('error') or raw.get('next_page_url') or raw.get('next_page_token'):
         raise ValueError('Provider error or incomplete/paginated exchange flows')
     rows = raw.get('data')
     if not isinstance(rows, list) or not rows:
@@ -46,7 +46,8 @@ def inspect(raw, asset, now_ms, max_age=180):
             if not amount.is_finite() or amount < 0:
                 raise ValueError('Invalid exchange-flow amount')
             values.append(str(amount))
-        observations.append(dict(provider_time_ms=ms, inflow=values[0], outflow=values[1]))
+        observations.append(dict(provider_time_ms=ms, inflow=values[0], outflow=values[1],
+                                 net_inflow=str(Decimal(values[0])-Decimal(values[1]))))
     observations.sort(key=lambda x: x['provider_time_ms'])
     if any(b['provider_time_ms']-a['provider_time_ms'] != 86400000 for a,b in zip(observations, observations[1:])):
         raise ValueError('Gaps in exchange-flow daily observations')
@@ -58,7 +59,7 @@ def inspect(raw, asset, now_ms, max_age=180):
 def collect(request, asset, now_ms, max_age=180):
     report = dict(provider='Coin Metrics Community', asset=asset, exchange='Kraken',
                   unit=asset, frequency='1d', classification='provider-labelled wallet aggregate; unverified coverage',
-                  verified=False, safety_eligible=False, status='unavailable',
+                  verified=False, safety_eligible=False, safety_status='UNAVAILABLE', status='unavailable',
                   reason='No validated fresh and complete exchange-wallet provider; NO TRADE.',
                   received_at_ms=None)
     try:

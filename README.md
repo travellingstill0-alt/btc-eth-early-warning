@@ -140,3 +140,13 @@ existing unconditional NO TRADE hold remains active. The manual acknowledgement
 checkbox cannot override any gate. Authentication, hosting, Android guidance,
 regional sessions, provider fallbacks, OI history and all current data feeds are
 preserved.
+
+## Free exchange-flow source investigation
+
+See [free-exchange-flow-research.md](docs/free-exchange-flow-research.md) for actual
+Coin Metrics responses, provisional status, native asset units, provider-label
+limitations, current rate-limit headers and access-blocked DefiLlama/other probes.
+Daily BTC/ETH context is distinct from the required fresh exchange-flow input,
+which remains UNAVAILABLE. Reserves, USD totals and volume never substitute for
+native BTC/ETH netflows. Missing flows preserve UNKNOWN overall risk and NO TRADE;
+verified HIGH/EXTREME observed risk remains visible. No new provider is approved.
