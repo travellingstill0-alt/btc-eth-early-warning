@@ -117,3 +117,31 @@ Coinbase Exchange or Kraken are candidates for spot prices, candles and trades. 
 - Asia: missing BOJ/Japan statistics, PBOC/China NBS, RBA/Australia ABS and other regional calendars.
 
 These sources require access checks, official-calendar adapters, timezone/DST normalization, coverage and revision checks. No global all-clear is inferred from an empty calendar. Existing global-calendar pre/post-event blackout windows and required-input checks remain active; complete official-source coverage certification remains future work; the unconditional hold stays active while these gaps remain. Nothing was merged, deployed or connected to automated trading.
+
+## Loss diagnostics research
+
+See [loss investigation and pending evidence](docs/loss-investigation.md).
+`research.py` adds explicit next-open replay and fixed entry hypotheses; it
+has no profitability results, verified account costs or optimization loop.
+Verified raw CVD/liquidation windows now persist in
+`data/context_windows.sqlite3` (`CONTEXT_HISTORY_DB_PATH` override), separately
+from the existing OI store. Keep backups on a persistent filesystem; overlapping
+windows must not be summed. Independent warning diagnostics do not consume
+strategy results. NO TRADE stays locked; trading and notifications stay disabled.
+
+Isolate fixture archives when testing:
+
+```bash
+CONTEXT_HISTORY_DB_PATH=/tmp/btc-context-test-fixtures.sqlite3 .venv/bin/python -m unittest discover -s tests -v
+```
+
+## Recovering saved research in future sessions
+
+Start with [research archive index](research_artifacts/README.md) and
+[recovery report v1](research_artifacts/recovery-v1/REPORT.md) on branch
+`research/loss-diagnostics`. This branch preserves raw seven-day Coinbase
+candles, unexecuted signal candidates, real CVD/OI/liquidation observation
+exports, collection gaps and test logs. No original trade ledger was recovered;
+`ledger-status.json` distinguishes missing records from zero trades. Do not
+represent these candle candidates as the previous backtest or infer fills,
+fees, slippage, outcomes or excursions from them.

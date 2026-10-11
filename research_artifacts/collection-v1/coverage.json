@@ -1,0 +1,148 @@
+{
+  "context_windows": {
+    "rows": 8,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "cvd"
+        ],
+        "count": 2,
+        "observed_bucket_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691259999
+          ]
+        ],
+        "gap_definition": "Missing coverage intervals [previous verified end + 1 ms, next verified start); no interpolation",
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ]
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "liquidations"
+        ],
+        "count": 2,
+        "observed_bucket_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691259999
+          ]
+        ],
+        "gap_definition": "Missing coverage intervals [previous verified end + 1 ms, next verified start); no interpolation",
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ]
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "cvd"
+        ],
+        "count": 2,
+        "observed_bucket_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691259999
+          ]
+        ],
+        "gap_definition": "Missing coverage intervals [previous verified end + 1 ms, next verified start); no interpolation",
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ]
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "liquidations"
+        ],
+        "count": 2,
+        "observed_bucket_ranges_ms": [
+          [
+            1791686400000,
+            1791687299999
+          ],
+          [
+            1791690360000,
+            1791691259999
+          ]
+        ],
+        "gap_definition": "Missing coverage intervals [previous verified end + 1 ms, next verified start); no interpolation",
+        "missing_intervals_ms": [
+          [
+            1791687300000,
+            1791690360000
+          ]
+        ]
+      }
+    ]
+  },
+  "oi_snapshots": {
+    "rows": 4,
+    "integrity": "ok",
+    "series": [
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_ETHUSD",
+          "ETH"
+        ],
+        "count": 2,
+        "first_ms": 1791687346813,
+        "last_ms": 1791691298545,
+        "snapshot_gaps_over_180s_ms": [
+          [
+            1791687346813,
+            1791691298545
+          ]
+        ],
+        "gap_definition": "No locally stored OI samples between endpoints; remote validated history may cover separate periods"
+      },
+      {
+        "identity": [
+          "Kraken Futures",
+          "PF_XBTUSD",
+          "BTC"
+        ],
+        "count": 2,
+        "first_ms": 1791687346904,
+        "last_ms": 1791691298644,
+        "snapshot_gaps_over_180s_ms": [
+          [
+            1791687346904,
+            1791691298644
+          ]
+        ],
+        "gap_definition": "No locally stored OI samples between endpoints; remote validated history may cover separate periods"
+      }
+    ]
+  }
+}

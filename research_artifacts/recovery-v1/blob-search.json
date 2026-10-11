@@ -1,0 +1,643 @@
+{
+  "blobs_scanned": 116,
+  "hits": [
+    {
+      "oid": "f058b1ab0116fcc804eec4b689ce5007ef7f3aa5",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 41,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        },
+        {
+          "line": 91,
+          "text": "BLS iCalendar is fetched read-only with a 15-second timeout. Event timestamps require UTC or a supported US Eastern timezone; DST is converted to UTC. Incomplete envelopes/events, duplicate IDs, missing titles and unsupported recurrence/timezones fail closed. The next 45 days must include CPI and Employment Situation. A retrieved schedule expires after one hour; future retrieval times are invalid."
+        }
+      ]
+    },
+    {
+      "oid": "837ada33d6889ab2362e6696fcfb41d67c72b972",
+      "path": "context.py",
+      "matches": [
+        {
+          "line": 120,
+          "text": "        issues.append('Incomplete seven-day daily history')"
+        },
+        {
+          "line": 131,
+          "text": "        response = requests.get(BLS_URL, timeout=15)"
+        },
+        {
+          "line": 140,
+          "text": "                                    'frequency': '1d', 'start_time': start, 'page_size': 100}, timeout=15)"
+        }
+      ]
+    },
+    {
+      "oid": "96dd00094fec7fcc02421eeaca033dde2c3409b3",
+      "path": "macro_calendar.py",
+      "matches": [
+        {
+          "line": 231,
+          "text": "            response=request(url,timeout=min(4,remaining),allow_redirects=False,"
+        }
+      ]
+    },
+    {
+      "oid": "06c8c42d4d79468e616258a4306281b37b8a9141",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 76,
+          "text": "            response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "7f111b831eab3a4c73eaea8cabfe530d18ab4570",
+      "path": "oi_history.py",
+      "matches": [
+        {
+          "line": 101,
+          "text": "        with closing(sqlite3.connect(self.path, timeout=5)) as db, db:"
+        }
+      ]
+    },
+    {
+      "oid": "8bbe779fd10626d199b9fbad7904980c100f5438",
+      "path": "scripts/check_context_apis.py",
+      "matches": [
+        {
+          "line": 28,
+          "text": "                    response = requests.get(base+path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "4443da5e81db1a55b7a146b1626d5ea7e5609b7f",
+      "path": "scripts/check_exchange_flow_apis.py",
+      "matches": [
+        {
+          "line": 23,
+          "text": "                response = requests.get(base+path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "f3092819e82b3a51e170543d76fb5e7b2c47fcb4",
+      "path": "scripts/diagnose_provider_access.py",
+      "matches": [
+        {
+          "line": 34,
+          "text": "            response=requests.get(url,params=params,timeout=4,allow_redirects=False)"
+        }
+      ]
+    },
+    {
+      "oid": "d605e088237184e2f65b46ab6b5582395698cb0b",
+      "path": "tests/test_feed_context.py",
+      "matches": [
+        {
+          "line": 124,
+          "text": "        with patch('context.requests.get', side_effect=requests.Timeout('source timeout')):"
+        },
+        {
+          "line": 136,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 158,
+          "text": "        app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=90)"
+        }
+      ]
+    },
+    {
+      "oid": "95a03c5e94ceb7e575856882b44271d7769238c5",
+      "path": "tests/test_market.py",
+      "matches": [
+        {
+          "line": 26,
+          "text": "def response(url, params, timeout):"
+        },
+        {
+          "line": 173,
+          "text": "                raise requests.Timeout('source timed out')"
+        }
+      ]
+    },
+    {
+      "oid": "77587d3a8ff2d17ac16be18546d1e3ea720faf27",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 32,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 42,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 68,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 103,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 133,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 162,
+          "text": "            app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "2759f7bdd268c885740cf43b8cb8a2aff6fb4be7",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 41,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "f5579861fa76cfd5971afac45569a1a584ac34a3",
+      "path": "macro_calendar.py",
+      "matches": [
+        {
+          "line": 231,
+          "text": "            response=request(url,timeout=min(4,remaining),allow_redirects=False,"
+        }
+      ]
+    },
+    {
+      "oid": "0400e6040f98c3ae700f79b1439d9f772aa0607c",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 29,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 39,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 65,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 100,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 130,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 159,
+          "text": "            app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "6209fa519fc487b4f838f283e7e73f6ce0e7fede",
+      "path": "macro_calendar.py",
+      "matches": [
+        {
+          "line": 231,
+          "text": "            response=request(url,timeout=min(4,remaining),allow_redirects=False,"
+        }
+      ]
+    },
+    {
+      "oid": "b8d7a3853fd018758decf85fe5ae8c996eef3eb8",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 41,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "87a625beeedfa2023fd6ebb674a75f208e8743a4",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 14,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 40,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 75,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 105,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 134,
+          "text": "            app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "2d34a919f52d42509b05e240de9c943ebe1e73df",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 41,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "e3af53d8a5b9e21e2d4944990ff08d566c206b73",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 75,
+          "text": "            response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "68d67376ba17b53e6aa0ea32d476b89ca1269a91",
+      "path": "tests/test_market.py",
+      "matches": [
+        {
+          "line": 26,
+          "text": "def response(url, params, timeout):"
+        },
+        {
+          "line": 173,
+          "text": "                raise requests.Timeout('source timed out')"
+        }
+      ]
+    },
+    {
+      "oid": "966318a6d94a1e7dc5b23ff3cda01b3f1ff39a91",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 41,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "2ecab4f5b80a446287da3f17fcdf67b4e389328d",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 74,
+          "text": "            response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "aecb08edbd1217ffe432af9b91787374da27213b",
+      "path": "tests/test_market.py",
+      "matches": [
+        {
+          "line": 26,
+          "text": "def response(url, params, timeout):"
+        },
+        {
+          "line": 171,
+          "text": "                raise requests.Timeout('source timed out')"
+        }
+      ]
+    },
+    {
+      "oid": "735b94a9d764907c159833a8709803c3bf16ae81",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 14,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 40,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 75,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 105,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "f3f58b7d4aa6cd8e1e2a6697f6f926aef851cc22",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 41,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "09b21a4b0a228477c2a9b0dd923da26112b438ed",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 45,
+          "text": "            response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "f219254adaa6eb967afcae31098a4223ed2f93c7",
+      "path": "tests/test_market.py",
+      "matches": [
+        {
+          "line": 26,
+          "text": "def response(url, params, timeout):"
+        },
+        {
+          "line": 127,
+          "text": "                raise requests.Timeout('source timed out')"
+        }
+      ]
+    },
+    {
+      "oid": "4d75d08111f9317015e7d3fd3335ef0de25bfcc8",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 14,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 40,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 75,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 105,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "918838febaf7a1d9d124d0b111fa9b45102d0b3c",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 35,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "476d3c8c66ace684daa4cf49fbe2cf475f16d609",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 43,
+          "text": "            response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "1421a1a0d76645eabf83605b2f4e013be6331212",
+      "path": "tests/test_market.py",
+      "matches": [
+        {
+          "line": 23,
+          "text": "def response(url, params, timeout):"
+        },
+        {
+          "line": 111,
+          "text": "                raise requests.Timeout('source timed out')"
+        }
+      ]
+    },
+    {
+      "oid": "de2a3c3a04c2f5404192dfe0589a85f762bf168d",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 14,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 40,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 70,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "af8fdf6f5ca9029c2b9494fde6d0fe0f5debe994",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 29,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        },
+        {
+          "line": 41,
+          "text": "Responses are validated before use; endpoint failures remain independent. Retrievals run concurrently with 12-second request timeouts and record individual UTC completion timestamps. Stale or excessively future-dated source timestamps block signals, and stale metrics, charts and sampled flow are hidden. No last-good or synthetic fallback is presented as current data. CVD remains explicitly unavail"
+        }
+      ]
+    },
+    {
+      "oid": "a53b5b345153538a80e59a52b75eef241689a74b",
+      "path": "diagnostics.py",
+      "matches": [
+        {
+          "line": 23,
+          "text": "    elif isinstance(exc, requests.Timeout):"
+        },
+        {
+          "line": 24,
+          "text": "        category = 'timeout'"
+        }
+      ]
+    },
+    {
+      "oid": "9759da6edd8a91e0fa355610cedc2b75a1b56277",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 73,
+          "text": "    response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "243967fbe6602d46721a6d1571aa475a2a033212",
+      "path": "reports/public-provider-verification.md",
+      "matches": [
+        {
+          "line": 40,
+          "text": "Added reusable failure classification to dashboard diagnostics and the live-check report. It distinguishes provider restrictions, proxy-policy denial, unavailable proxy, rate limits, timeouts, invalid payloads and general failures. Added bounded, concurrent provider probes with UTC start/completion times, HTTP status, explicit non-integration flags and no redirect following. HTTP 200 by itself is "
+        }
+      ]
+    },
+    {
+      "oid": "b37691dd01b12793ddddeb861c0277a67b1dbb21",
+      "path": "reports/verification.md",
+      "matches": [
+        {
+          "line": 31,
+          "text": "- Retrieve independent endpoints concurrently with bounded request timeouts; record per-source UTC completion times and snapshot completion."
+        }
+      ]
+    },
+    {
+      "oid": "4b5020ed18a0c0dece6510c4f76b98b90434b59e",
+      "path": "scripts/check_public_providers.py",
+      "matches": [
+        {
+          "line": 63,
+          "text": "        response = requests.get(candidate['url'], params=candidate['params'], timeout=12, allow_redirects=False)"
+        }
+      ]
+    },
+    {
+      "oid": "3727d7ebe68a2bcfcca4b5cb42fe60608f4ad8d4",
+      "path": "tests/test_market.py",
+      "matches": [
+        {
+          "line": 21,
+          "text": "            raise requests.Timeout('test timeout')"
+        },
+        {
+          "line": 27,
+          "text": "        with patch('market.get', side_effect=requests.Timeout('test timeout')):"
+        }
+      ]
+    },
+    {
+      "oid": "449dd36a37e13a3b9f880fb432c017497e6e7627",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 14,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 38,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 50,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 67,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 79,
+          "text": "                app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        }
+      ]
+    },
+    {
+      "oid": "04b593c5c41696a380e02f207bc6f6bbc2f81025",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 29,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        },
+        {
+          "line": 41,
+          "text": "Responses are validated before use; endpoint failures remain independent. Retrievals run concurrently with 12-second request timeouts and record individual UTC completion timestamps. Stale or excessively future-dated source timestamps block signals, and stale metrics, charts and sampled flow are hidden. No last-good or synthetic fallback is presented as current data. CVD remains explicitly unavail"
+        }
+      ]
+    },
+    {
+      "oid": "4898c9d39b3cda371eacb25efe2e9da28b2744a7",
+      "path": "scripts/check_public_providers.py",
+      "matches": [
+        {
+          "line": 40,
+          "text": "        response = requests.get(candidate['url'], params=candidate['params'], timeout=12, allow_redirects=False)"
+        }
+      ]
+    },
+    {
+      "oid": "1ed805f4a5b3c8ee201fc08e17170575ffb4b81b",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 29,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        },
+        {
+          "line": 41,
+          "text": "Responses are validated before use; endpoint failures remain independent. Retrievals run concurrently with 12-second request timeouts and record individual UTC completion timestamps. Stale or excessively future-dated source timestamps block signals, and stale metrics, charts and sampled flow are hidden. No last-good or synthetic fallback is presented as current data. CVD remains explicitly unavail"
+        }
+      ]
+    },
+    {
+      "oid": "b6a8c72ffff3db751adf77575d197284235c24a1",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 72,
+          "text": "    response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "29ab28f7a3e395e5353ac6a7fbcfdef6d3d3899e",
+      "path": "README.md",
+      "matches": [
+        {
+          "line": 29,
+          "text": "SCALP uses completed 5-minute candles; DAY TRADE uses completed hourly candles. A close beyond the previous 20-bar range and volume above 1.2 times its average confirms a directional breakout. Opposite range edge is invalidation; targets are one and two times reference-entry-to-invalidation distance. These historical reference levels omit fees, spread, slippage and execution guarantees. HIGH/EXTRE"
+        }
+      ]
+    },
+    {
+      "oid": "275427621b400edf7091c218ff8194690af05390",
+      "path": "market.py",
+      "matches": [
+        {
+          "line": 9,
+          "text": "    response = requests.get(base + path, params=params, timeout=12)"
+        }
+      ]
+    },
+    {
+      "oid": "2a819fb3954b14549efadd6adc244df951adc109",
+      "path": "tests/test_ui.py",
+      "matches": [
+        {
+          "line": 14,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        },
+        {
+          "line": 38,
+          "text": "            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)"
+        }
+      ]
+    }
+  ]
+}

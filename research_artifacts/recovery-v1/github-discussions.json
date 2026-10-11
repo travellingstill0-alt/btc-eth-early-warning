@@ -1,0 +1,38 @@
+[
+  {
+    "route": "/issues/1/comments?per_page=100",
+    "http_status": 200,
+    "data": [],
+    "paginated": false
+  },
+  {
+    "route": "/issues/2/comments?per_page=100",
+    "http_status": 200,
+    "data": [],
+    "paginated": false
+  },
+  {
+    "route": "/pulls/1/reviews?per_page=100",
+    "http_status": 200,
+    "data": [],
+    "paginated": false
+  },
+  {
+    "route": "/pulls/2/reviews?per_page=100",
+    "http_status": 200,
+    "data": [],
+    "paginated": false
+  },
+  {
+    "route": "/pulls/comments?per_page=100",
+    "http_status": 200,
+    "data": [],
+    "paginated": false
+  },
+  {
+    "route": "/comments?per_page=100",
+    "http_status": 200,
+    "data": [],
+    "paginated": false
+  }
+]

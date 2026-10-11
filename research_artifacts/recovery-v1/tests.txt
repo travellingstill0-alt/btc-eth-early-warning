@@ -1,0 +1,161 @@
+test_assessment_remains_json_serializable_for_live_diagnostics (test_analysis.AnalysisTests.test_assessment_remains_json_serializable_for_live_diagnostics) ... ok
+test_changed_data_invalidates_assessment (test_analysis.AnalysisTests.test_changed_data_invalidates_assessment) ... ok
+test_complete_low_wait (test_analysis.AnalysisTests.test_complete_low_wait) ... ok
+test_confirmed_breakout (test_analysis.AnalysisTests.test_confirmed_breakout) ... ok
+test_expired_future_and_missing_assessments_are_rejected (test_analysis.AnalysisTests.test_expired_future_and_missing_assessments_are_rejected) ... ok
+test_extreme (test_analysis.AnalysisTests.test_extreme) ... ok
+test_funding_threshold_respects_hourly_and_eight_hour_periods (test_analysis.AnalysisTests.test_funding_threshold_respects_hourly_and_eight_hour_periods) ... ok
+test_high_and_extreme_block_confirmed_breakout (test_analysis.AnalysisTests.test_high_and_extreme_block_confirmed_breakout) ... ok
+test_macro_blocks (test_analysis.AnalysisTests.test_macro_blocks) ... ok
+test_missing_blocks (test_analysis.AnalysisTests.test_missing_blocks) ... ok
+test_signal_rechecks_freshness_at_age_boundary (test_analysis.AnalysisTests.test_signal_rechecks_freshness_at_age_boundary) ... ok
+test_source_metadata_stale_missing_and_future_block_enter (test_analysis.AnalysisTests.test_source_metadata_stale_missing_and_future_block_enter) ... ok
+test_stale (test_analysis.AnalysisTests.test_stale) ... ok
+test_unavailable_context_blocks_both_panels_and_cannot_be_faked (test_analysis.AnalysisTests.test_unavailable_context_blocks_both_panels_and_cannot_be_faked) ... ok
+test_unclosed_breakout_ignored (test_analysis.AnalysisTests.test_unclosed_breakout_ignored) ... ok
+test_active_bucket_is_excluded (test_context_data.ContextTests.test_active_bucket_is_excluded) ... ok
+test_camel_case_schema_and_aggregate_overflow (test_context_data.ContextTests.test_camel_case_schema_and_aggregate_overflow) ... ok
+test_conflicting_history_pages_do_not_become_verified (test_context_data.ContextTests.test_conflicting_history_pages_do_not_become_verified) ... ok
+test_cvd_fallback_and_liquidation_secondary_require_full_coverage (test_context_data.ContextTests.test_cvd_fallback_and_liquidation_secondary_require_full_coverage) ... ok
+test_deribit_complete_tape_uses_native_usd_and_rejects_bad_coverage (test_context_data.ContextTests.test_deribit_complete_tape_uses_native_usd_and_rejects_bad_coverage) ... ok
+test_deribit_saturated_range_is_split_without_skipping_boundary_trades (test_context_data.ContextTests.test_deribit_saturated_range_is_split_without_skipping_boundary_trades) ... ok
+test_exact_cvd_and_reported_zero_liquidations_with_complete_buckets (test_context_data.ContextTests.test_exact_cvd_and_reported_zero_liquidations_with_complete_buckets) ... ok
+test_gaps_duplicates_partial_future_and_malformed_bars_are_rejected (test_context_data.ContextTests.test_gaps_duplicates_partial_future_and_malformed_bars_are_rejected) ... ok
+test_liquidation_history_gaps_unknown_types_and_absent_boundary_fail_closed (test_context_data.ContextTests.test_liquidation_history_gaps_unknown_types_and_absent_boundary_fail_closed) ... ok
+test_liquidation_missing_negative_nonfinite_is_not_zero (test_context_data.ContextTests.test_liquidation_missing_negative_nonfinite_is_not_zero) ... ok
+test_malformed_provider_body_is_unavailable_without_crashing (test_context_data.ContextTests.test_malformed_provider_body_is_unavailable_without_crashing) ... ok
+test_market_fetch_connects_verified_context_and_diagnostics (test_context_data.ContextTests.test_market_fetch_connects_verified_context_and_diagnostics) ... ok
+test_overlapping_history_pages_are_deduplicated_without_conflict (test_context_data.ContextTests.test_overlapping_history_pages_are_deduplicated_without_conflict) ... ok
+test_rate_limit_and_budget_exhaustion_do_not_assume_zero (test_context_data.ContextTests.test_rate_limit_and_budget_exhaustion_do_not_assume_zero) ... ok
+test_stale_cache_or_altered_identity_never_satisfies_context (test_context_data.ContextTests.test_stale_cache_or_altered_identity_never_satisfies_context) ... ok
+test_eth_identity_and_timezone_normalization (test_exchange_flows.ExchangeFlowsTests.test_eth_identity_and_timezone_normalization) ... ok
+test_fresh_timestamp_and_claimed_verification_cannot_unlock_enter (test_exchange_flows.ExchangeFlowsTests.test_fresh_timestamp_and_claimed_verification_cannot_unlock_enter) ... ok
+test_invalid_times_never_crash_collection (test_exchange_flows.ExchangeFlowsTests.test_invalid_times_never_crash_collection) ... ok
+test_labelled_daily_data_and_true_zero_are_diagnostics_only (test_exchange_flows.ExchangeFlowsTests.test_labelled_daily_data_and_true_zero_are_diagnostics_only) ... ok
+test_missing_negative_nonfinite_and_wrong_asset_rejected (test_exchange_flows.ExchangeFlowsTests.test_missing_negative_nonfinite_and_wrong_asset_rejected) ... ok
+test_transport_failure_is_not_zero (test_exchange_flows.ExchangeFlowsTests.test_transport_failure_is_not_zero) ... ok
+test_bad_calendar_fails_closed (test_feed_context.ContextTests.test_bad_calendar_fails_closed) ... ok
+test_bls_global_adapter_accepts_verified_feed_timezone_and_zero_duration (test_feed_context.ContextTests.test_bls_global_adapter_accepts_verified_feed_timezone_and_zero_duration) ... ok
+test_calendar_dst_and_partial_coverage (test_feed_context.ContextTests.test_calendar_dst_and_partial_coverage) ... ok
+test_calendar_stale_future_and_missing_coverage (test_feed_context.ContextTests.test_calendar_stale_future_and_missing_coverage) ... ok
+test_flash_is_context_only (test_feed_context.ContextTests.test_flash_is_context_only) ... ok
+test_flow_completeness_freshness_and_pagination (test_feed_context.ContextTests.test_flow_completeness_freshness_and_pagination) ... ok
+test_http_failures_render_as_unavailable (test_feed_context.ContextTests.test_http_failures_render_as_unavailable) ... ok
+test_http_integration_and_source_isolation (test_feed_context.ContextTests.test_http_integration_and_source_isolation) ... ok
+test_malformed_flows (test_feed_context.ContextTests.test_malformed_flows) ... ok
+test_populated_context_renders_and_hold_survives_checkbox (test_feed_context.ContextTests.test_populated_context_renders_and_hold_survives_checkbox) ... 2026-10-11 04:01:54.271 WARNING streamlit.runtime.caching.cache_data_api: No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:01:54.272 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_research_hold_blocks_otherwise_confirmed_setup (test_feed_context.ContextTests.test_research_hold_blocks_otherwise_confirmed_setup) ... ok
+test_bls_and_both_flow_feeds (test_feed_context.LiveIntegrationTests.test_bls_and_both_flow_feeds) ... skipped 'Opt-in read-only network checks'
+test_live_dashboard (test_feed_context.LiveIntegrationTests.test_live_dashboard) ... skipped 'Opt-in read-only network checks'
+test_conflicting_duplicate_rejected (test_history_recovery.HistoryTests.test_conflicting_duplicate_rejected) ... ok
+test_invalid_ohlc_rejected (test_history_recovery.HistoryTests.test_invalid_ohlc_rejected) ... ok
+test_missing_bar_never_filled (test_history_recovery.HistoryTests.test_missing_bar_never_filled) ... ok
+test_outside_window_not_promoted (test_history_recovery.HistoryTests.test_outside_window_not_promoted) ... ok
+test_sorted_deduplicated_exact_coverage (test_history_recovery.HistoryTests.test_sorted_deduplicated_exact_coverage) ... ok
+test_ambiguous_and_nonexistent_dst_times_are_rejected (test_macro_calendar.CalendarTests.test_ambiguous_and_nonexistent_dst_times_are_rejected) ... ok
+test_bls_dst_conversion_and_unverified_figures (test_macro_calendar.CalendarTests.test_bls_dst_conversion_and_unverified_figures) ... ok
+test_cancelled_tentative_and_date_only_statuses (test_macro_calendar.CalendarTests.test_cancelled_tentative_and_date_only_statuses) ... ok
+test_four_importance_classes (test_macro_calendar.CalendarTests.test_four_importance_classes) ... ok
+test_global_structured_events_require_explicit_timezone_and_status (test_macro_calendar.CalendarTests.test_global_structured_events_require_explicit_timezone_and_status) ... ok
+test_invalid_ics_timestamp_identity_recurrence_and_completeness (test_macro_calendar.CalendarTests.test_invalid_ics_timestamp_identity_recurrence_and_completeness) ... ok
+test_invalid_settings_never_disable_safety (test_macro_calendar.CalendarTests.test_invalid_settings_never_disable_safety) ... ok
+test_missing_and_high_risk_are_reported_together (test_macro_calendar.CalendarTests.test_missing_and_high_risk_are_reported_together) ... ok
+test_missing_stale_future_and_empty_do_not_mean_clear (test_macro_calendar.CalendarTests.test_missing_stale_future_and_empty_do_not_mean_clear) ... ok
+test_official_date_parsers_never_invent_release_times (test_macro_calendar.CalendarTests.test_official_date_parsers_never_invent_release_times) ... ok
+test_plan_blocks_macro_even_if_other_inputs_are_isolated (test_macro_calendar.CalendarTests.test_plan_blocks_macro_even_if_other_inputs_are_isolated) ... ok
+test_pre_and_post_windows_include_boundaries_and_no_manual_override (test_macro_calendar.CalendarTests.test_pre_and_post_windows_include_boundaries_and_no_manual_override) ... ok
+test_sessions_dst_mismatch_overlap_and_weekends (test_macro_calendar.CalendarTests.test_sessions_dst_mismatch_overlap_and_weekends) ... ok
+test_source_changed_url_and_cached_event_claims_are_rejected (test_macro_calendar.CalendarTests.test_source_changed_url_and_cached_event_claims_are_rejected) ... ok
+test_source_failures_redirects_and_bad_html_fail_closed (test_macro_calendar.CalendarTests.test_source_failures_redirects_and_bad_html_fail_closed) ... ok
+test_transport_denial_is_reported_before_absent_timestamp (test_macro_calendar.CalendarTests.test_transport_denial_is_reported_before_absent_timestamp) ... ok
+test_unverified_json_figures_are_not_promoted (test_macro_calendar.CalendarTests.test_unverified_json_figures_are_not_promoted) ... ok
+test_us_europe_dst_mismatch_changes_overlap_duration (test_macro_calendar.CalendarTests.test_us_europe_dst_mismatch_changes_overlap_duration) ... ok
+test_all_providers_unavailable_remain_missing (test_market.MarketTests.test_all_providers_unavailable_remain_missing) ... ok
+test_api_error_payload_is_failure_even_with_http_200 (test_market.MarketTests.test_api_error_payload_is_failure_even_with_http_200) ... ok
+test_candle_and_trade_fallback_normalizes_order_and_sides (test_market.MarketTests.test_candle_and_trade_fallback_normalizes_order_and_sides) ... ok
+test_fractional_trade_seconds_remain_valid (test_market.MarketTests.test_fractional_trade_seconds_remain_valid) ... ok
+test_gapped_candles_trigger_fallback (test_market.MarketTests.test_gapped_candles_trigger_fallback) ... ok
+test_history_endpoint_failure_uses_persistent_snapshots_and_blocks_warmup (test_market.MarketTests.test_history_endpoint_failure_uses_persistent_snapshots_and_blocks_warmup) ... ok
+test_http_failure_uses_fallbacks_with_native_units (test_market.MarketTests.test_http_failure_uses_fallbacks_with_native_units) ... ok
+test_invalid_primary_and_secondary_timestamps_fail_closed (test_market.MarketTests.test_invalid_primary_and_secondary_timestamps_fail_closed) ... ok
+test_invalid_primary_timestamps_use_safe_fallback (test_market.MarketTests.test_invalid_primary_timestamps_use_safe_fallback) ... ok
+test_malformed_history_does_not_turn_current_oi_into_history (test_market.MarketTests.test_malformed_history_does_not_turn_current_oi_into_history) ... ok
+test_negative_oi_and_impossible_candles_are_rejected (test_market.MarketTests.test_negative_oi_and_impossible_candles_are_rejected) ... ok
+test_one_malformed_derivative_field_does_not_discard_other (test_market.MarketTests.test_one_malformed_derivative_field_does_not_discard_other) ... ok
+test_primary_providers_and_verified_history (test_market.MarketTests.test_primary_providers_and_verified_history) ... ok
+test_stale_backups_are_not_accepted (test_market.MarketTests.test_stale_backups_are_not_accepted) ... ok
+test_stale_or_future_primary_falls_back (test_market.MarketTests.test_stale_or_future_primary_falls_back) ... ok
+test_storage_failure_has_warning_and_remote_history_still_works (test_market.MarketTests.test_storage_failure_has_warning_and_remote_history_still_works) ... ok
+test_unknown_trade_side_is_not_guessed (test_market.MarketTests.test_unknown_trade_side_is_not_guessed) ... ok
+test_valid_iso_timestamp_accepts_microseconds (test_market.MarketTests.test_valid_iso_timestamp_accepts_microseconds) ... ok
+test_verified_stored_coverage_supports_outage_but_not_different_provider (test_market.MarketTests.test_verified_stored_coverage_supports_outage_but_not_different_provider) ... ok
+test_invalid_payload_never_creates_archive (test_observation_store.StoreTests.test_invalid_payload_never_creates_archive) ... ok
+test_transactional_dedup_and_raw_payload (test_observation_store.StoreTests.test_transactional_dedup_and_raw_payload) ... ok
+test_all_contracts_and_units_are_isolated (test_oi_history.OIHistoryTests.test_all_contracts_and_units_are_isolated) ... ok
+test_baseline_is_before_target_and_within_tolerance_no_interpolation (test_oi_history.OIHistoryTests.test_baseline_is_before_target_and_within_tolerance_no_interpolation) ... ok
+test_cached_change_summary_never_overrides_unverified_raw_history (test_oi_history.OIHistoryTests.test_cached_change_summary_never_overrides_unverified_raw_history) ... ok
+test_concurrent_sessions_do_not_lose_or_duplicate_observations (test_oi_history.OIHistoryTests.test_concurrent_sessions_do_not_lose_or_duplicate_observations) ... ok
+test_corrupt_database_is_not_silently_reset (test_oi_history.OIHistoryTests.test_corrupt_database_is_not_silently_reset) ... ok
+test_gaps_invalid_baselines_and_incompatible_or_unverified_data (test_oi_history.OIHistoryTests.test_gaps_invalid_baselines_and_incompatible_or_unverified_data) ... ok
+test_incomplete_analytics_bar_is_excluded_and_ohlc_close_is_used (test_oi_history.OIHistoryTests.test_incomplete_analytics_bar_is_excluded_and_ohlc_close_is_used) ... ok
+test_percentage_overflow_and_fractional_timestamps_are_unavailable (test_oi_history.OIHistoryTests.test_percentage_overflow_and_fractional_timestamps_are_unavailable) ... ok
+test_persisted_series_accumulates_a_window_after_restart (test_oi_history.OIHistoryTests.test_persisted_series_accumulates_a_window_after_restart) ... ok
+test_persistence_survives_reopening_and_duplicate_observations (test_oi_history.OIHistoryTests.test_persistence_survives_reopening_and_duplicate_observations) ... ok
+test_stale_current_observation_cannot_use_fresh_retrieval_to_unlock (test_oi_history.OIHistoryTests.test_stale_current_observation_cannot_use_fresh_retrieval_to_unlock) ... ok
+test_unverified_and_stale_observations_never_enter_store (test_oi_history.OIHistoryTests.test_unverified_and_stale_observations_never_enter_store) ... ok
+test_warmup_per_window_and_changes_from_real_observation_rows (test_oi_history.OIHistoryTests.test_warmup_per_window_and_changes_from_real_observation_rows) ... ok
+test_censored_not_timeout (test_research.ReplayTests.test_censored_not_timeout) ... ok
+test_eight_groups_and_missing_context (test_research.ReplayTests.test_eight_groups_and_missing_context) ... ok
+test_future_context_rejected (test_research.ReplayTests.test_future_context_rejected) ... ok
+test_gap_rejected (test_research.ReplayTests.test_gap_rejected) ... ok
+test_gap_stop (test_research.ReplayTests.test_gap_stop) ... ok
+test_next_open_and_two_sided_costs (test_research.ReplayTests.test_next_open_and_two_sided_costs) ... ok
+test_short_pnl (test_research.ReplayTests.test_short_pnl) ... ok
+test_stop_first_collision (test_research.ReplayTests.test_stop_first_collision) ... ok
+test_automatic_macro_warnings_sessions_and_manual_review_cannot_override (test_ui.UITests.test_automatic_macro_warnings_sessions_and_manual_review_cannot_override) ... 2026-10-11 04:01:58.436 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:01:58.436 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_fallback_units_timestamps_and_stale_warning (test_ui.UITests.test_fallback_units_timestamps_and_stale_warning) ... 2026-10-11 04:01:59.252 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:01:59.253 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_oi_windows_warmup_and_explicit_required_lookback_selection (test_ui.UITests.test_oi_windows_warmup_and_explicit_required_lookback_selection) ... 2026-10-11 04:01:59.695 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:01:59.696 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_populated_dashboard_and_macro_gate (test_ui.UITests.test_populated_dashboard_and_macro_gate) ... 2026-10-11 04:02:00.340 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:02:00.341 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_unavailable_sources_render_and_block_signals (test_ui.UITests.test_unavailable_sources_render_and_block_signals) ... 2026-10-11 04:02:00.959 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:02:00.960 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+test_verified_context_renders_but_exchange_flows_keep_no_trade (test_ui.UITests.test_verified_context_renders_but_exchange_flows_keep_no_trade) ... 2026-10-11 04:02:01.099 No runtime found, using MemoryCacheStorageManager
+2026-10-11 04:02:01.100 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+/workspace/btc-eth-early-warning/.venv/lib/python3.12/site-packages/streamlit/time_util.py:73: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  seconds: float = pd.Timedelta(t).total_seconds()
+ok
+
+----------------------------------------------------------------------
+Ran 120 tests in 7.890s
+
+OK (skipped=2)

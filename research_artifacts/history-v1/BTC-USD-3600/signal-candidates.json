@@ -1,0 +1,122 @@
+[
+  {
+    "asset": "BTC",
+    "direction": "LONG",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791147600000,
+    "reference_entry": 85822.83,
+    "stop": 84700.02,
+    "target_1": 86945.64,
+    "target_2": 88068.45,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "LONG",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791154800000,
+    "reference_entry": 86423,
+    "stop": 84757.54,
+    "target_1": 88088.46,
+    "target_2": 89753.92000000001,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791216000000,
+    "reference_entry": 85250.36,
+    "stop": 86996,
+    "target_1": 83504.72,
+    "target_2": 81759.08,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "LONG",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791298800000,
+    "reference_entry": 86601.3,
+    "stop": 85100.01,
+    "target_1": 88102.59000000001,
+    "target_2": 89603.88000000002,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791338400000,
+    "reference_entry": 84360.22,
+    "stop": 86698.35,
+    "target_1": 82022.09,
+    "target_2": 79683.95999999999,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791342000000,
+    "reference_entry": 83847.56,
+    "stop": 86698.35,
+    "target_1": 80996.76999999999,
+    "target_2": 78145.97999999998,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791381600000,
+    "reference_entry": 83139.71,
+    "stop": 85816.87,
+    "target_1": 80462.55000000002,
+    "target_2": 77785.39000000003,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791475200000,
+    "reference_entry": 80961.42,
+    "stop": 83567.58,
+    "target_1": 78355.26,
+    "target_2": 75749.09999999999,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791482400000,
+    "reference_entry": 80679.74,
+    "stop": 83473.42,
+    "target_1": 77886.06000000001,
+    "target_2": 75092.38000000002,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  },
+  {
+    "asset": "BTC",
+    "direction": "LONG",
+    "horizon": "DAY TRADE",
+    "signal_close_ms": 1791655200000,
+    "reference_entry": 83025.85,
+    "stop": 82358.02,
+    "target_1": 83693.68000000001,
+    "target_2": 84361.51000000001,
+    "status": "UNEXECUTED_CANDIDATE",
+    "risk_gate_evaluated": false
+  }
+]

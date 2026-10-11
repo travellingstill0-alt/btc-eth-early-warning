@@ -1,0 +1,35 @@
+{
+  "status": "NOT_RECOVERED_REPRODUCTION_BLOCKED",
+  "records": null,
+  "reason": "No source trade ledger or complete original execution/exit/cost specification was located.",
+  "required_fields": [
+    "asset",
+    "instrument",
+    "entry_price",
+    "entry_timestamp",
+    "exit_price",
+    "exit_timestamp",
+    "direction",
+    "classification",
+    "stop_loss",
+    "take_profit",
+    "fees",
+    "slippage",
+    "trade_outcome",
+    "maximum_favorable_excursion",
+    "maximum_adverse_excursion"
+  ],
+  "missing_specification": [
+    "original backtest dates",
+    "original execution venue and instrument",
+    "entry fill model",
+    "target 1 versus target 2 or partial exits",
+    "timeout",
+    "sizing/leverage",
+    "overlapping trades policy",
+    "maker/taker tiers and historical discounts",
+    "spread/slippage",
+    "funding/borrow",
+    "historical risk-gate inputs"
+  ]
+}

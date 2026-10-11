@@ -1,0 +1,19 @@
+d0a39f80bf919febca9929e1e3a8a63636fc5cb4 2026-10-10T22:53:55Z Document official macro source access blockers and exact allowlist hosts
+22533d9d967bac11a147863eedfce04ec16fa15f 2026-10-10T22:52:39Z Integrate verified BLS and Coin Metrics context while preserving PR2 safety gates
+979ccc32c3f2eb897094cae287ceb807ff475063 2026-10-10T21:56:01Z Diagnose provider proxy denials and document Android setup
+6455d826430787c33f7bb81b9119020c71912129 2026-10-10T21:48:37Z Add fail-closed global macro calendar and Colombia session monitoring
+6d72e67a247ae97b00b4ccbb0c87c13eb3c9a24b 2026-10-10T21:34:26Z Add fail-closed exchange wallet flow availability diagnostics
+5a662bf87c00a6937377c7bbd4c3856363eb5dbe 2026-10-10T21:26:49Z Add verified venue-scoped CVD and executed liquidation context
+16db73b3f1b9c9d0fc3312c5a6c5247b4993f91a 2026-10-10T21:15:23Z Enforce required context and fresh assessments with safe timestamp fallback
+2534ba08e4092c5d344fca9f9f459de02c0697fc 2026-10-10T20:13:40Z Document OI history and provider fallback integration validation
+7fe614f39afaa3685972d218d8a13af0cd2cd5ce 2026-10-10T18:47:17Z Add verified OI history and persistent contract-specific snapshots
+a8ec8bb840aa3b4e9eb86eb1446cdc07a33b9774 2026-10-10T18:31:20Z Use public Kraken Coinbase and Deribit data with safe fallback
+17801b842d6ae91bed7e400958cd049c0cb61390 2026-10-10T18:13:03Z Retest provider access and record policy and freshness evidence
+2a7d3b06bcb07af075dd45bbadc03982781c347a 2026-10-10T17:06:57Z Audit public providers and distinguish network policy from provider restrictions
+8ed9287341dba515d550f2a78a60dd2ec2a3b73a 2026-10-10T16:58:27Z Validate live sources and suppress stale dashboard values
+690a7a0b2c396f05a45f1381aabe3a21e1bafcaf 2026-10-10T17:06:57Z Audit public providers and distinguish network policy from provider restrictions
+9b0ffc722d0764464e58e4e883fca51dcda19de7 2026-10-10T16:58:27Z Validate live sources and suppress stale dashboard values
+828efe2c7ee727ed16f812e43aa4f8611d17f6dc 2026-10-10T16:58:27Z Validate live sources and suppress stale dashboard values
+c16faeb5b522b9bfd5303c3a6dee8e3406604e77 2026-10-10T11:48:46-05:00 Merge pull request #1 from travellingstill0-alt/feature/btc-eth-dashboard-v1
+9270990c213ad8258b4aa486cd9e5884a94db647 2026-10-10T16:43:01Z Add initial BTC and ETH early warning dashboard
+75f2969d5a823972d75a197ee7f7108069ab50e5 2026-10-09T21:26:51-05:00 Initial commit

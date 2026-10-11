@@ -1,0 +1,12 @@
+c16faeb5b522b9bfd5303c3a6dee8e3406604e77	HEAD
+9270990c213ad8258b4aa486cd9e5884a94db647	refs/heads/feature/btc-eth-dashboard-v1
+7fe614f39afaa3685972d218d8a13af0cd2cd5ce	refs/heads/feature/persistent-oi-history
+a8ec8bb840aa3b4e9eb86eb1446cdc07a33b9774	refs/heads/feature/public-provider-fallback
+828efe2c7ee727ed16f812e43aa4f8611d17f6dc	refs/heads/fix/live-data-validation
+17801b842d6ae91bed7e400958cd049c0cb61390	refs/heads/fix/provider-retest-policy-evidence
+690a7a0b2c396f05a45f1381aabe3a21e1bafcaf	refs/heads/fix/public-provider-connectivity
+d0a39f80bf919febca9929e1e3a8a63636fc5cb4	refs/heads/integration/oi-history-provider-fallback
+c16faeb5b522b9bfd5303c3a6dee8e3406604e77	refs/heads/main
+9270990c213ad8258b4aa486cd9e5884a94db647	refs/pull/1/head
+d0a39f80bf919febca9929e1e3a8a63636fc5cb4	refs/pull/2/head
+875a84c7046c321bf81decba066d4eb9dc685e97	refs/pull/2/merge

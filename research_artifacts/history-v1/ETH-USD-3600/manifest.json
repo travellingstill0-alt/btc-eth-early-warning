@@ -1,0 +1,33 @@
+{
+  "asset": "ETH",
+  "product": "ETH-USD",
+  "provider": "Coinbase Exchange",
+  "granularity": 3600,
+  "research_start": 1791072000,
+  "research_end": 1791676800,
+  "warmup_start": 1791000000,
+  "attempts": [
+    {
+      "url": "https://api.exchange.coinbase.com/products/ETH-USD/candles",
+      "params": {
+        "granularity": 3600,
+        "start": "2026-10-03T04:00:00+00:00",
+        "end": "2026-10-11T00:00:00+00:00"
+      },
+      "retrieved_at": "2026-10-11T04:01:38.273900+00:00",
+      "status": 200,
+      "file": "raw-000.json",
+      "sha256": "4642c99894a2f6d597a54e03703d63c38806c9e72995c29c3b98760e50ccb4bd"
+    }
+  ],
+  "original_instrument": false,
+  "note": "USD spot; not Binance USDT or perpetual execution history",
+  "rows": 188,
+  "missing_timestamps": [],
+  "complete": true,
+  "candidate_count": 12,
+  "counts": {
+    "LONG": 5,
+    "SHORT": 7
+  }
+}

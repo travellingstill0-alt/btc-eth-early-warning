@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 import pandas as pd
 import streamlit as st
 from market import fetch
+from risk_warnings import warnings as independent_warnings
 from analysis import Rules, assess, plan
 from macro_calendar import fetch_calendar, evaluate as evaluate_calendar, CalendarRules
 from trading_sessions import sessions
@@ -108,6 +109,8 @@ def dashboard():
     st.dataframe(pd.DataFrame(schedule['overlaps']), hide_index=True)
     for symbol in ('BTCUSD', 'ETHUSD'):
         data = dict(snapshot(symbol, int(stale)), macro_calendar=calendar_data)
+        with st.expander('Independent early warnings'):
+            st.json(independent_warnings(data, int(datetime.now(timezone.utc).timestamp()*1000), int(stale)))
         risk = assess(data, Rules(move, funding, oi, int(stale), oi_window, int(pre), int(post), int(calendar_age), int(macro_horizon)))
         st.subheader(symbol.replace('USD', ' / USD'))
         st.caption(f"Retrieved {data['retrieved_at'].isoformat()} • UI evaluated {datetime.now(timezone.utc).isoformat()} • UTC • refresh every 60s while this page is active")

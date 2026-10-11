@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import math
 import sqlite3
 import requests
+import sqlite3
 from context_data import collect as collect_context
 from exchange_flows import collect as collect_exchange_flows
 from oi_history import SnapshotStore, current_point, parse_kraken_history, calculate_changes, WINDOWS
@@ -260,6 +261,14 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
     context, context_errors, context_warnings = collect_context(
         context_request, asset, lambda: int(clock().timestamp() * 1000), max_age)
     data.update(context)
+    # Preserve only raw windows that pass the existing independent validator.
+    from observation_store import preserve
+    for key, item in context.items():
+        try:
+            preserve(item, int(clock().timestamp() * 1000), max_age)
+        except (ValueError, OSError, sqlite3.Error) as exc:
+            data['errors']['storage:' + key] = str(exc)
+            data['warnings'].append('Context persistence failed; observation was not saved.')
     data['errors'].update({'context:' + k: v for k, v in context_errors.items()})
     data['warnings'].extend(context_warnings)
     for key, item in context.items():

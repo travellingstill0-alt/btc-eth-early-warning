@@ -1,0 +1,90 @@
+[
+  {
+    "asset": "BTC",
+    "direction": "LONG",
+    "horizon": "SCALP",
+    "unexecuted_candidates": 52,
+    "median_reference_stop_distance_pct": 0.47672416609905954,
+    "next_candle_observations": 52,
+    "median_directional_next_open_gap_pct": 0.0,
+    "median_directional_next_candle_return_pct": -0.015545235005132163,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "SCALP",
+    "unexecuted_candidates": 52,
+    "median_reference_stop_distance_pct": 0.616984195964813,
+    "next_candle_observations": 52,
+    "median_directional_next_open_gap_pct": -0.0,
+    "median_directional_next_candle_return_pct": -0.007008282427689583,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "BTC",
+    "direction": "LONG",
+    "horizon": "DAY TRADE",
+    "unexecuted_candidates": 4,
+    "median_reference_stop_distance_pct": 1.5209267248490286,
+    "next_candle_observations": 4,
+    "median_directional_next_open_gap_pct": 6.02222078871506e-06,
+    "median_directional_next_candle_return_pct": -0.029638082217736672,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "BTC",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "unexecuted_candidates": 6,
+    "median_reference_stop_distance_pct": 3.219544231636844,
+    "next_candle_observations": 6,
+    "median_directional_next_open_gap_pct": -1.2040858876627425e-05,
+    "median_directional_next_candle_return_pct": 0.019750795006900912,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "ETH",
+    "direction": "LONG",
+    "horizon": "SCALP",
+    "unexecuted_candidates": 53,
+    "median_reference_stop_distance_pct": 0.5127130320707467,
+    "next_candle_observations": 53,
+    "median_directional_next_open_gap_pct": -0.0003681681792322422,
+    "median_directional_next_candle_return_pct": -0.03724861792876455,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "ETH",
+    "direction": "SHORT",
+    "horizon": "SCALP",
+    "unexecuted_candidates": 56,
+    "median_reference_stop_distance_pct": 0.7306337605242416,
+    "next_candle_observations": 56,
+    "median_directional_next_open_gap_pct": 0.0003704013417926699,
+    "median_directional_next_candle_return_pct": -0.009646777150618124,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "ETH",
+    "direction": "LONG",
+    "horizon": "DAY TRADE",
+    "unexecuted_candidates": 5,
+    "median_reference_stop_distance_pct": 1.0402919028025894,
+    "next_candle_observations": 5,
+    "median_directional_next_open_gap_pct": 0.0,
+    "median_directional_next_candle_return_pct": -0.07905519760088575,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  },
+  {
+    "asset": "ETH",
+    "direction": "SHORT",
+    "horizon": "DAY TRADE",
+    "unexecuted_candidates": 7,
+    "median_reference_stop_distance_pct": 5.659748205762489,
+    "next_candle_observations": 7,
+    "median_directional_next_open_gap_pct": -0.0,
+    "median_directional_next_candle_return_pct": 0.0651395071110561,
+    "limitations": "Price-only USD spot candidates; missing original risk gates, execution/exit policy and costs. No trades or P&L inferred."
+  }
+]

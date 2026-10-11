@@ -1,0 +1,192 @@
+[
+  {
+    "symbol": "BTCUSD",
+    "checked_at": "2026-10-11T02:55:48.827116+00:00",
+    "sources": {
+      "ticker": {
+        "provider": "Coinbase",
+        "instrument": "BTC-USD",
+        "source_time_ms": 1791687343933,
+        "timestamp_kind": "latest trade",
+        "note": "Volume and rolling 24h open have no separate observation timestamp.",
+        "received_at": "2026-10-11T02:55:45.881642+00:00"
+      },
+      "candles": {
+        "provider": "Kraken",
+        "instrument": "XBTUSD",
+        "source_time_ms": 1791683999999,
+        "timestamp_kind": "completed candle end",
+        "interval_seconds": 3600,
+        "received_at": "2026-10-11T02:55:46.153390+00:00"
+      },
+      "scalp_candles": {
+        "provider": "Kraken",
+        "instrument": "XBTUSD",
+        "source_time_ms": 1791687299999,
+        "timestamp_kind": "completed candle end",
+        "interval_seconds": 300,
+        "received_at": "2026-10-11T02:55:46.656948+00:00"
+      },
+      "interest": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_XBTUSD",
+        "source_time_ms": 1791687346904,
+        "timestamp_kind": "server snapshot",
+        "note": "No separate observation timestamp for OI or funding.",
+        "received_at": "2026-10-11T02:55:47.008573+00:00"
+      },
+      "funding": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_XBTUSD",
+        "source_time_ms": 1791687346904,
+        "timestamp_kind": "server snapshot",
+        "note": "No separate observation timestamp for OI or funding.",
+        "received_at": "2026-10-11T02:55:47.008590+00:00"
+      },
+      "trades": {
+        "provider": "Kraken",
+        "instrument": "XBTUSD",
+        "source_time_ms": 1791687342790,
+        "timestamp_kind": "latest sampled trade",
+        "note": "Limited taker flow sample, not CVD or complete market coverage.",
+        "received_at": "2026-10-11T02:55:47.294789+00:00"
+      },
+      "interest_history": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_XBTUSD",
+        "source_time_ms": 1791687346904,
+        "timestamp_kind": "OI observations",
+        "unit": "BTC",
+        "verified": true,
+        "method": "Kraken minute OI bar closes + current snapshot",
+        "note": "Real observations only; completed bar boundaries or server snapshot timestamps."
+      },
+      "cvd": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_XBTUSD",
+        "source_time_ms": 1791687299999,
+        "timestamp_kind": "completed observation window end",
+        "unit": "BTC",
+        "method": "minute analytics",
+        "note": "Single-contract executed observations only; no whole-market coverage or future liquidation levels."
+      },
+      "liquidations": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_XBTUSD",
+        "source_time_ms": 1791687299999,
+        "timestamp_kind": "completed observation window end",
+        "unit": "BTC",
+        "method": "minute analytics",
+        "note": "Single-contract executed observations only; no whole-market coverage or future liquidation levels."
+      }
+    },
+    "errors": {
+      "context:exchange flows": "400 Client Error: Bad Request for url: https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=btc&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc"
+    },
+    "warnings": [
+      "Exchange wallet flows: No validated fresh and complete exchange-wallet provider; NO TRADE."
+    ],
+    "missing": [
+      "exchange flows"
+    ],
+    "signals": {
+      "SCALP": "NO TRADE",
+      "DAY TRADE": "NO TRADE"
+    }
+  },
+  {
+    "symbol": "ETHUSD",
+    "checked_at": "2026-10-11T02:55:48.820814+00:00",
+    "sources": {
+      "ticker": {
+        "provider": "Coinbase",
+        "instrument": "ETH-USD",
+        "source_time_ms": 1791687344799,
+        "timestamp_kind": "latest trade",
+        "note": "Volume and rolling 24h open have no separate observation timestamp.",
+        "received_at": "2026-10-11T02:55:45.885899+00:00"
+      },
+      "candles": {
+        "provider": "Kraken",
+        "instrument": "ETHUSD",
+        "source_time_ms": 1791683999999,
+        "timestamp_kind": "completed candle end",
+        "interval_seconds": 3600,
+        "received_at": "2026-10-11T02:55:46.146804+00:00"
+      },
+      "scalp_candles": {
+        "provider": "Kraken",
+        "instrument": "ETHUSD",
+        "source_time_ms": 1791687299999,
+        "timestamp_kind": "completed candle end",
+        "interval_seconds": 300,
+        "received_at": "2026-10-11T02:55:46.470686+00:00"
+      },
+      "interest": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_ETHUSD",
+        "source_time_ms": 1791687346813,
+        "timestamp_kind": "server snapshot",
+        "note": "No separate observation timestamp for OI or funding.",
+        "received_at": "2026-10-11T02:55:46.922031+00:00"
+      },
+      "funding": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_ETHUSD",
+        "source_time_ms": 1791687346813,
+        "timestamp_kind": "server snapshot",
+        "note": "No separate observation timestamp for OI or funding.",
+        "received_at": "2026-10-11T02:55:46.922050+00:00"
+      },
+      "trades": {
+        "provider": "Kraken",
+        "instrument": "ETHUSD",
+        "source_time_ms": 1791687340378,
+        "timestamp_kind": "latest sampled trade",
+        "note": "Limited taker flow sample, not CVD or complete market coverage.",
+        "received_at": "2026-10-11T02:55:47.278091+00:00"
+      },
+      "interest_history": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_ETHUSD",
+        "source_time_ms": 1791687346813,
+        "timestamp_kind": "OI observations",
+        "unit": "ETH",
+        "verified": true,
+        "method": "Kraken minute OI bar closes + current snapshot",
+        "note": "Real observations only; completed bar boundaries or server snapshot timestamps."
+      },
+      "cvd": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_ETHUSD",
+        "source_time_ms": 1791687299999,
+        "timestamp_kind": "completed observation window end",
+        "unit": "ETH",
+        "method": "minute analytics",
+        "note": "Single-contract executed observations only; no whole-market coverage or future liquidation levels."
+      },
+      "liquidations": {
+        "provider": "Kraken Futures",
+        "instrument": "PF_ETHUSD",
+        "source_time_ms": 1791687299999,
+        "timestamp_kind": "completed observation window end",
+        "unit": "ETH",
+        "method": "minute analytics",
+        "note": "Single-contract executed observations only; no whole-market coverage or future liquidation levels."
+      }
+    },
+    "errors": {
+      "context:exchange flows": "400 Client Error: Bad Request for url: https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets=eth&metrics=FlowInKRKNtv%2CFlowOutKRKNtv&frequency=1d&limit_per_asset=2&page_size=2&sort=desc"
+    },
+    "warnings": [
+      "Exchange wallet flows: No validated fresh and complete exchange-wallet provider; NO TRADE."
+    ],
+    "missing": [
+      "exchange flows"
+    ],
+    "signals": {
+      "SCALP": "NO TRADE",
+      "DAY TRADE": "NO TRADE"
+    }
+  }
+]
