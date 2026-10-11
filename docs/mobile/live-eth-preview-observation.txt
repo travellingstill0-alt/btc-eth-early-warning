@@ -1,0 +1,79 @@
+BTC / ETH Watch
+
+NO TRADE LOCKED · Automated trading OFF · Live signals OFF · Notifications OFF
+
+Exchange observations, not trading advice. Missing inputs never mean safe.
+
+View
+
+Asset
+
+BTC
+
+ETH
+
+Refresh verified sources
+
+ETH · observed risk LOW
+
+Macro coverage incomplete or high-risk: MISSING_DATA — NO TRADE.
+
+INCOMPLETE — exchange flows
+
+LOW / MODERATE / HIGH / EXTREME measure observed thresholds only. Incomplete coverage prevents an all-clear at every level.
+
+Spot price USD
+
+2,504.74
+
+Coinbase · ETH-USD · source timestamp ms: 1791694760292
+
+Open interest
+
+28,809.68 ETH
+
+Kraken Futures · PF_ETHUSD · source timestamp ms: 1791694762828
+
+Funding
+
+-0.00008% / 1h
+
+Kraken Futures · PF_ETHUSD · source timestamp ms: 1791694762828
+
+CVD / buying and selling pressure
+
+-2.467000 ETH · Kraken Futures / PF_ETHUSD
+
+Buy: 10.436 · Sell: 12.903
+
+Window UTC ms 1791693840000–1791694739999. Exchange-specific; not whole-market pressure or future liquidation levels.
+
+Observed executed liquidation pressure
+
++0.000000 ETH · Kraken Futures / PF_ETHUSD
+
+Window UTC ms 1791693840000–1791694739999. Exchange-specific; not whole-market pressure or future liquidation levels.
+
+Independent early warnings
+
+Liquidation pressure: Observed executed liquidation volume: 0 ETH; future pressure and direction unverified.
+
+CVD divergence: No price-flow sign divergence in this window: -0.0120% price, -2.467 ETH delta over the same verified 15 minutes; single contract, no reversal prediction.
+
+Long squeeze: UNVERIFIED: aligned contract price, OI, funding and directional liquidation history required.
+
+Short squeeze: UNVERIFIED: aligned contract price, OI, funding and directional liquidation history required.
+
+Abnormal open interest: 24h verified OI change -0.316% — configured growth threshold not triggered; no statistical anomaly or squeeze claim.
+
+Funding extremes: -0.00008% per 1h — configured threshold not triggered; native-period comparison, not a squeeze prediction.
+
+Exchange flows: UNVERIFIED: current exchange-wallet diagnostics are not approved real-time coverage; missing flows stay flagged.
+
+Macro announcements: USA/EU/Asia official-calendar observations and coverage gaps remain independent; incomplete global coverage cannot produce an all-clear.
+
+keyboard_arrow_right
+
+Freshness, gaps and provenance
+
+Refresh every 60 seconds while active. No continuous background collection. Exchange flows and global calendar coverage remain incomplete.

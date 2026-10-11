@@ -1,0 +1,2 @@
+# Browser tests use the existing system Chromium; no browser download required.
+playwright>=1.50,<2

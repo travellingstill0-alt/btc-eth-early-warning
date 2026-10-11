@@ -1,0 +1,20 @@
+{
+  "version": "android-dashboard-v1",
+  "research_base_commit": "a1651944de21b06ffb267eac59cdf015ab94ee1c",
+  "files": {
+    "mobile_app.py": "ea05bdde4d592178ffd7b2f20ddb7ed56cd88c17a9dcf9a9cf6e3afbf16ccd93",
+    "mobile_support.py": "270db5ab44f085009448b824975b87c31048f2bbf753627a47e3a6fd8f1fd811",
+    "tests/test_mobile.py": "7c953b2929b963721e8f0865d3ba99a06dfc6700f3887033b3dcd4c7af37f56c",
+    "mobile/browser_check.py": "362cee0a9d4d9c93e49e654eea77c79c4d6e869c40a3fa2fec96c90867a7ba0d",
+    "mobile/requirements-test.txt": "4e2be3d7dd0ecb7eb2096c354ad9c2aabe84fce73b1931bdf50ad735842066fb",
+    "docs/mobile/TEST-SUMMARY.md": "33cc3028f07218a5a6b7406fdb5fddccd203db19cefd5ef164205dbb5c0cbea3",
+    "docs/mobile/WORKSTREAMS.md": "a5336347e09b3986783872c28eeebb1e2f02eccdd31f27cca644cbfe5e1465a2",
+    "docs/mobile/live-eth-preview-observation.txt": "4b4bc2020d19296ac79a4fe14a657965b4e34493762ff5eeef314a186e516655",
+    "docs/mobile/live-preview-observation.txt": "c4956959921a4a540d1e667988e0ef80d735c5fa4a2bfb167d70fde4232ed4c9",
+    "docs/mobile/preview-1280.png": "455bfe9900e9e9f3092c592357ce1ac292645c00e1522ad63836ccd8d5537cec",
+    "docs/mobile/preview-360.png": "8a1961f20a613880eb63a0602b69fe8da162e9c6d365665d01328315d7c76c84",
+    "docs/mobile/preview-412.png": "79567aafa7b5e3f2a0369743c2e7a244c220537b6bee28c3fe9ebcc8b41c36fa",
+    "docs/mobile/preview-768.png": "ed009ca6b338bc5b53544f2357ee4d87f5fc0a944185f38177d56e9b973492b6",
+    "docs/mobile/viewport-results.json": "a82c6f552fabb63613b5454c27f389e3c2b228bc5f920d3e3d971464c80fe2f9"
+  }
+}

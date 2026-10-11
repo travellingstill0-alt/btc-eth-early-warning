@@ -1,0 +1,78 @@
+Deploy
+BTC / ETH Watch
+
+NO TRADE LOCKED · Automated trading OFF · Live signals OFF · Notifications OFF
+
+Exchange observations, not trading advice. Missing inputs never mean safe.
+
+View
+
+Asset
+
+BTC
+
+ETH
+
+Refresh verified sources
+
+BTC · observed risk LOW
+
+INCOMPLETE — exchange flows
+
+LOW / MODERATE / HIGH / EXTREME measure observed thresholds only. Incomplete coverage prevents an all-clear at every level.
+
+Spot price USD
+
+82,932.45
+
+Coinbase · BTC-USD · source timestamp ms: 1791694705773
+
+Open interest
+
+2,256.85 BTC
+
+Kraken Futures · PF_XBTUSD · source timestamp ms: 1791694708285
+
+Funding
+
+-0.00003% / 1h
+
+Kraken Futures · PF_XBTUSD · source timestamp ms: 1791694708285
+
+CVD / buying and selling pressure
+
+-0.127900 BTC · Kraken Futures / PF_XBTUSD
+
+Buy: 1.7524 · Sell: 1.8803
+
+Window UTC ms 1791693780000–1791694679999. Exchange-specific; not whole-market pressure or future liquidation levels.
+
+Observed executed liquidation pressure
+
++0.000000 BTC · Kraken Futures / PF_XBTUSD
+
+Window UTC ms 1791693780000–1791694679999. Exchange-specific; not whole-market pressure or future liquidation levels.
+
+Independent early warnings
+
+Liquidation pressure: Observed executed liquidation volume: 0 BTC; future pressure and direction unverified.
+
+CVD divergence: BEARISH PRICE-FLOW SIGN DIVERGENCE: +0.0241% price, -0.1279 BTC delta over the same verified 15 minutes; single contract, no reversal prediction.
+
+Long squeeze: UNVERIFIED: aligned contract price, OI, funding and directional liquidation history required.
+
+Short squeeze: UNVERIFIED: aligned contract price, OI, funding and directional liquidation history required.
+
+Abnormal open interest: 24h verified OI change -1.257% — configured growth threshold not triggered; no statistical anomaly or squeeze claim.
+
+Funding extremes: -0.00003% per 1h — configured threshold not triggered; native-period comparison, not a squeeze prediction.
+
+Exchange flows: UNVERIFIED: current exchange-wallet diagnostics are not approved real-time coverage; missing flows stay flagged.
+
+Macro announcements: USA/EU/Asia official-calendar observations and coverage gaps remain independent; incomplete global coverage cannot produce an all-clear.
+
+keyboard_arrow_right
+
+Freshness, gaps and provenance
+
+Refresh every 60 seconds while active. No continuous background collection. Exchange flows and global calendar coverage remain incomplete.
