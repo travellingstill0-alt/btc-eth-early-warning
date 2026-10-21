@@ -117,3 +117,26 @@ Coinbase Exchange or Kraken are candidates for spot prices, candles and trades. 
 - Asia: missing BOJ/Japan statistics, PBOC/China NBS, RBA/Australia ABS and other regional calendars.
 
 These sources require access checks, official-calendar adapters, timezone/DST normalization, coverage and revision checks. No global all-clear is inferred from an empty calendar. Existing global-calendar pre/post-event blackout windows and required-input checks remain active; complete official-source coverage certification remains future work; the unconditional hold stays active while these gaps remain. Nothing was merged, deployed or connected to automated trading.
+
+## Observed market risk versus overall trading risk
+
+Both BTC and ETH display separate assessments. Observed market risk retains the
+existing absolute price move, period-adjusted funding, verified OI growth and
+completed hourly structure thresholds (LOW/MODERATE/HIGH/EXTREME). Only fresh,
+finite values with valid source timestamps contribute. Missing inputs do not
+contribute a zero-risk observation; the partial tally displays how many of the
+four scoring indicators were verified. With none verified, observed risk is
+UNKNOWN and the observed score is unavailable.
+
+Overall trading risk uses the same four levels only when all required market
+and context inputs and macro coverage are verified. Any missing, stale,
+unverified or invalid required input makes it UNKNOWN — INCOMPLETE DATA.
+The dashboard lists the affected indicators, including individual macro source
+failures. Verified HIGH/EXTREME observed risk remains visible even when overall
+risk is UNKNOWN; opposite price/funding signs never cancel absolute-risk scores.
+A verified macro high-risk window cannot produce LOW overall risk. Missing
+inputs and high-risk windows continue to block signals independently, and the
+existing unconditional NO TRADE hold remains active. The manual acknowledgement
+checkbox cannot override any gate. Authentication, hosting, Android guidance,
+regional sessions, provider fallbacks, OI history and all current data feeds are
+preserved.

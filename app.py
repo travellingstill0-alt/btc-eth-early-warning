@@ -111,10 +111,16 @@ def dashboard():
         risk = assess(data, Rules(move, funding, oi, int(stale), oi_window, int(pre), int(post), int(calendar_age), int(macro_horizon)))
         st.subheader(symbol.replace('USD', ' / USD'))
         st.caption(f"Retrieved {data['retrieved_at'].isoformat()} • UI evaluated {datetime.now(timezone.utc).isoformat()} • UTC • refresh every 60s while this page is active")
-        st.write(f"Risk: **{risk['level']}** — score {risk['score']}/7 — {'INCOMPLETE' if risk['missing'] else 'core inputs available'}")
+        st.write(f"Observed market risk: **{risk['observed_level']}**")
+        if risk['observed_score'] is None:
+            st.caption('Observed score unavailable — no verified scoring indicators. Missing information is never interpreted as zero risk.')
+        else:
+            st.caption(f"Observed score {risk['observed_score']}/7 from {risk['observed_indicator_count']}/4 verified scoring indicators. Missing indicators are excluded, never interpreted as zero risk. This partial assessment does not establish trading safety.")
+        overall = 'UNKNOWN — INCOMPLETE DATA' if risk['overall_level'] == 'UNKNOWN' else risk['overall_level']
+        st.write(f"Overall trading risk: **{overall}**")
         st.write('; '.join(risk['reasons']) or 'No configured threshold triggered in available inputs.')
-        if risk['missing']:
-            st.error('Missing/stale inputs: ' + ', '.join(risk['missing']))
+        if risk['overall_missing']:
+            st.error('Missing/stale inputs: ' + ', '.join(risk['overall_missing']))
         for warning in data.get('warnings', []):
             st.warning(warning)
         ticker, interest, funding_data = data.get('ticker', {}), data.get('interest', {}), data.get('funding', {})
