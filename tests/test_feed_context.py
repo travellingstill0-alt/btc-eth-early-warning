@@ -153,7 +153,7 @@ class LiveIntegrationTests(unittest.TestCase):
                 result['calendar']['valid'],
                 result['calendar']['issues']
             )
-       for asset in ('btc', 'eth'):
+        for asset in ('btc', 'eth'):
             self.assertTrue(
                 result['flows'][asset]['valid'],
                 result['flows'][asset]['issues']
