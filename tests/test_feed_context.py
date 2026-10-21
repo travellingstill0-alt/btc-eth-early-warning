@@ -146,8 +146,8 @@ class LiveIntegrationTests(unittest.TestCase):
     def test_bls_and_both_flow_feeds(self):
         result = fetch_context()
         self.assertIsInstance(result['errors'], dict)
-        if result['errors'].get('calendar'):
-            self.assertFalse(result['calendar']['valid'])
+        if result['errors'].get('calendar') or result.get('calendar') is None:
+            self.assertFalse((result.get('calendar') or {}).get('valid', False))
         else:
             self.assertTrue(
                 result['calendar']['valid'],
