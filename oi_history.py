@@ -5,7 +5,7 @@ from contextlib import closing
 from pathlib import Path
 import sqlite3
 
-WINDOWS = {'15m': 900, '1h': 3600, '4h': 14400, '24h': 86400}
+WINDOWS = {'5m': 300, '15m': 900, '1h': 3600, '4h': 14400, '24h': 86400}
 BASELINE_TOLERANCE_MS = 90_000
 MAX_GAP_MS = 180_000
 SERIES_UNITS = {

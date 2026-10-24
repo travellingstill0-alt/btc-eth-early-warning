@@ -1,6 +1,9 @@
 """Android presentation workstream; shared strategies remain unchanged."""
 from datetime import datetime, timezone
 import streamlit as st
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from market import fetch
 from analysis import assess, Rules
 from macro_calendar import fetch_calendar, evaluate, CalendarRules
@@ -16,6 +19,31 @@ st.html('''<style>
 [data-testid="stHorizontalBlock"] {flex-wrap:wrap}
 [data-testid="stColumn"] {min-width:100%!important;width:100%!important}}
 </style>''')
+# Fail closed: public test deployment requires a separate Streamlit secret.
+# Never fall back to an unprotected dashboard if secrets are missing.
+import hmac
+try:
+    _test_password = st.secrets.get('DASHBOARD_TEST_PASSWORD', '')
+except Exception:
+    _test_password = ''
+if not isinstance(_test_password, str) or len(_test_password) < 12:
+    st.error('Test dashboard locked: configure DASHBOARD_TEST_PASSWORD (12+ characters) in Streamlit Secrets.')
+    st.stop()
+if not st.session_state.get('test_authenticated', False):
+    st.title('BTC / ETH Test Dashboard')
+    with st.form('test_login'):
+        _entered = st.text_input('Test dashboard password', type='password')
+        _submit = st.form_submit_button('Unlock test dashboard')
+    if _submit:
+        if hmac.compare_digest(_entered, _test_password):
+            st.session_state['test_authenticated'] = True
+            st.rerun()
+        else:
+            st.error('Incorrect password.')
+    st.stop()
+if st.button('Lock test dashboard'):
+    st.session_state['test_authenticated'] = False
+    st.rerun()
 st.title('BTC / ETH Watch')
 st.error('NO TRADE LOCKED · Automated trading OFF · Live signals OFF · Notifications OFF')
 st.caption('Exchange observations, not trading advice. Missing inputs never mean safe.')
@@ -81,12 +109,172 @@ def render():
         data = dict(snapshot(asset+'USD'), macro_calendar=cal)
     now = datetime.now(timezone.utc); ms = int(now.timestamp()*1000)
     risk = assess(data, Rules(), now=now)
-    st.subheader(asset + ' · observed risk ' + risk['level'])
-    if not macro['clear']:
-        st.warning('Macro coverage incomplete or high-risk: ' + macro['reason_code'] + ' — NO TRADE.')
-    if risk['missing']:
-        st.error('INCOMPLETE — ' + ', '.join(risk['missing']))
-    st.caption('LOW / MODERATE / HIGH / EXTREME measure observed thresholds only. Incomplete coverage prevents an all-clear at every level.')
+    st.subheader(asset + ' · traffic-light overview')
+    oi_preview = data.get('oi_changes', {})
+    oi_preview = oi_preview if isinstance(oi_preview, dict) else {}
+    cvd_preview = risk.get('context', {}).get('cvd')
+    funding_preview = fresh_value(data, 'funding', 'lastFundingRate', ms)
+    st.caption('Read-only · traffic lights describe data coverage and observations, not buy/sell signals.')
+    def compact(label, value, note):
+        st.markdown(f"**{label}:** {value}  ")
+        st.caption(note)
+    with st.container(border=True):
+        compact('Decision', '🔴 WAIT / NO TRADE', 'Live signals disabled; incomplete inputs.')
+        compact('Risk', '🔴 INCOMPLETE' if risk['missing'] or not macro['clear'] else '🟡 CHECK',
+                f"Observed threshold: {risk['level']}; this is not an all-clear.")
+        for window in ('5m','15m','1h','24h'):
+            point = oi_preview.get(window)
+            change = point.get('change_pct') if isinstance(point, dict) else None
+            reason = point.get('reason') if isinstance(point, dict) else 'No validated OI history'
+            compact('OI '+window, '⚪ UNAVAILABLE' if change is None else f'{change:+.3f}%',
+                    (reason or 'Verified contract-specific change') if change is None else 'Direction alone is not bullish/bearish.')
+        compact('CVD', '⚪ UNAVAILABLE' if not cvd_preview else f"{cvd_preview['value']:+.4f}",
+                'Single-contract executed flow; not whole-market demand.')
+        compact('Funding', '⚪ UNAVAILABLE' if funding_preview is None else f'{funding_preview*100:+.5f}%',
+                'Not a directional prediction.')
+        compact('Liquidation heatmap', '⚪ UNVERIFIED', 'No future cluster prices inferred.')
+        compact('Exchange netflow', '⚪ UNVERIFIED', 'Current exchange-wallet flows not confirmed.')
+        compact('Macro', '🟡 INCOMPLETE' if not macro['clear'] else '🟢 CHECK PASSED',
+                'Partial coverage; no all-clear implied.')
+    with st.expander('Detailed diagnostics, provenance and warnings'):
+        st.write('Missing:', risk['missing'])
+        st.write('Macro:', macro['reason_code'])
+        for name, message in warnings(data,ms).items():
+            st.write(f'**{name}**: {message}')
+        st.json(data.get('sources',{}))
+        st.json(data.get('errors',{}))
+    st.markdown('### OI + CVD + price · observational context')
+    def completed_price_change(interval):
+        key = {'5m': 'scalp_candles', '15m': 'fifteen_min_candles'}[interval]
+        candles = data.get(key, [])
+        valid = [r for r in candles if isinstance(r, (list, tuple)) and len(r) >= 7
+                 and r[6] < ms and r[4] is not None]
+        if len(valid) < 2:
+            return None
+        last = valid[-1]
+        previous = valid[-2]
+        if previous[4] <= 0 or last[0] - previous[0] != {'5m':300000,'15m':900000}[interval]:
+            return None
+        return (last[4] / previous[4] - 1) * 100
+
+    with st.container(border=True):
+        cvd_value = cvd_preview.get('value') if isinstance(cvd_preview, dict) else None
+        for interval in ('5m', '15m'):
+            entry = oi_preview.get(interval, {})
+            oi_change = entry.get('change_pct') if isinstance(entry, dict) else None
+            price_change = completed_price_change(interval)
+            if oi_change is None or price_change is None:
+                st.write(f"**{interval}: ⚪ INCOMPLETE** — OI or completed price change unavailable.")
+                continue
+            if price_change > 0 and oi_change > 0:
+                observation = 'Price and OI rising: position build-up; direction of new positions unknown.'
+            elif price_change > 0 and oi_change < 0:
+                observation = 'Price rising while OI falls: position unwinding possible; short covering unconfirmed.'
+            elif price_change < 0 and oi_change > 0:
+                observation = 'Price falling while OI rises: position build-up; new shorts unconfirmed.'
+            elif price_change < 0 and oi_change < 0:
+                observation = 'Price and OI falling: position unwinding possible; long liquidations unconfirmed.'
+            else:
+                observation = 'Flat price or OI: no clear positioning inference.'
+            st.write(f"**{interval}: 🟡 OBSERVE** · Price {price_change:+.3f}% · OI {oi_change:+.3f}%")
+            st.caption(observation)
+        if cvd_value is None:
+            st.caption('CVD unavailable; cannot assess buying/selling pressure.')
+        else:
+            st.caption(f"CVD {cvd_value:+.4f} on one futures contract; its time window may not align with price/OI. Positive = net aggressive buys, negative = net aggressive sells.")
+        st.caption('These are observations, not entry signals. No automated trades.')
+
+    with st.expander('5M / 15M OI history charts', expanded=False):
+        history = data.get('interest_history', [])
+        current_source = data.get('sources', {}).get('interest', {})
+        current_interest = data.get('interest', {})
+        for interval, minutes in [('5m', 5), ('15m', 15)]:
+            st.markdown(f'**{interval} OI history**')
+            end = current_source.get('source_time_ms')
+            if not isinstance(end, (int, float)) or not isinstance(history, list):
+                st.info('Verified OI observations unavailable.')
+                continue
+            valid = [p for p in history if isinstance(p, dict) and p.get('verified') is True
+                     and p.get('provider') == current_source.get('provider')
+                     and p.get('instrument') == current_source.get('instrument')
+                     and p.get('unit') == current_interest.get('unit')
+                     and isinstance(p.get('timestamp'), (int, float))
+                     and isinstance(p.get('sumOpenInterest'), (int, float))
+                     and end - minutes * 60000 <= p['timestamp'] <= end]
+            valid.sort(key=lambda p: p['timestamp'])
+            if len(valid) < 2 or any(b['timestamp'] - a['timestamp'] > 180000 for a,b in zip(valid,valid[1:])):
+                st.info('Insufficient continuous verified observations; no OI line inferred.')
+                continue
+            chart = pd.DataFrame({'Time':pd.to_datetime([p['timestamp'] for p in valid],unit='ms',utc=True),
+                                  'OI':[p['sumOpenInterest'] for p in valid]})
+            fig_oi = go.Figure(go.Scatter(x=chart['Time'], y=chart['OI'], mode='lines+markers', name='Verified OI'))
+            fig_oi.update_layout(height=230, margin=dict(l=8,r=8,t=12,b=12), showlegend=False,
+                                 xaxis_title=None, yaxis_title=current_interest.get('unit','OI'))
+            st.plotly_chart(fig_oi, use_container_width=True, key=f'oi_chart_{interval}')
+        st.caption('Raw verified contract OI observations; not spot volume or a liquidation heatmap.')
+
+    st.markdown('### BTC / ETH charts · read-only')
+    chart_interval = st.radio('Completed spot candles', ['5m', '15m', '1h'], horizontal=True, key='mobile_candle_interval')
+    chart_key = {'5m':'scalp_candles', '15m':'fifteen_min_candles', '1h':'candles'}[chart_interval]
+    rows = data.get(chart_key, [])
+    source = data.get('sources', {}).get(chart_key, {})
+    if rows and source:
+        # Provider returns [open_ms, open, high, low, close, volume, end_ms].
+        # Show completed candles only; never render the in-progress bar.
+        completed = [r for r in rows if len(r) >= 7 and r[6] < ms]
+        if completed:
+            # Limit mobile rendering to recent completed candles; never invent missing bars.
+            frame = pd.DataFrame(completed[-120:], columns=['time','open','high','low','close','volume','end_ms'])
+            frame['time'] = pd.to_datetime(frame['time'], unit='ms', utc=True)
+            for col in ('open','high','low','close','volume'):
+                frame[col] = pd.to_numeric(frame[col], errors='coerce')
+            frame = frame.dropna(subset=['open','high','low','close','volume'])
+            frame = frame[(frame['low'] <= frame[['open','close']].min(axis=1)) &
+                          (frame['high'] >= frame[['open','close']].max(axis=1)) &
+                          (frame['high'] >= frame['low']) & (frame['volume'] >= 0)]
+            if frame.empty:
+                st.warning('Completed candle data invalid; chart withheld.')
+            else:
+                fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                                    row_heights=[0.76, 0.24], vertical_spacing=0.025)
+                fig.add_trace(go.Candlestick(
+                    x=frame['time'], open=frame['open'], high=frame['high'],
+                    low=frame['low'], close=frame['close'], name='Spot',
+                    increasing_line_color='#089981', decreasing_line_color='#f23645'
+                ), row=1, col=1)
+                bar_colors = ['#089981' if c >= o else '#f23645'
+                              for o, c in zip(frame['open'], frame['close'])]
+                fig.add_trace(go.Bar(x=frame['time'], y=frame['volume'],
+                                     marker_color=bar_colors, name='Volume',
+                                     showlegend=False), row=2, col=1)
+                fig.update_layout(height=480, margin=dict(l=4, r=4, t=12, b=12),
+                                  showlegend=False, dragmode='pan',
+                                  plot_bgcolor='#ffffff', paper_bgcolor='#ffffff',
+                                  font=dict(size=11),
+                                  xaxis_rangeslider_visible=False,
+                                  hovermode='x unified')
+                fig.update_yaxes(title_text='USD', row=1, col=1,
+                                 showgrid=True, gridcolor='#eeeeee', fixedrange=False)
+                fig.update_yaxes(title_text='Vol', row=2, col=1,
+                                 showgrid=False, fixedrange=False)
+                fig.update_xaxes(showgrid=False, rangeslider_visible=False)
+                st.plotly_chart(fig, use_container_width=True, key='mobile_spot_chart')
+            st.caption(f"Completed {chart_interval} spot candles · {source.get('provider', 'Unknown')} · {source.get('instrument', 'Unknown')}. Not perpetual contract price or a signal.")
+        else:
+            st.warning('No completed candles available; chart withheld.')
+    else:
+        st.warning(f'{chart_interval} spot candles unavailable or stale. No chart inferred.')
+    oi = data.get('oi_changes', {})
+    if isinstance(oi, dict):
+        with st.container(border=True):
+            st.markdown('#### Open interest · verified changes')
+            for window in ('5m','15m','1h','24h'):
+                value = oi.get(window)
+                if isinstance(value, dict) and value.get('change_pct') is not None:
+                    st.write(f"{window}: {value['change_pct']:+.3f}%")
+                else:
+                    st.write(f'{window}: UNAVAILABLE / unverified')
+    st.caption('OI and spot candles may come from different venues. No live entries, alerts or trade execution.')
     for key, field, label in [('ticker','lastPrice','Spot price USD'),('interest','openInterest','Open interest'),('funding','lastFundingRate','Funding')]:
         value = fresh_value(data,key,field,ms)
         item = data.get(key,{})
@@ -99,7 +287,7 @@ def render():
         source = data.get('sources',{}).get(key,{})
         st.caption(f"{source.get('provider','Source unavailable')} · {source.get('instrument','Contract unavailable')} · source timestamp ms: {source.get('source_time_ms','Unavailable')}")
     for key,label in [('cvd','CVD / buying and selling pressure'),('liquidations','Observed executed liquidation pressure')]:
-        st.subheader(label)
+        st.markdown('#### '+label)
         result = risk.get('context',{}).get(key)
         if result:
             item = data[key]
@@ -107,12 +295,18 @@ def render():
             if key=='cvd': st.write(f"Buy: {result.get('buy_volume','Unavailable')} · Sell: {result.get('sell_volume','Unavailable')}")
             st.caption(f"Window UTC ms {item['start_ms']}–{item['end_ms']}. Exchange-specific; not whole-market pressure or future liquidation levels.")
         else: st.warning('UNAVAILABLE or stale — no safe condition inferred.')
-    st.subheader('Independent early warnings')
-    for name, message in warnings(data,ms).items():
-        st.write(f'**{name}**: {message}')
-    with st.expander('Freshness, gaps and provenance'):
-        st.write('Retrieved: '+data['retrieved_at'].isoformat()); st.write('Evaluated: '+now.isoformat())
-        st.json(data.get('sources',{})); st.json(data.get('errors',{}))
+    st.markdown('#### Liquidation heatmap · future clusters')
+    st.warning('UNAVAILABLE / UNVERIFIED — executed liquidations are not future liquidation clusters. No price levels inferred.')
+    st.markdown('#### Support & resistance')
+    st.info('Reference only: chart-based levels are not verified liquidation zones.')
+    if rows and isinstance(locals().get('frame'), pd.DataFrame) and not frame.empty:
+        recent = frame.tail(min(20, len(frame)))
+        st.write(f"Recent {chart_interval} candle range: low ${recent['low'].min():,.2f} · high ${recent['high'].max():,.2f}")
+    else:
+        st.warning('No validated candle levels available.')
+    st.markdown('#### Trade decision · LONG / SHORT / WAIT')
+    st.error('WAIT / NO TRADE — live signals disabled. Macro and exchange-flow coverage incomplete; no entry, TP or SL generated.')
+    st.caption('Observed risk is not an all-clear. Never treat missing information as low risk.')
     st.caption('Refresh every 60 seconds while active. No continuous background collection. Exchange flows and global calendar coverage remain incomplete.')
 
 render()
