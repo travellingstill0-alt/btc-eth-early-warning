@@ -16,6 +16,7 @@ def fetch(symbol):
         'ticker': (SPOT, '/api/v3/ticker/24hr', {}),
         'candles': (SPOT, '/api/v3/klines', {'interval': '1h', 'limit': 100}),
         'scalp_candles': (SPOT, '/api/v3/klines', {'interval': '5m', 'limit': 100}),
+        'fifteen_min_candles': (SPOT, '/api/v3/klines', {'interval': '15m', 'limit': 100}),
         'trades': (SPOT, '/api/v3/aggTrades', {'limit': 1000}),
         'interest': (FUTURES, '/fapi/v1/openInterest', {}),
         'funding': (FUTURES, '/fapi/v1/premiumIndex', {}),
