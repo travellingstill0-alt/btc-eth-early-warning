@@ -1,3 +1,10 @@
+# Mobile-first view is the default; legacy interface remains accessible via ?legacy=1.
+import streamlit as _mobile_st
+if _mobile_st.query_params.get("legacy") != "1":
+    from mobile_dashboard import render as _render_mobile
+    _render_mobile()
+    _mobile_st.stop()
+
 from datetime import datetime, timezone
 import pandas as pd
 import streamlit as st
