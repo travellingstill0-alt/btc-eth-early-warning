@@ -168,7 +168,8 @@ def render():
         st.warning(f'{chart_interval} spot candles unavailable or stale. No chart inferred.')
     oi = data.get('oi_changes', {})
     if isinstance(oi, dict):
-        with st.expander('Verified open-interest changes'):
+        with st.container(border=True):
+            st.markdown('#### Open interest · verified changes')
             for window in ('5m','15m','1h','24h'):
                 value = oi.get(window)
                 if isinstance(value, dict) and value.get('change_pct') is not None:
@@ -188,7 +189,7 @@ def render():
         source = data.get('sources',{}).get(key,{})
         st.caption(f"{source.get('provider','Source unavailable')} · {source.get('instrument','Contract unavailable')} · source timestamp ms: {source.get('source_time_ms','Unavailable')}")
     for key,label in [('cvd','CVD / buying and selling pressure'),('liquidations','Observed executed liquidation pressure')]:
-        st.subheader(label)
+        st.markdown('#### '+label)
         result = risk.get('context',{}).get(key)
         if result:
             item = data[key]
@@ -202,6 +203,18 @@ def render():
     with st.expander('Freshness, gaps and provenance'):
         st.write('Retrieved: '+data['retrieved_at'].isoformat()); st.write('Evaluated: '+now.isoformat())
         st.json(data.get('sources',{})); st.json(data.get('errors',{}))
+    st.markdown('#### Liquidation heatmap · future clusters')
+    st.warning('UNAVAILABLE / UNVERIFIED — executed liquidations are not future liquidation clusters. No price levels inferred.')
+    st.markdown('#### Support & resistance')
+    st.info('Reference only: chart-based levels are not verified liquidation zones.')
+    if rows and source and completed and not frame.empty:
+        recent = frame.tail(min(20, len(frame)))
+        st.write(f"Recent {chart_interval} candle range: low ${recent['low'].min():,.2f} · high ${recent['high'].max():,.2f}")
+    else:
+        st.warning('No validated candle levels available.')
+    st.markdown('#### Trade decision · LONG / SHORT / WAIT')
+    st.error('WAIT / NO TRADE — live signals disabled. Macro and exchange-flow coverage incomplete; no entry, TP or SL generated.')
+    st.caption('Observed risk is not an all-clear. Never treat missing information as low risk.')
     st.caption('Refresh every 60 seconds while active. No continuous background collection. Exchange flows and global calendar coverage remain incomplete.')
 
 render()
