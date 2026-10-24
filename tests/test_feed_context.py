@@ -1,3 +1,10 @@
+
+def legacy_app(path):
+    """Exercise the original dashboard explicitly; mobile view has separate tests."""
+    from streamlit.testing.v1 import AppTest
+    app = AppTest.from_file(path)
+    app.query_params['legacy'] = '1'
+    return app
 import copy
 import os
 from pathlib import Path
@@ -133,7 +140,7 @@ class ContextTests(unittest.TestCase):
         st.cache_data.clear()
         context = {'calendar': calendar(ICS, NOW, NOW), 'flows': {'btc': flows(payload(), 'btc', NOW, NOW)}, 'errors': {'eth': 'unavailable'}}
         with patch('macro_calendar.fetch_calendar', return_value={'fetched_at': NOW.isoformat(), 'sources': {}, 'events': []}), patch('context.fetch_context', return_value=context), patch('market.fetch', side_effect=lambda symbol, **kwargs: {'symbol': symbol, 'retrieved_at': datetime.now(timezone.utc), 'errors': {}}):
-            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertEqual(len(app.exception), 0)
             self.assertTrue(any('PROVISIONAL' in x.value for x in app.warning))
             self.assertGreaterEqual(len(app.dataframe), 4)
@@ -166,7 +173,7 @@ class LiveIntegrationTests(unittest.TestCase):
         from streamlit.testing.v1 import AppTest
         import streamlit as st
         st.cache_data.clear()
-        app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=90)
+        app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=90)
         self.assertEqual(len(app.exception), 0)
         self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
         self.assertFalse(app.sidebar.checkbox[0].value)
