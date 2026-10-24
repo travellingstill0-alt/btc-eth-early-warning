@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 from market import fetch
 from analysis import Rules, assess, plan
@@ -52,10 +53,31 @@ def dashboard():
             st.caption('Buy taker minus sell taker volume, classified by buyer-is-maker flag. This limited sample is an order-flow proxy, not full-session or cross-exchange CVD.')
         else:
             st.write('CVD/order flow: Unavailable')
-        rows = data.get('candles', [])
+        st.markdown('### BTC/ETH candlestick view')
+        st.caption('Spot candles from Binance; 5m for entry context, 15m for structure, 1h for broader trend. Chart is informational, not a trade signal.')
+        timeframe = st.radio('Chart timeframe', ('5m', '15m', '1h'), horizontal=True, key=f'timeframe_{symbol}')
+        candle_key = {'5m': 'scalp_candles', '15m': 'fifteen_min_candles', '1h': 'candles'}[timeframe]
+        rows = data.get(candle_key, [])
         if rows:
-            frame = pd.DataFrame({'UTC': [pd.to_datetime(r[0], unit='ms', utc=True) for r in rows], 'Close': [float(r[4]) for r in rows]})
-            st.line_chart(frame.set_index('UTC'))
+            frame = pd.DataFrame({
+                'UTC': [pd.to_datetime(r[0], unit='ms', utc=True) for r in rows],
+                'Open': [float(r[1]) for r in rows],
+                'High': [float(r[2]) for r in rows],
+                'Low': [float(r[3]) for r in rows],
+                'Close': [float(r[4]) for r in rows],
+                'Volume': [float(r[5]) for r in rows],
+            })
+            chart = go.Figure(data=[go.Candlestick(
+                x=frame['UTC'], open=frame['Open'], high=frame['High'],
+                low=frame['Low'], close=frame['Close'], name='Spot OHLC'
+            )])
+            chart.update_layout(height=400, margin=dict(l=5, r=5, t=10, b=5),
+                                xaxis_rangeslider_visible=False, yaxis_title='USDT')
+            st.plotly_chart(chart, use_container_width=True, key=f'candles_{symbol}')
+            with st.expander('Spot volume (same timeframe)'):
+                st.bar_chart(frame.set_index('UTC')['Volume'])
+        else:
+            st.warning(f'{timeframe} candlestick data unavailable. See source diagnostics.')
         for column, horizon in zip(st.columns(2), ('SCALP', 'DAY TRADE')):
             with column:
                 st.markdown(f'### {horizon}')
