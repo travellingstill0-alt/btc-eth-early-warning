@@ -143,6 +143,76 @@ def render():
             st.write(f'**{name}**: {message}')
         st.json(data.get('sources',{}))
         st.json(data.get('errors',{}))
+    st.markdown('### OI + CVD + price · observational context')
+    def completed_price_change(interval):
+        key = {'5m': 'scalp_candles', '15m': 'fifteen_min_candles'}[interval]
+        candles = data.get(key, [])
+        valid = [r for r in candles if isinstance(r, (list, tuple)) and len(r) >= 7
+                 and r[6] < ms and r[4] is not None]
+        if len(valid) < 2:
+            return None
+        last = valid[-1]
+        previous = valid[-2]
+        if previous[4] <= 0 or last[0] - previous[0] != {'5m':300000,'15m':900000}[interval]:
+            return None
+        return (last[4] / previous[4] - 1) * 100
+
+    with st.container(border=True):
+        cvd_value = cvd_preview.get('value') if isinstance(cvd_preview, dict) else None
+        for interval in ('5m', '15m'):
+            entry = oi_preview.get(interval, {})
+            oi_change = entry.get('change_pct') if isinstance(entry, dict) else None
+            price_change = completed_price_change(interval)
+            if oi_change is None or price_change is None:
+                st.write(f"**{interval}: ⚪ INCOMPLETE** — OI or completed price change unavailable.")
+                continue
+            if price_change > 0 and oi_change > 0:
+                observation = 'Price and OI rising: position build-up; direction of new positions unknown.'
+            elif price_change > 0 and oi_change < 0:
+                observation = 'Price rising while OI falls: position unwinding possible; short covering unconfirmed.'
+            elif price_change < 0 and oi_change > 0:
+                observation = 'Price falling while OI rises: position build-up; new shorts unconfirmed.'
+            elif price_change < 0 and oi_change < 0:
+                observation = 'Price and OI falling: position unwinding possible; long liquidations unconfirmed.'
+            else:
+                observation = 'Flat price or OI: no clear positioning inference.'
+            st.write(f"**{interval}: 🟡 OBSERVE** · Price {price_change:+.3f}% · OI {oi_change:+.3f}%")
+            st.caption(observation)
+        if cvd_value is None:
+            st.caption('CVD unavailable; cannot assess buying/selling pressure.')
+        else:
+            st.caption(f"CVD {cvd_value:+.4f} on one futures contract; its time window may not align with price/OI. Positive = net aggressive buys, negative = net aggressive sells.")
+        st.caption('These are observations, not entry signals. No automated trades.')
+
+    with st.expander('5M / 15M OI history charts', expanded=False):
+        history = data.get('interest_history', [])
+        current_source = data.get('sources', {}).get('interest', {})
+        current_interest = data.get('interest', {})
+        for interval, minutes in [('5m', 5), ('15m', 15)]:
+            st.markdown(f'**{interval} OI history**')
+            end = current_source.get('source_time_ms')
+            if not isinstance(end, (int, float)) or not isinstance(history, list):
+                st.info('Verified OI observations unavailable.')
+                continue
+            valid = [p for p in history if isinstance(p, dict) and p.get('verified') is True
+                     and p.get('provider') == current_source.get('provider')
+                     and p.get('instrument') == current_source.get('instrument')
+                     and p.get('unit') == current_interest.get('unit')
+                     and isinstance(p.get('timestamp'), (int, float))
+                     and isinstance(p.get('sumOpenInterest'), (int, float))
+                     and end - minutes * 60000 <= p['timestamp'] <= end]
+            valid.sort(key=lambda p: p['timestamp'])
+            if len(valid) < 2 or any(b['timestamp'] - a['timestamp'] > 180000 for a,b in zip(valid,valid[1:])):
+                st.info('Insufficient continuous verified observations; no OI line inferred.')
+                continue
+            chart = pd.DataFrame({'Time':pd.to_datetime([p['timestamp'] for p in valid],unit='ms',utc=True),
+                                  'OI':[p['sumOpenInterest'] for p in valid]})
+            fig_oi = go.Figure(go.Scatter(x=chart['Time'], y=chart['OI'], mode='lines+markers', name='Verified OI'))
+            fig_oi.update_layout(height=230, margin=dict(l=8,r=8,t=12,b=12), showlegend=False,
+                                 xaxis_title=None, yaxis_title=current_interest.get('unit','OI'))
+            st.plotly_chart(fig_oi, use_container_width=True, key=f'oi_chart_{interval}')
+        st.caption('Raw verified contract OI observations; not spot volume or a liquidation heatmap.')
+
     st.markdown('### BTC / ETH charts · read-only')
     chart_interval = st.radio('Completed spot candles', ['5m', '15m', '1h'], horizontal=True, key='mobile_candle_interval')
     chart_key = {'5m':'scalp_candles', '15m':'fifteen_min_candles', '1h':'candles'}[chart_interval]
