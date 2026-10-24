@@ -208,7 +208,7 @@ def fetch(symbol, max_age=180, now=None, history_path=None):
                                 note='Limited taker flow sample, not CVD or complete market coverage.')
 
     choose('ticker', [('Coinbase', coinbase_spot), ('Kraken', kraken_spot)])
-    for key, interval in [('candles', 3600), ('scalp_candles', 300)]:
+    for key, interval in [('candles', 3600), ('scalp_candles', 300), ('fifteen_min_candles', 900)]:
         choose(key, [(p, lambda p=p: candles(p, interval)) for p in ('Kraken', 'Coinbase')], interval * 2)
     for key in ('interest', 'funding'):
         choose(key, [(p, lambda p=p: derivatives(p, key)) for p in ('Kraken Futures', 'Deribit')])
