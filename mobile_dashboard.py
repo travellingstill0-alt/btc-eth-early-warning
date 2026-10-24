@@ -136,7 +136,7 @@ def render():
     history=data.get("interest_history") or []
     if len(history)>=2:
         try:
-            frame=pd.DataFrame([{"UTC":pd.to_datetime(x["timestamp"],unit="ms",utc=True),"OI":float(x["value"])} for x in history])
+            frame=pd.DataFrame([{"UTC":pd.to_datetime(x["timestamp"],unit="ms",utc=True),"OI":float(x["sumOpenInterest"])} for x in history])
             st.line_chart(frame.set_index("UTC"),height=105)
         except (KeyError,TypeError,ValueError):
             st.caption("Historical OI trend UNAVAILABLE — incompatible observation format.")
@@ -144,7 +144,7 @@ def render():
         st.caption("Historical OI trend UNAVAILABLE — insufficient verified observations.")
     st.markdown("### 3 · CVD (executed perpetual trades)")
     cvd=data.get("cvd")
-    st.write("15m: "+(_fmt(cvd.get("value")," "+cvd.get("unit","")) if isinstance(cvd,dict) and "value" in cvd else "UNAVAILABLE"))
+    st.write("15m: "+(_fmt(risk.get("context",{}).get("cvd",{}).get("value")," "+cvd.get("unit","")) if isinstance(cvd,dict) and risk.get("context",{}).get("cvd",{}).get("value") is not None else "UNAVAILABLE"))
     st.caption("5m: UNAVAILABLE unless independently verified 5-minute trade coverage exists. 15m and 5m must never be inferred from sampled spot trades.")
     st.markdown("### 4 · Liquidation clusters")
     st.warning("Future liquidation heatmap ABOVE / BELOW: UNAVAILABLE — executed liquidations are not predictive clusters.")
