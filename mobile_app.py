@@ -114,27 +114,29 @@ def render():
     oi_preview = oi_preview if isinstance(oi_preview, dict) else {}
     cvd_preview = risk.get('context', {}).get('cvd')
     funding_preview = fresh_value(data, 'funding', 'lastFundingRate', ms)
-    def badge(label, status, detail):
-        with st.container(border=True):
-            st.markdown(f"**{status} {label}**")
-            st.caption(detail)
-    badge('Decision', '🔴 WAIT / NO TRADE', 'Live signals disabled; missing inputs block confirmation.')
-    badge('Risk', '🔴' if risk['missing'] or not macro['clear'] else '🟡',
-          f"Observed {risk['level']} · "+('Incomplete coverage' if risk['missing'] or not macro['clear'] else 'Check all source warnings'))
-    for window in ('5m','15m','1h','24h'):
-        point = oi_preview.get(window)
-        change = point.get('change_pct') if isinstance(point, dict) else None
-        badge('OI '+window, '⚪' if change is None else ('🟢' if change>0 else '🟡'),
-              'UNAVAILABLE / unverified — not zero' if change is None else f'{change:+.3f}% · contract-specific')
-    badge('CVD · buying/selling', '⚪' if not cvd_preview else ('🟢' if cvd_preview['value']>0 else '🔴'),
-          'Unverified' if not cvd_preview else f"{cvd_preview['value']:+.4f} BTC · exchange-specific")
-    badge('Funding', '⚪' if funding_preview is None else '🟡',
-          'Unavailable' if funding_preview is None else f'{funding_preview*100:+.5f}% · not directional confirmation')
-    badge('Liquidation clusters', '⚪', 'Future heatmap unavailable; no inferred cluster prices')
-    badge('Exchange flows', '⚪', 'Not verified for real-time trading')
-    badge('Macro', '🟡' if not macro['clear'] else '🟢',
-          'Incomplete / risk present' if not macro['clear'] else 'Calendar check passed; coverage may still be partial')
-    with st.expander('Full data, source details and warnings'):
+    st.caption('Read-only · traffic lights describe data coverage and observations, not buy/sell signals.')
+    def compact(label, value, note):
+        st.markdown(f"**{label}:** {value}  ")
+        st.caption(note)
+    with st.container(border=True):
+        compact('Decision', '🔴 WAIT / NO TRADE', 'Live signals disabled; incomplete inputs.')
+        compact('Risk', '🔴 INCOMPLETE' if risk['missing'] or not macro['clear'] else '🟡 CHECK',
+                f"Observed threshold: {risk['level']}; this is not an all-clear.")
+        for window in ('5m','15m','1h','24h'):
+            point = oi_preview.get(window)
+            change = point.get('change_pct') if isinstance(point, dict) else None
+            reason = point.get('reason') if isinstance(point, dict) else 'No validated OI history'
+            compact('OI '+window, '⚪ UNAVAILABLE' if change is None else f'{change:+.3f}%',
+                    (reason or 'Verified contract-specific change') if change is None else 'Direction alone is not bullish/bearish.')
+        compact('CVD', '⚪ UNAVAILABLE' if not cvd_preview else f"{cvd_preview['value']:+.4f}",
+                'Single-contract executed flow; not whole-market demand.')
+        compact('Funding', '⚪ UNAVAILABLE' if funding_preview is None else f'{funding_preview*100:+.5f}%',
+                'Not a directional prediction.')
+        compact('Liquidation heatmap', '⚪ UNVERIFIED', 'No future cluster prices inferred.')
+        compact('Exchange netflow', '⚪ UNVERIFIED', 'Current exchange-wallet flows not confirmed.')
+        compact('Macro', '🟡 INCOMPLETE' if not macro['clear'] else '🟢 CHECK PASSED',
+                'Partial coverage; no all-clear implied.')
+    with st.expander('Detailed diagnostics, provenance and warnings'):
         st.write('Missing:', risk['missing'])
         st.write('Macro:', macro['reason_code'])
         for name, message in warnings(data,ms).items():
