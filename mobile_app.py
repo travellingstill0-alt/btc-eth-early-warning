@@ -109,13 +109,39 @@ def render():
         data = dict(snapshot(asset+'USD'), macro_calendar=cal)
     now = datetime.now(timezone.utc); ms = int(now.timestamp()*1000)
     risk = assess(data, Rules(), now=now)
-    st.subheader(asset + ' · observed risk ' + risk['level'])
-    if not macro['clear']:
-        st.warning('Macro coverage incomplete or high-risk: ' + macro['reason_code'] + ' — NO TRADE.')
-    if risk['missing']:
-        st.error('INCOMPLETE — ' + ', '.join(risk['missing']))
-    st.caption('LOW / MODERATE / HIGH / EXTREME measure observed thresholds only. Incomplete coverage prevents an all-clear at every level.')
-    st.markdown('### Compact market overview · read-only')
+    st.subheader(asset + ' · traffic-light overview')
+    oi_preview = data.get('oi_changes', {})
+    oi_preview = oi_preview if isinstance(oi_preview, dict) else {}
+    cvd_preview = risk.get('context', {}).get('cvd')
+    funding_preview = fresh_value(data, 'funding', 'lastFundingRate', ms)
+    def badge(label, status, detail):
+        with st.container(border=True):
+            st.markdown(f"**{status} {label}**")
+            st.caption(detail)
+    badge('Decision', '🔴 WAIT / NO TRADE', 'Live signals disabled; missing inputs block confirmation.')
+    badge('Risk', '🔴' if risk['missing'] or not macro['clear'] else '🟡',
+          f"Observed {risk['level']} · "+('Incomplete coverage' if risk['missing'] or not macro['clear'] else 'Check all source warnings'))
+    for window in ('5m','15m','1h','24h'):
+        point = oi_preview.get(window)
+        change = point.get('change_pct') if isinstance(point, dict) else None
+        badge('OI '+window, '⚪' if change is None else ('🟢' if change>0 else '🟡'),
+              'UNAVAILABLE / unverified — not zero' if change is None else f'{change:+.3f}% · contract-specific')
+    badge('CVD · buying/selling', '⚪' if not cvd_preview else ('🟢' if cvd_preview['value']>0 else '🔴'),
+          'Unverified' if not cvd_preview else f"{cvd_preview['value']:+.4f} BTC · exchange-specific")
+    badge('Funding', '⚪' if funding_preview is None else '🟡',
+          'Unavailable' if funding_preview is None else f'{funding_preview*100:+.5f}% · not directional confirmation')
+    badge('Liquidation clusters', '⚪', 'Future heatmap unavailable; no inferred cluster prices')
+    badge('Exchange flows', '⚪', 'Not verified for real-time trading')
+    badge('Macro', '🟡' if not macro['clear'] else '🟢',
+          'Incomplete / risk present' if not macro['clear'] else 'Calendar check passed; coverage may still be partial')
+    with st.expander('Full data, source details and warnings'):
+        st.write('Missing:', risk['missing'])
+        st.write('Macro:', macro['reason_code'])
+        for name, message in warnings(data,ms).items():
+            st.write(f'**{name}**: {message}')
+        st.json(data.get('sources',{}))
+        st.json(data.get('errors',{}))
+    st.markdown('### BTC / ETH charts · read-only')
     chart_interval = st.radio('Completed spot candles', ['5m', '15m', '1h'], horizontal=True, key='mobile_candle_interval')
     chart_key = {'5m':'scalp_candles', '15m':'fifteen_min_candles', '1h':'candles'}[chart_interval]
     rows = data.get(chart_key, [])
@@ -197,17 +223,11 @@ def render():
             if key=='cvd': st.write(f"Buy: {result.get('buy_volume','Unavailable')} · Sell: {result.get('sell_volume','Unavailable')}")
             st.caption(f"Window UTC ms {item['start_ms']}–{item['end_ms']}. Exchange-specific; not whole-market pressure or future liquidation levels.")
         else: st.warning('UNAVAILABLE or stale — no safe condition inferred.')
-    st.subheader('Independent early warnings')
-    for name, message in warnings(data,ms).items():
-        st.write(f'**{name}**: {message}')
-    with st.expander('Freshness, gaps and provenance'):
-        st.write('Retrieved: '+data['retrieved_at'].isoformat()); st.write('Evaluated: '+now.isoformat())
-        st.json(data.get('sources',{})); st.json(data.get('errors',{}))
     st.markdown('#### Liquidation heatmap · future clusters')
     st.warning('UNAVAILABLE / UNVERIFIED — executed liquidations are not future liquidation clusters. No price levels inferred.')
     st.markdown('#### Support & resistance')
     st.info('Reference only: chart-based levels are not verified liquidation zones.')
-    if rows and source and completed and not frame.empty:
+    if rows and isinstance(locals().get('frame'), pd.DataFrame) and not frame.empty:
         recent = frame.tail(min(20, len(frame)))
         st.write(f"Recent {chart_interval} candle range: low ${recent['low'].min():,.2f} · high ${recent['high'].max():,.2f}")
     else:
