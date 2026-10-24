@@ -18,6 +18,31 @@ st.html('''<style>
 [data-testid="stHorizontalBlock"] {flex-wrap:wrap}
 [data-testid="stColumn"] {min-width:100%!important;width:100%!important}}
 </style>''')
+# Fail closed: public test deployment requires a separate Streamlit secret.
+# Never fall back to an unprotected dashboard if secrets are missing.
+import hmac
+try:
+    _test_password = st.secrets.get('DASHBOARD_TEST_PASSWORD', '')
+except Exception:
+    _test_password = ''
+if not isinstance(_test_password, str) or len(_test_password) < 12:
+    st.error('Test dashboard locked: configure DASHBOARD_TEST_PASSWORD (12+ characters) in Streamlit Secrets.')
+    st.stop()
+if not st.session_state.get('test_authenticated', False):
+    st.title('BTC / ETH Test Dashboard')
+    with st.form('test_login'):
+        _entered = st.text_input('Test dashboard password', type='password')
+        _submit = st.form_submit_button('Unlock test dashboard')
+    if _submit:
+        if hmac.compare_digest(_entered, _test_password):
+            st.session_state['test_authenticated'] = True
+            st.rerun()
+        else:
+            st.error('Incorrect password.')
+    st.stop()
+if st.button('Lock test dashboard'):
+    st.session_state['test_authenticated'] = False
+    st.rerun()
 st.title('BTC / ETH Watch')
 st.error('NO TRADE LOCKED · Automated trading OFF · Live signals OFF · Notifications OFF')
 st.caption('Exchange observations, not trading advice. Missing inputs never mean safe.')
