@@ -1,6 +1,8 @@
 """Android presentation workstream; shared strategies remain unchanged."""
 from datetime import datetime, timezone
 import streamlit as st
+import pandas as pd
+import plotly.graph_objects as go
 from market import fetch
 from analysis import assess, Rules
 from macro_calendar import fetch_calendar, evaluate, CalendarRules
@@ -87,6 +89,40 @@ def render():
     if risk['missing']:
         st.error('INCOMPLETE — ' + ', '.join(risk['missing']))
     st.caption('LOW / MODERATE / HIGH / EXTREME measure observed thresholds only. Incomplete coverage prevents an all-clear at every level.')
+    st.markdown('### Compact market overview · read-only')
+    chart_interval = st.radio('Completed spot candles', ['5m', '15m', '1h'], horizontal=True, key='mobile_candle_interval')
+    chart_key = {'5m':'scalp_candles', '15m':'fifteen_min_candles', '1h':'candles'}[chart_interval]
+    rows = data.get(chart_key, [])
+    source = data.get('sources', {}).get(chart_key, {})
+    if rows and source:
+        # Provider returns [open_ms, open, high, low, close, volume, end_ms].
+        # Show completed candles only; never render the in-progress bar.
+        completed = [r for r in rows if len(r) >= 7 and r[6] < ms]
+        if completed:
+            frame = pd.DataFrame(completed, columns=['time','open','high','low','close','volume','end_ms'])
+            frame['time'] = pd.to_datetime(frame['time'], unit='ms', utc=True)
+            fig = go.Figure(go.Candlestick(x=frame['time'], open=frame['open'], high=frame['high'],
+                                           low=frame['low'], close=frame['close'], name='Spot'))
+            fig.update_layout(height=350, margin=dict(l=4,r=4,t=10,b=5),
+                              xaxis_rangeslider_visible=False, yaxis_title='USD')
+            st.plotly_chart(fig, use_container_width=True, key='mobile_spot_chart')
+            with st.expander('Spot candle volume'):
+                st.bar_chart(frame.set_index('time')['volume'])
+            st.caption(f"Completed {chart_interval} spot candles · {source.get('provider', 'Unknown')} · {source.get('instrument', 'Unknown')}. Not perpetual contract price or a signal.")
+        else:
+            st.warning('No completed candles available; chart withheld.')
+    else:
+        st.warning(f'{chart_interval} spot candles unavailable or stale. No chart inferred.')
+    oi = data.get('oi_changes', {})
+    if isinstance(oi, dict):
+        with st.expander('Verified open-interest changes'):
+            for window in ('5m','15m','1h','24h'):
+                value = oi.get(window)
+                if isinstance(value, dict) and value.get('change_pct') is not None:
+                    st.write(f"{window}: {value['change_pct']:+.3f}%")
+                else:
+                    st.write(f'{window}: UNAVAILABLE / unverified')
+    st.caption('OI and spot candles may come from different venues. No live entries, alerts or trade execution.')
     for key, field, label in [('ticker','lastPrice','Spot price USD'),('interest','openInterest','Open interest'),('funding','lastFundingRate','Funding')]:
         value = fresh_value(data,key,field,ms)
         item = data.get(key,{})
