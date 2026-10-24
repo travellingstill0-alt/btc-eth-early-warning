@@ -1,3 +1,10 @@
+
+def legacy_app(path):
+    """Exercise the original dashboard explicitly; mobile view has separate tests."""
+    from streamlit.testing.v1 import AppTest
+    app = AppTest.from_file(path)
+    app.query_params['legacy'] = '1'
+    return app
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -29,7 +36,7 @@ class UITests(unittest.TestCase):
             data['trades'][0].update(q=1, m=False)
             return data
         with patch('macro_calendar.fetch_calendar', return_value=calendar), patch('market.fetch', side_effect=sample):
-            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertFalse(app.exception)
             self.assertTrue(any('HIGH_RISK_AND_MISSING_DATA' in m.value for m in app.markdown))
             self.assertTrue(any('America/Bogota' in c.value for c in app.caption))
@@ -39,7 +46,7 @@ class UITests(unittest.TestCase):
 
     def test_unavailable_sources_render_and_block_signals(self):
         with patch('market.fetch', side_effect=lambda symbol, **kwargs: {'symbol': symbol, 'retrieved_at': datetime.now(timezone.utc), 'errors': {'ticker': 'source unavailable'}}):
-            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertEqual(len(app.exception), 0)
             self.assertEqual(len(app.error), 2)
             self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
@@ -65,7 +72,7 @@ class UITests(unittest.TestCase):
                 row['timestamp'] += shift; row['received_at_ms'] += shift
             return d
         with patch('market.fetch', side_effect=sample):
-            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertFalse(app.exception)
             self.assertEqual(app.sidebar.selectbox[0].value, '24h')
             self.assertEqual(sum(m.value == '**NO TRADE**' for m in app.markdown), 4)
@@ -100,7 +107,7 @@ class UITests(unittest.TestCase):
             data['trades'] = [{'T': int(now.timestamp()*1000), 'q': '5', 'm': False}]
             return data
         with patch('market.fetch', side_effect=sample):
-            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertEqual(len(app.exception), 0)
             self.assertEqual(len(app.error), 2)
             self.assertEqual(len(app.metric), 6)
@@ -130,7 +137,7 @@ class UITests(unittest.TestCase):
             del data['interest_history']
             return data
         with patch('market.fetch', side_effect=sample):
-            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
+            app = legacy_app(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=20)
             self.assertFalse(app.exception)
             self.assertTrue(any('STALE' in c.value for c in app.caption))
             self.assertTrue(any('Deribit' in c.value for c in app.caption))
@@ -159,7 +166,7 @@ class UITests(unittest.TestCase):
                 data['raw']['result']['timestamp']=list(range(start//1000,(end+1)//1000,60));d[key]=data
             return d
         with patch('market.fetch',side_effect=sample):
-            app=AppTest.from_file(str(Path(__file__).resolve().parents[1]/'app.py')).run(timeout=20)
+            app=legacy_app(str(Path(__file__).resolve().parents[1]/'app.py')).run(timeout=20)
             app.sidebar.checkbox[0].check().run()
             self.assertFalse(app.exception)
             self.assertEqual(sum(m.value=='**NO TRADE**' for m in app.markdown),4)
