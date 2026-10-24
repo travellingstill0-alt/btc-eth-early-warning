@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from market import fetch
 from analysis import assess, Rules
 from macro_calendar import fetch_calendar, evaluate, CalendarRules
@@ -124,15 +125,42 @@ def render():
         # Show completed candles only; never render the in-progress bar.
         completed = [r for r in rows if len(r) >= 7 and r[6] < ms]
         if completed:
-            frame = pd.DataFrame(completed, columns=['time','open','high','low','close','volume','end_ms'])
+            # Limit mobile rendering to recent completed candles; never invent missing bars.
+            frame = pd.DataFrame(completed[-120:], columns=['time','open','high','low','close','volume','end_ms'])
             frame['time'] = pd.to_datetime(frame['time'], unit='ms', utc=True)
-            fig = go.Figure(go.Candlestick(x=frame['time'], open=frame['open'], high=frame['high'],
-                                           low=frame['low'], close=frame['close'], name='Spot'))
-            fig.update_layout(height=350, margin=dict(l=4,r=4,t=10,b=5),
-                              xaxis_rangeslider_visible=False, yaxis_title='USD')
-            st.plotly_chart(fig, use_container_width=True, key='mobile_spot_chart')
-            with st.expander('Spot candle volume'):
-                st.bar_chart(frame.set_index('time')['volume'])
+            for col in ('open','high','low','close','volume'):
+                frame[col] = pd.to_numeric(frame[col], errors='coerce')
+            frame = frame.dropna(subset=['open','high','low','close','volume'])
+            frame = frame[(frame['low'] <= frame[['open','close']].min(axis=1)) &
+                          (frame['high'] >= frame[['open','close']].max(axis=1)) &
+                          (frame['high'] >= frame['low']) & (frame['volume'] >= 0)]
+            if frame.empty:
+                st.warning('Completed candle data invalid; chart withheld.')
+            else:
+                fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                                    row_heights=[0.76, 0.24], vertical_spacing=0.025)
+                fig.add_trace(go.Candlestick(
+                    x=frame['time'], open=frame['open'], high=frame['high'],
+                    low=frame['low'], close=frame['close'], name='Spot',
+                    increasing_line_color='#089981', decreasing_line_color='#f23645'
+                ), row=1, col=1)
+                bar_colors = ['#089981' if c >= o else '#f23645'
+                              for o, c in zip(frame['open'], frame['close'])]
+                fig.add_trace(go.Bar(x=frame['time'], y=frame['volume'],
+                                     marker_color=bar_colors, name='Volume',
+                                     showlegend=False), row=2, col=1)
+                fig.update_layout(height=480, margin=dict(l=4, r=4, t=12, b=12),
+                                  showlegend=False, dragmode='pan',
+                                  plot_bgcolor='#ffffff', paper_bgcolor='#ffffff',
+                                  font=dict(size=11),
+                                  xaxis_rangeslider_visible=False,
+                                  hovermode='x unified')
+                fig.update_yaxes(title_text='USD', row=1, col=1,
+                                 showgrid=True, gridcolor='#eeeeee', fixedrange=False)
+                fig.update_yaxes(title_text='Vol', row=2, col=1,
+                                 showgrid=False, fixedrange=False)
+                fig.update_xaxes(showgrid=False, rangeslider_visible=False)
+                st.plotly_chart(fig, use_container_width=True, key='mobile_spot_chart')
             st.caption(f"Completed {chart_interval} spot candles · {source.get('provider', 'Unknown')} · {source.get('instrument', 'Unknown')}. Not perpetual contract price or a signal.")
         else:
             st.warning('No completed candles available; chart withheld.')
